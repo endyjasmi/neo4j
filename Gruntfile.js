@@ -4,11 +4,18 @@ module.exports = function(grunt)
 		pkg: grunt.file.readJSON('package.json'),
 
 		phpcs: {
-			test: {
+			standard: {
 				dir: ['src/**/*.php', 'tests/**/*.php'],
 				options: {
 					bin: 'vendor/bin/phpcs',
 					standard: 'psr2'
+				}
+			},
+			documentation: {
+				dir: ['src/**/*.php', 'tests/**/*.php'],
+				options: {
+					bin: 'vendor/bin/phpcs',
+					standard: 'pear'
 				}
 			}
 		},
@@ -16,7 +23,8 @@ module.exports = function(grunt)
 		phpunit: {
 			test: {
 				options: {
-					bin: 'vendor/bin/phpunit'
+					bin: 'vendor/bin/phpunit',
+					testdox: true
 				}
 			}
 		},
@@ -32,7 +40,7 @@ module.exports = function(grunt)
 
 			classes: {
 				files: ['src/**/*.php', 'tests/**/*.php'],
-				tasks: ['phpunit:test', 'phpcs:test']
+				tasks: ['test']
 			},
 		}
 	})
@@ -42,5 +50,5 @@ module.exports = function(grunt)
 	grunt.loadNpmTasks('grunt-phpunit')
 
 	grunt.registerTask('default', ['watch'])
-	grunt.registerTask('test', ['phpunit:test', 'phpcs:test'])
+	grunt.registerTask('test', ['phpunit:test', 'phpcs:standard', 'phpcs:documentation'])
 }
