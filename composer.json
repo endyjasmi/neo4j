@@ -1,9 +1,11 @@
 {
 	"autoload": {
-
+		"psr-4": {
+			"EndyJasmi\\": "src/"
+		}
 	},
     "require": {
-
+    	"illuminate/support": "4.*"
     },
     "require-dev": {
     	"squizlabs/php_codesniffer": "1.*",
