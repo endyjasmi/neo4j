@@ -23,8 +23,7 @@ module.exports = function(grunt)
 		phpunit: {
 			test: {
 				options: {
-					bin: 'vendor/bin/phpunit',
-					testdox: true
+					bin: 'vendor/bin/phpunit'
 				}
 			}
 		},
@@ -35,7 +34,7 @@ module.exports = function(grunt)
 			},
 			
 			config: {
-				files: 'Gruntfile.js',
+				files: 'Gruntfile.js'
 			},
 
 			classes: {
