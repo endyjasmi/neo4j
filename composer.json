@@ -5,6 +5,8 @@
 		}
 	},
     "require": {
+        "pimple/pimple": "3.*",
+        "kriswallsmith/buzz": "0.*",
     	"illuminate/support": "4.*"
     },
     "require-dev": {
