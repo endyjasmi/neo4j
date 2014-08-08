@@ -50,5 +50,5 @@ module.exports = function(grunt)
 	grunt.loadNpmTasks('grunt-phpunit')
 
 	grunt.registerTask('default', ['watch'])
-	grunt.registerTask('test', ['phpunit:test', 'phpcs:standard', 'phpcs:documentation'])
+	grunt.registerTask('test', ['phpunit:test', 'phpcs:standard'])
 }
