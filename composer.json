@@ -16,12 +16,16 @@
         "issues": "https://github.com/endyjasmi/neo4j/issues",
         "source": "https://github.com/endyjasmi/neo4j"
     },
+    "suggest": {
+        "ext-curl": "*"
+    },
 	"autoload": {
 		"psr-4": {
 			"EndyJasmi\\": "src/"
 		}
 	},
     "require": {
+        "php": ">= 5.3",
         "kriswallsmith/buzz": "0.*"
     },
     "require-dev": {
