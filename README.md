@@ -14,7 +14,7 @@ This library is available through [composer](https://packagist.org/packages/endy
 ##Quickstart
 ###Basic
 ```
-$neo4j = new \EndyJasmi\Neo4j\Connection('http://localhost:7474');
+$neo4j = new \EndyJasmi\Neo4j;
 
 $response = $neo4j->statement('create (n:Person {name: ?}) return n', array('Endy Jasmi'))
 	->execute();
@@ -24,7 +24,7 @@ echo $response[0][0]['n']['name']; // Endy Jasmi
 
 ###Multiple statement in single request
 ```
-$neo4j = new \EndyJasmi\Neo4j\Connection; // By default it will use "http://localhost:7474"
+$neo4j = new \EndyJasmi\Neo4j;
 $query = 'create (n:Person {name: {name}}) return n.name';
 
 $response = $neo4j->statement($query, array('name' => 'Jeffrey Jasmi')) // Notice how I use named parameter
@@ -37,7 +37,7 @@ echo $response[1][0]['n.name']; // Endy Jasmi
 
 ###Transaction
 ```
-$neo4j = new \EndyJasmi\Neo4j\Connection;
+$neo4j = new \EndyJasmi\Neo4j;
 $query = 'create (n:Person {name: {name}}) return n.name';
 
 $neo4j->beginTransaction();
@@ -56,7 +56,7 @@ $neo4j->rollback();
 ###Error handling
 In the event that the server return error status codes, the library will convert it to inherited exception. For example when the server return `Neo.ClientError.Statement.InvalidSyntax` status code.
 ```
-$neo4j = new \EndyJasmi\Neo4j\Connection;
+$neo4j = new \EndyJasmi\Neo4j;
 
 try {
 	$neo4j->statement('invalid syntax')
@@ -83,13 +83,42 @@ catch(\EndyJasmi\Neo4j\StatusCodes\Neo\ClientError\Statement\InvalidSyntax $erro
 This enable you to have better way of handling error. Either you want it to be specific or general.
 
 ###Tip #1
+Here is how you can configure the library. The library by default support multiple profile.
+```
+$config = array(
+	'default' => array(
+		'host' => 'http://localhost:7474',
+		'driver' => \EndyJasmi\Neo4j\Connection::CURL
+	),
+	'write' = array(
+		'host' => 'https://localhost:7473',
+		'driver' => \EndyJasmi\Neo4j\Connection::STREAM
+	)
+);
+
+$neo4j = new \EndyJasmi\Neo4j($config);
+
+$neo4j->connection('default')
+	->statement('match (n) return n')
+	->execute();
+// is the same with
+$neo4j->statement('match (n) return n')
+	->execute();
+
+// Selecting other profile
+$neo4j->connection('write')
+	->statement('create (n) return n')
+	->execute();
+```
+
+###Tip #2
 In case your query dont need to use parameter, you can omit it
 ```
 $neo4j->statement('match (n) return n')
 	->execute();
 ```
 
-###Tip #2
+###Tip #3
 You can embed statement to all the execution method.
 ```
 $neo4j->statement('match (n) return n')
@@ -97,9 +126,6 @@ $neo4j->statement('match (n) return n')
 // or
 $neo4j->statement('match (n) return n')
 	->commit();
-// or
-$neo4j->statement('match (n) return n')
-	->rollback();
 ```
 
 ##Feedback
