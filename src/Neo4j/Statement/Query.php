@@ -4,17 +4,12 @@ class Query
 {
     protected $query;
 
-    protected static function parseNamed($query)
-    {
-        return preg_replace('/:([a-z0-9_]+) /i', '{$1} ', $query);
-    }
-
-    protected static function parseUnamed($query, $index = 0)
+    protected static function parse($query, $index = 0)
     {
         if ($position = strpos($query, '?')) {
             $replace = "{parameter_$index}";
             $query = substr_replace($query, $replace, $position, 1);
-            $query = static::parseUnamed($query, ++$index);
+            $query = static::parse($query, ++$index);
         }
 
         return $query;
@@ -28,10 +23,5 @@ class Query
     public function __toString()
     {
         return static::parse($this->query);
-    }
-
-    public static function parse($query)
-    {
-        return static::parseNamed(static::parseUnamed($query));
     }
 }

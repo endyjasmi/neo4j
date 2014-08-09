@@ -21,7 +21,7 @@ class RequestTest extends TestCase
     {
         $request = new Request;
 
-        $return = $request->addStatement($this->statement);
+        $return = $request->add($this->statement);
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\Request', $request);
     }
@@ -34,11 +34,11 @@ class RequestTest extends TestCase
 
         $request = new Request;
 
-        $request = $request->addStatement($this->statement)
-            ->addStatement($this->statement)
+        $request = $request->add($this->statement)
+            ->add($this->statement)
             ->toArray();
 
-        $this->assertCount(2, $request);
+        $this->assertCount(2, $request['statements']);
     }
 
     public function testToJson()
@@ -53,12 +53,12 @@ class RequestTest extends TestCase
 
         $request = new Request;
 
-        $request = $request->addStatement($this->statement)
-            ->addStatement($this->statement)
+        $request = $request->add($this->statement)
+            ->add($this->statement)
             ->toJson();
 
         $this->assertEquals(
-            '[{"statement":"query"},{"statement":"query"}]',
+            '{"statements":[{"statement":"query"},{"statement":"query"}]}',
             $request
         );
     }

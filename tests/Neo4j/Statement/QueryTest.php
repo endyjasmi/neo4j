@@ -15,20 +15,9 @@ class QueryTest extends TestCase
         );
     }
 
-    public function testNamedParameter()
-    {
-        $query = 'match (n) where n.name = :name and n.age = :age return n';
-        $statement = new Query($query);
-
-        $this->assertEquals(
-            'match (n) where n.name = {name} and n.age = {age} return n',
-            (string) $statement
-        );
-    }
-
     public function testMixedParameter()
     {
-        $query = 'match (n) where n.name = ? and n.age = :age return n';
+        $query = 'match (n) where n.name = ? and n.age = {age} return n';
         $statement = new Query($query);
 
         $this->assertEquals(

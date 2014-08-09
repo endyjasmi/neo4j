@@ -6,7 +6,7 @@ class Request
 {
     protected $statements = array();
 
-    public function addStatement(Statement $statement)
+    public function add(Statement $statement)
     {
         $this->statements[] = $statement;
 
@@ -15,12 +15,15 @@ class Request
 
     public function toArray()
     {
-        return array_map(
+        $statements = array();
+        $statements['statements'] = array_map(
             function ($statement) {
                 return $statement->toArray();
             },
             $this->statements
         );
+
+        return $statements;
     }
 
     public function toJson($options = 0)
