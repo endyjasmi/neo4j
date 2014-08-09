@@ -40,7 +40,7 @@ class Response implements ArrayAccess, Countable, Iterator
     public function toArray()
     {
         return array_map(
-            function ($result) {
+            function ($result) use ($this) {
                 return $this->result($result)
                     ->toArray();
             },
