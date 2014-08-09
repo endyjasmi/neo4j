@@ -13,16 +13,21 @@ class Result implements ArrayAccess, Countable, Iterator
 
     protected $status = array();
 
-    protected function combine(array $columns, array $data)
-    {
-        return array_combine($columns, $data);
-    }
-
     public function __construct(array $result)
     {
         $this->columns = $result['columns'];
         $this->data = $result['data'];
         $this->status = $result['stats'];
+    }
+
+    public function combine(array $columns, array $data)
+    {
+        return array_combine($columns, $data);
+    }
+
+    public function getColumns()
+    {
+        return $this->columns;
     }
 
     public function getStatus()
@@ -32,9 +37,10 @@ class Result implements ArrayAccess, Countable, Iterator
 
     public function toArray()
     {
+        $that = $this;
         return array_map(
-            function ($row) {
-                return $this->combine($this->columns, $row['row']);
+            function ($row) use ($that) {
+                return $that->combine($that->columns, $row['row']);
             },
             $this->data
         );

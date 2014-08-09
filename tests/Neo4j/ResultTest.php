@@ -79,4 +79,13 @@ class ResultTest extends TestCase
             $status
         );
     }
+
+    public function testGetColumns()
+    {
+        $result = new Result($this->result);
+        $columns = $result->getColumns();
+
+        $this->assertInternalType('array', $columns);
+        $this->assertCount(2, $columns);
+    }
 }

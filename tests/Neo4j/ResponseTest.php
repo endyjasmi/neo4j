@@ -97,4 +97,12 @@ class ResponseTest extends TestCase
     {
         $response = new Response($this->errors);
     }
+
+    public function testCreateResult()
+    {
+        $response = new Response($this->response);
+        $result = $response->createResult($this->response['results'][0]);
+
+        $this->assertInstanceOf('EndyJasmi\Neo4j\Result', $result);
+    }
 }
