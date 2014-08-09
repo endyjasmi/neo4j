@@ -6,4 +6,4 @@ php:
   - hhvm
 install: composer install
 notifications:
-	email: false
+  email: false
