@@ -23,11 +23,6 @@ class Response implements ArrayAccess, Countable, Iterator
         return "EndyJasmi\\Neo4j\\StatusCodes\\$class";
     }
 
-    protected function result(array $result)
-    {
-        return new Result($result);
-    }
-
     public function __construct(array $response)
     {
         if (!empty($response['errors'])) {
@@ -37,12 +32,17 @@ class Response implements ArrayAccess, Countable, Iterator
         $this->results = $response['results'];
     }
 
+    public function createResult(array $result)
+    {
+        return new Result($result);
+    }
+
     public function toArray()
     {
         $that = $this;
         return array_map(
             function ($result) use ($that) {
-                return $that->result($result)
+                return $that->createResult($result)
                     ->toArray();
             },
             $this->results
@@ -56,7 +56,7 @@ class Response implements ArrayAccess, Countable, Iterator
 
     public function offsetGet($offset)
     {
-        return $this->result($this->results[$offset]);
+        return $this->createResult($this->results[$offset]);
     }
 
     public function offsetExists($offset)
@@ -83,7 +83,7 @@ class Response implements ArrayAccess, Countable, Iterator
 
     public function current()
     {
-        return $this->result($this->results[$this->cursor]);
+        return $this->createResult($this->results[$this->cursor]);
     }
 
     public function key()
