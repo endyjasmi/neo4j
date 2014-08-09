@@ -40,7 +40,7 @@ class Result implements ArrayAccess, Countable, Iterator
         $that = $this;
         return array_map(
             function ($row) use ($that) {
-                return $that->combine($that->columns, $row['row']);
+                return $that->combine($that->getColumns(), $row['row']);
             },
             $this->data
         );
