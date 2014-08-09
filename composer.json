@@ -5,9 +5,7 @@
 		}
 	},
     "require": {
-        "pimple/pimple": "3.*",
-        "kriswallsmith/buzz": "0.*",
-    	"illuminate/support": "4.*"
+        "kriswallsmith/buzz": "0.*"
     },
     "require-dev": {
     	"squizlabs/php_codesniffer": "1.*",
