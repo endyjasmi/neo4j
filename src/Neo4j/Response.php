@@ -39,9 +39,10 @@ class Response implements ArrayAccess, Countable, Iterator
 
     public function toArray()
     {
+        $that = $this;
         return array_map(
-            function ($result) use ($this) {
-                return $this->result($result)
+            function ($result) use ($that) {
+                return $that->result($result)
                     ->toArray();
             },
             $this->results
