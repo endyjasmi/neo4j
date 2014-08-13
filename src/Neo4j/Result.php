@@ -2,10 +2,13 @@
 
 use ArrayAccess;
 use Countable;
-use Iterator;
 use EndyJasmi\Neo4j\Result\Status;
+use Exception;
+use Illuminate\Support\Contracts\ArrayableInterface;
+use Illuminate\Support\Contracts\JsonableInterface;
+use Iterator;
 
-class Result implements ArrayAccess, Countable, Iterator
+class Result implements ArrayableInterface, ArrayAccess, Countable, Iterator, JsonableInterface
 {
     protected $columns = array();
 
@@ -35,6 +38,7 @@ class Result implements ArrayAccess, Countable, Iterator
         return new Status($this->status);
     }
 
+    // Implement ArrayableInterface
     public function toArray()
     {
         $that = $this;
@@ -46,11 +50,7 @@ class Result implements ArrayAccess, Countable, Iterator
         );
     }
 
-    public function toJson($options = 0)
-    {
-        return json_encode($this->toArray(), $options);
-    }
-
+    // Implement ArrayAccess
     public function offsetExists($offset)
     {
         return isset($this->data[$offset]);
@@ -71,11 +71,13 @@ class Result implements ArrayAccess, Countable, Iterator
         throw new Exception('Invalid operation');
     }
 
+    // Implement Countable
     public function count()
     {
         return count($this->data);
     }
 
+    // Implement Iterator
     protected $cursor = 0;
 
     public function current()
@@ -101,5 +103,11 @@ class Result implements ArrayAccess, Countable, Iterator
     public function valid()
     {
         return isset($this->data[$this->cursor]);
+    }
+
+    // Implement JsonableInterface
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
     }
 }
