@@ -1,5 +1,7 @@
 <?php
 
+use EndyJasmi\Neo4j\Connection;
+
 return array(
     'default' => array(
         'host' => 'http://localhost:7474',
