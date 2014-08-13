@@ -13,9 +13,9 @@ class ServiceProvider extends Provider
         $this->package('endyjasmi/neo4j');
 
         $this->app->singleton('neo4j', function ($app) {
-            $host = $app['config']->get('neo4j::host');
+            $config = $app['config']->get('neo4j');
 
-            return new Neo4j($host);
+            return new Neo4j($config);
         });
     }
 
