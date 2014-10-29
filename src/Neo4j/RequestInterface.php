@@ -17,73 +17,73 @@ interface RequestInterface
     /**
      * Request constructor
      *
-     * @param ConnectionInterface $connection Request connection
+     * @param ConnectionInterface $connection Connection instance
      * @param integer $id Transaction id
      */
     public function __construct(ConnectionInterface $connection, $id = null);
 
     /**
-     * Begin a new transaction with this request
+     * Begin a new transaction
      *
      * @return ResponseInterface Return transaction response
      */
     public function beginTransaction();
 
     /**
-     * Commit a transaction with this request
+     * Commit a transaction
      *
      * @return ResponseInterface Return transaction response
      */
     public function commit();
 
     /**
-     * Execute an open transaction with this request
+     * Execute an open transaction
      *
      * @return ResponseInterface Return transaction response
      */
     public function execute();
 
     /**
-     * Get request connection
+     * Get connection instance
      *
-     * @return ConnectionInterface Return connection
+     * @return ConnectionInterface Return connection instance
      */
     public function getConnection();
 
     /**
      * Get transaction id
      *
-     * @return integer|null Return transaction id or null if not a transaction request
+     * @return null|integer Return null or transaction id if set
      */
     public function getId();
 
     /**
-     * Get request response
+     * Get response instance
      *
-     * @return ResponseInterface|null Return response or null if not sent
+     * @return null|ResponseInterface Return null or response instance if set
      */
     public function getResponse();
 
     /**
-     * Pop statement from the stack
+     * Pop statement instance from collection
      *
-     * @return StatementInterface Return statement
+     * @return StatementInterface Return statement instance
      */
     public function popStatement();
 
     /**
-     * Push statement into the stack
+     * Push statement instance into the collection
      *
-     * @param StatementInterface $statement Request statement
+     * @param StatementInterface $statement Statement instance
      *
      * @return RequestInterface Return self
      */
     public function pushStatement(StatementInterface $statement);
 
     /**
-     * Set request connection
+     * Set connection instance
      *
-     * @param ConnectionInterface $connection Request connection
+     * @param ConnectionInterface $connection Connection instance
      *
      * @return RequestInterface Return self
      */
@@ -99,9 +99,9 @@ interface RequestInterface
     public function setId($id);
 
     /**
-     * Set request response
+     * Set response instance
      *
-     * @param ResponseInterface $response Request response
+     * @param ResponseInterface $response Response instance
      *
      * @return RequestInterface Return self
      */
@@ -110,8 +110,8 @@ interface RequestInterface
     /**
      * Create and push statement into the stack
      *
-     * @param string $query Statement query
-     * @param array $parameters Statement parameters
+     * @param string $query Query string
+     * @param array $parameters Parameters array
      *
      * @return RequestInterface Return self
      */
