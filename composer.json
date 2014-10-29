@@ -1,9 +1,20 @@
 {
 	"autoload": {
-
+        "psr-4": {
+            "EndyJasmi\\": "src/"
+        },
+        "files": [
+            "vendor/illuminate/support/helpers.php"
+        ]
 	},
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-
+        "illuminate/config": "5.*",
+        "illuminate/container": "5.*",
+        "illuminate/events": "5.*",
+        "illuminate/support": "5.*",
+        "kriswallsmith/buzz": "0.*"
     },
     "require-dev": {
     	"squizlabs/php_codesniffer": "1.*",
