@@ -116,4 +116,11 @@ interface RequestInterface
      * @return RequestInterface Return self
      */
     public function statement($query, array $parameters = []);
+
+    /**
+     * Convert request to array
+     *
+     * @return array Return request array
+     */
+    public function toArray();
 }
