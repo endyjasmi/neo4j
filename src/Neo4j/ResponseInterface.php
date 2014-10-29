@@ -6,6 +6,7 @@
  */
 namespace EndyJasmi\Neo4j;
 
+use DomainException;
 use EndyJasmi\Neo4j\Response\ErrorsInterface;
 
 /**
@@ -34,6 +35,8 @@ interface ResponseInterface
      * Commit an open transaction
      *
      * @return ResponseInterface Return response instance
+     *
+     * @throws DomainException If transaction id not set
      */
     public function commit();
 
@@ -69,6 +72,8 @@ interface ResponseInterface
      * Rollback an open transaction
      *
      * @return ResponseInterface Return response instance
+     *
+     * @throws DomainException If transaction id not set
      */
     public function rollback();
 
