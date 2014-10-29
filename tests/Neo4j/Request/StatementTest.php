@@ -53,6 +53,8 @@ class StatementTest extends TestCase
         $statement = new Statement($this->query);
 
         $null = $statement->getResult();
+
+        $this->assertNull($null);
     }
 
     public function testSetParametersMethod()
