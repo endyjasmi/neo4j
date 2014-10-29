@@ -41,7 +41,7 @@ interface ConnectionInterface
      *
      * @return ErrorsInterface Return response errors
      */
-    public function createErrors(array $errors);
+    public function createErrors(array $errors, $throws = true);
 
     /**
      * Create transaction request
