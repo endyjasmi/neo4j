@@ -19,104 +19,114 @@ interface ConnectionInterface
     /**
      * Begin a new transaction
      *
-     * @param RequestInterface $request Transaction request
+     * @param RequestInterface $request Request instance
      *
-     * @return ResponseInterface Return transaction response
+     * @return ResponseInterface Return response instance
      */
     public function beginTransaction(RequestInterface $request = null);
 
     /**
      * Commit a transaction
      *
-     * @param RequestInterface $request Transaction request
+     * @param RequestInterface $request Request instance
      *
-     * @return ResponseInterface Return transaction response
+     * @return ResponseInterface Return response instance
      */
     public function commit(RequestInterface $request);
 
     /**
      * Create response errors
      *
-     * @param array $errors Response errors
-     * @param boolean $throws Throw exception
+     * @param array $errors Errors array
+     * @param boolean $throws Auto throws exception
      *
-     * @return ErrorsInterface Return response errors
+     * @return ErrorsInterface Return errors instance
      */
     public function createErrors(array $errors, $throws = true);
 
     /**
-     * Create transaction request
+     * Create request instance
      *
      * @param integer $id Transaction id
      *
-     * @return RequestInterface Return transaction request
+     * @return RequestInterface Return request instance
      */
     public function createRequest($id = null);
 
     /**
-     * Create transaction response
+     * Create response instance
      *
-     * @param RequestInterface $request Transaction request
-     * @param array $response Array response return from server
+     * @param RequestInterface $request Request instance
+     * @param array $response Response array
      * @param integer $id Transaction id
-     * @param boolean $throws Throws and exception if server return error
+     * @param boolean $throws Auth throws exception
      *
-     * @return ResponseInterface Return transaction response
+     * @return ResponseInterface Return response instance
      */
     public function createResponse(RequestInterface $request, array $response, $id = null, $throws = true);
 
     /**
-     * Create a statement
+     * Create result instance
      *
-     * @param string $query Statement query
-     * @param array $parameters Statement parameters
+     * @param RequestInterface $request Request instance
+     * @param array $result Result array
      *
-     * @return StatementInterface Return statement
+     * @return ResultInterface Return result instance
+     */
+    public function createResult(RequestInterface $request, array $result);
+
+    /**
+     * Create statement instance
+     *
+     * @param string $query Query string
+     * @param array $parameters Parameters array
+     *
+     * @return StatementInterface Return statement instance
      */
     public function createStatement($query, array $parameters = []);
 
     /**
-     * Create a status
+     * Create status instance
      *
-     * @param ResultInterface $result Status result
-     * @param array $status Raw status
+     * @param ResultInterface $result Result instance
+     * @param array $status Status array
      *
-     * @return StatusInterface Return status
+     * @return StatusInterface Return status instance
      */
     public function createStatus(ResultInterface $result, array $status);
 
     /**
      * Execute an open transaction
      *
-     * @param RequestInterface $request Transaction request
+     * @param RequestInterface $request Request instance
      *
-     * @return ResponseInterface Return transaction response
+     * @return ResponseInterface Return response instance
      */
     public function execute(RequestInterface $request);
 
     /**
      * Rollback an open transaction
      *
-     * @param RequestInterface $request Transaction request
+     * @param RequestInterface $request Request instance
      *
-     * @return ResponseInterface Return transaction response
+     * @return ResponseInterface Return response instance
      */
     public function rollback(RequestInterface $request);
 
     /**
      * Run a general statement
      *
-     * @param string $query Statement query
-     * @param array $parameters Statement parameters
+     * @param string $query Query string
+     * @param array $parameters Parameters array
      *
-     * @return ResultInterface Return result
+     * @return ResultInterface Return result instance
      */
     public function statement($query, array $parameters = []);
 
     /**
      * Run a set of operation in database transaction
      *
-     * @param callable $callable Set of database operation
+     * @param callable $callable Database operations
      */
     public function transaction(callable $callable);
 }
