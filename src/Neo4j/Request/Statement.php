@@ -16,15 +16,15 @@ use Illuminate\Support\Fluent;
 class Statement extends Fluent implements StatementInterface
 {
     /**
-     * @var ResultInterface Statement result
+     * @var ResultInterface Result instance
      */
     protected $result;
 
     /**
      * Statement constructor
      *
-     * @param string $query Statement query
-     * @param array $parameters Statement parameters
+     * @param string $query Query string
+     * @param array $parameters Parameters
      */
     public function __construct($query, array $parameters = [])
     {
@@ -37,9 +37,9 @@ class Statement extends Fluent implements StatementInterface
     }
 
     /**
-     * Get statement parameter
+     * Get parameters array
      *
-     * @return null|array Return null or array if set
+     * @return null|array Return null or parameters array if set
      */
     public function getParameters()
     {
@@ -47,9 +47,9 @@ class Statement extends Fluent implements StatementInterface
     }
 
     /**
-     * Get statement query
+     * Get query string
      *
-     * @return string Return statement query
+     * @return string Return query string
      */
     public function getQuery()
     {
@@ -57,7 +57,7 @@ class Statement extends Fluent implements StatementInterface
     }
 
     /**
-     * Get statement result
+     * Get result instance
      *
      * @return null|ResultInterface Return null or result instance if set
      */
@@ -67,9 +67,9 @@ class Statement extends Fluent implements StatementInterface
     }
 
     /**
-     * Set statement parameters
+     * Set parameters array
      *
-     * @param array $parameters Statement parameters
+     * @param array $parameters Parameters array
      *
      * @return StatementInterface Return self
      */
@@ -81,9 +81,9 @@ class Statement extends Fluent implements StatementInterface
     }
 
     /**
-     * Set statement query
+     * Set query string
      *
-     * @param string $query Statement query
+     * @param string $query Query string
      *
      * @return StatementInterface Return self
      */
@@ -95,9 +95,9 @@ class Statement extends Fluent implements StatementInterface
     }
 
     /**
-     * Set statement result
+     * Set result instance
      *
-     * @param ResultInterface $result Statement result
+     * @param ResultInterface $result Result instance
      *
      * @return StatementInterface Return self
      */
