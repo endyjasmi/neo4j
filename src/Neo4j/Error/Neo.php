@@ -13,5 +13,16 @@ use \Exception;
  */
 class Neo extends Exception
 {
+    /**
+     * Error constructor
+     *
+     * @param string $message Message string
+     * @param string $code Code string
+     */
+    public function __construct($message, $code)
+    {
+        parent::__construct($message);
 
+        $this->code = $code;
+    }
 }

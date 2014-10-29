@@ -21,7 +21,7 @@ class Errors extends Collection implements ErrorsInterface
         $class = 'EndyJasmi\\Neo4j\\Error\\';
         $class .= str_replace('.', '\\', $error['code']);
 
-        return new $class($error['message']);
+        return new $class($error['message'], $error['code']);
     }
 
     /**
@@ -39,5 +39,23 @@ class Errors extends Collection implements ErrorsInterface
         if ($throws && count($this) > 0) {
             throw $this[0];
         }
+    }
+
+    /**
+     * Convery errors to array
+     *
+     * @return array Return errors array
+     */
+    public function toArray()
+    {
+        return array_map(
+            function ($error) {
+                return [
+                    'code' => $error->getCode(),
+                    'message' => $error->getMessage()
+                ];
+            },
+            parent::toArray()
+        );
     }
 }
