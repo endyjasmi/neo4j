@@ -9,7 +9,7 @@ namespace EndyJasmi\Neo4j;
 use Illuminate\Container\Container;
 
 /**
- * Registry is a concrete implementation of registry interface
+ * Registry is an alias for illuminate container
  */
 class Registry extends Container
 {
@@ -34,7 +34,7 @@ class Registry extends Container
                 return $registry->make(
                     'Illuminate\Config\FileLoader',
                     [
-                        'defaultPath' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config';
+                        'defaultPath' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config'
                     ]
                 );
             }
