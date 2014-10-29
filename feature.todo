@@ -1,0 +1,16 @@
+Feature:
+ ☐ Authentication
+ ☐ Cache
+ ☐ Log
+ ☐ Event
+ ☐ Service provider
+ ☐ Facades
+ ☐ Localization
+ ☐ Pagination
+ ☐ Validation
+ ☐ Query builder
+ ☐ Object graph mapper
+ ☐ Schema builder
+ ☐ Migration and seeding
+ ☐ Command line interface
+ ☐ Access control list
