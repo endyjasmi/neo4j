@@ -25,7 +25,7 @@ interface StatementInterface
     /**
      * Get statement parameter
      *
-     * @return array Return statement parameters
+     * @return null|array Return null or array if set
      */
     public function getParameters();
 
@@ -39,9 +39,9 @@ interface StatementInterface
     /**
      * Get statement result
      *
-     * @return ResultInterface|null Return statement result or null if not sent
+     * @return null|ResultInterface Return null or result instance if set
      */
-    public function getResult(ResultInterface $result);
+    public function getResult();
 
     /**
      * Set statement parameters
