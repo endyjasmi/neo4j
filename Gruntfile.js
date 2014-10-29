@@ -43,23 +43,20 @@ module.exports = function(grunt)
 		},
 
 		watch: {
-			config: {
-				files: 'Gruntfile.js',
-				options: {
-					reload: true
-				}
-			},
-
-			src: {
+			docs: {
 				files: 'src/**/*.php',
-				tasks: ['test', 'docs'],
+				tasks: ['docs'],
 				options: {
 					livereload: true
 				}
 			},
 
 			tests: {
-				files: 'tests/**/*.php',
+				files: [
+					'Gruntfile.js',
+					'src/**/*.php',
+					'tests/**/*.php'
+				],
 				tasks: ['test'],
 				options: {
 					reload: true
@@ -74,7 +71,9 @@ module.exports = function(grunt)
 	grunt.loadNpmTasks('grunt-phpdocumentor');
 	grunt.loadNpmTasks('grunt-phpunit');
 
-	grunt.registerTask('default', ['connect', 'watch']);
+	grunt.registerTask('default', ['watch:tests']);
+
+	grunt.registerTask('serve', ['connect', 'watch:docs']);
 
 	grunt.registerTask('test', ['phpunit:tests', 'phpcs:tests']);
 	grunt.registerTask('docs', ['phpdocumentor:src']);
