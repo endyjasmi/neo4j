@@ -10,18 +10,17 @@ use EndyJasmi\Neo4j\Response\ErrorsInterface;
 
 /**
  * ResponseInterface is an interface for response class
- * @todo Extend collection
  */
 interface ResponseInterface
 {
     /**
-     * Response constructor which auto set request response
+     * Response constructor
      *
-     * @param ConnectionInterface $connection Response connection
-     * @param RequestInterface $request Response request
-     * @param array $response Raw response
+     * @param ConnectionInterface $connection Connection instance
+     * @param RequestInterface $request Request instance
+     * @param array $response Response array
      * @param integer $id Transaction id
-     * @param boolean $throws Throws error exception
+     * @param boolean $throws Auto throws exception
      */
     public function __construct(
         ConnectionInterface $connection,
@@ -32,37 +31,37 @@ interface ResponseInterface
     );
 
     /**
-     * Get response connection
+     * Get connection instance
      *
-     * @return ConnectionInterface Return response connection
+     * @return ConnectionInterface Return connection instance
      */
     public function getConnection();
 
     /**
-     * Get response errors
+     * Get errors instance
      *
-     * @return ErrorsInterface Return response errors
+     * @return ErrorsInterface Return errors instance
      */
     public function getErrors();
 
     /**
      * Get transaction id
      *
-     * @return integer|null Return transaction id or null if not a transaction response
+     * @return null|integer Return null or transaction id if set
      */
     public function getId();
 
     /**
-     * Get response request
+     * Get request instance
      *
-     * @return RequestInterface Return response request
+     * @return RequestInterface Return request instance
      */
     public function getRequest();
 
     /**
-     * Set response connection
+     * Set connection instance
      *
-     * @param ConnectionInterface $connection Response connection
+     * @param ConnectionInterface $connection Connection instance
      *
      * @return ResponseInterface Return self
      */
@@ -78,9 +77,9 @@ interface ResponseInterface
     public function setId($id);
 
     /**
-     * Set response request
+     * Set request instance
      *
-     * @param RequestInterface $request Response request
+     * @param RequestInterface $request Request instance
      *
      * @return ResponseInterface Return self
      */
