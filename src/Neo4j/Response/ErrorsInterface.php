@@ -8,7 +8,6 @@ namespace EndyJasmi\Neo4j\Response;
 
 /**
  * ErrorsInterface is an interface for errors class
- * @todo Extend collection
  */
 interface ErrorsInterface
 {
