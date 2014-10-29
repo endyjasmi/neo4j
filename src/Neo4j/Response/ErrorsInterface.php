@@ -15,14 +15,8 @@ interface ErrorsInterface
     /**
      * Errors constructor
      *
-     * @param array $items Raw errors
+     * @param array $errors Raw errors
+     * @param boolean $throws Auto throws exception
      */
-    public function __construct($items = []);
-
-    /**
-     * Throw first error
-     *
-     * @throws Neo If there is error in the list
-     */
-    public function throws();
+    public function __construct(array $errors, $throws = true);
 }
