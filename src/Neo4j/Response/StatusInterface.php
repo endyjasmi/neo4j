@@ -20,15 +20,6 @@ interface StatusInterface
     public function __construct(ResultInterface $result, array $status);
 
     /**
-     * Get status value with camel cased status name
-     *
-     * @param string $key Camel cased status name
-     *
-     * @return mixed Return status value
-     */
-    public function __get($key);
-
-    /**
      * Get result instance
      *
      * @return ResultInterface Return result instance
