@@ -31,6 +31,13 @@ interface ResponseInterface
     );
 
     /**
+     * Commit an open transaction
+     *
+     * @return ResponseInterface Return response instance
+     */
+    public function commit();
+
+    /**
      * Get connection instance
      *
      * @return ConnectionInterface Return connection instance
@@ -57,6 +64,13 @@ interface ResponseInterface
      * @return RequestInterface Return request instance
      */
     public function getRequest();
+
+    /**
+     * Rollback an open transaction
+     *
+     * @return ResponseInterface Return response instance
+     */
+    public function rollback();
 
     /**
      * Set connection instance
