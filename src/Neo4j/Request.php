@@ -11,7 +11,6 @@ use Illuminate\Support\Collection;
 
 /**
  * Request is a concrete implementation of request interface
- * @todo Test
  */
 class Request extends Collection implements RequestInterface
 {

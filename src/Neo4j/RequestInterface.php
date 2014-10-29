@@ -10,7 +10,6 @@ use EndyJasmi\Neo4j\Request\StatementInterface;
 
 /**
  * RequestInterface is an interface for request class
- * @todo Extend collection
  */
 interface RequestInterface
 {
