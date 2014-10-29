@@ -11,7 +11,6 @@ use Illuminate\Support\Fluent;
 
 /**
  * Statement is a concrete implementation of statement interface
- * @todo Test
  */
 class Statement extends Fluent implements StatementInterface
 {

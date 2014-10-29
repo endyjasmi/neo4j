@@ -38,6 +38,7 @@ interface ConnectionInterface
      * Create response errors
      *
      * @param array $errors Response errors
+     * @param boolean $throws Throw exception
      *
      * @return ErrorsInterface Return response errors
      */
