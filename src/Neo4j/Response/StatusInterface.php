@@ -8,20 +8,19 @@ namespace EndyJasmi\Neo4j\Response;
 
 /**
  * StatusInterface is an interface for status class
- * @todo Extend fluent
  */
 interface StatusInterface
 {
     /**
      * Status constructor
      *
-     * @param ResultInterface $result Status result
-     * @param array $status Raw status
+     * @param ResultInterface $result Result instance
+     * @param array $status Status array
      */
     public function __construct(ResultInterface $result, array $status);
 
     /**
-     * Get status with camel cased status
+     * Get status value with camel cased status name
      *
      * @param string $key Camel cased status name
      *
@@ -30,16 +29,16 @@ interface StatusInterface
     public function __get($key);
 
     /**
-     * Get status result
+     * Get result instance
      *
-     * @return ResultInterface Return status result
+     * @return ResultInterface Return result instance
      */
     public function getResult();
 
     /**
-     * Set status result
+     * Set result instance
      *
-     * @param ResultInterface $result Status result
+     * @param ResultInterface $result Result instance
      *
      * @return StatusInterface Return self
      */
