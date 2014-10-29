@@ -6,15 +6,22 @@
  */
 namespace EndyJasmi;
 
-use InvalidArgumentException;
 use EndyJasmi\Neo4j\ConnectionInterface;
+use Illuminate\Contracts\Container\Container as ContainerInterface;
+use InvalidArgumentException;
 
 /**
  * Neo4jInterface is an interface for neo4j class
- * @todo Extend manager
  */
 interface Neo4jInterface
 {
+    /**
+     * Neo4j constructor
+     *
+     * @param ContainerInterface $container Container  instance
+     */
+    public function __construct(ContainerInterface $container);
+
     /**
      * Dyamically call the default connection instance
      *
