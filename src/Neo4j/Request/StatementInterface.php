@@ -43,6 +43,13 @@ interface StatementInterface
     public function getResult();
 
     /**
+     * Get running time in second
+     *
+     * @return null|float Return null or float if set
+     */
+    public function getTime();
+
+    /**
      * Set parameters array
      *
      * @param array $parameters Parameters array

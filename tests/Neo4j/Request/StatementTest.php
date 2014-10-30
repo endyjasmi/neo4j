@@ -57,6 +57,15 @@ class StatementTest extends TestCase
         $this->assertNull($null);
     }
 
+    public function testGetTimeMethod()
+    {
+        $statement = new Statement($this->query);
+
+        $null = $statement->getTime();
+
+        $this->assertNull($null);
+    }
+
     public function testSetParametersMethod()
     {
         $statement = new Statement($this->query);
@@ -94,5 +103,15 @@ class StatementTest extends TestCase
         $result = $statement->getResult();
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\Response\ResultInterface', $result);
+    }
+
+    /**
+     * @depends testSetResultMethod
+     */
+    public function testGetTimeMethodReturnFloat($statement)
+    {
+        $time = $statement->getTime();
+
+        $this->assertInternalType('float', $time);
     }
 }

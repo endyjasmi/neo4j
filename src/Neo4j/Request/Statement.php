@@ -20,6 +20,16 @@ class Statement extends Fluent implements StatementInterface
     protected $result;
 
     /**
+     * @var float Start time
+     */
+    protected $start;
+
+    /**
+     * @var float Running time in second (end time - start time)
+     */
+    protected $time;
+
+    /**
      * Statement constructor
      *
      * @param string $query Query string
@@ -33,6 +43,8 @@ class Statement extends Fluent implements StatementInterface
         if (! empty($parameters)) {
             $this->setParameters($parameters);
         }
+
+        $this->start = microtime(true);
     }
 
     /**
@@ -63,6 +75,16 @@ class Statement extends Fluent implements StatementInterface
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * Get running time in second
+     *
+     * @return null|float Return null or float if set
+     */
+    public function getTime()
+    {
+        return $this->time;
     }
 
     /**
@@ -103,6 +125,8 @@ class Statement extends Fluent implements StatementInterface
     public function setResult(ResultInterface $result)
     {
         $this->result = $result;
+
+        $this->time = microtime(true) - $this->start;
 
         return $this;
     }
