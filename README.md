@@ -1,4 +1,4 @@
-#Neo4j Cypher driver for PHP [![Build Status](https://travis-ci.org/endyjasmi/neo4j.svg?branch=develop)](https://travis-ci.org/endyjasmi/neo4j)[![Coverage Status](https://coveralls.io/repos/endyjasmi/neo4j/badge.png)](https://coveralls.io/r/endyjasmi/neo4j)
+#Neo4j Cypher driver for PHP [![Build Status](https://travis-ci.org/endyjasmi/neo4j.svg?branch=develop)](https://travis-ci.org/endyjasmi/neo4j)[![Coverage Status](https://coveralls.io/repos/endyjasmi/neo4j/badge.png?branch=develop)](https://coveralls.io/r/endyjasmi/neo4j?branch=develop)
 
 This is a php library for neo4j cypher endpoint. This is a complete rewrite over the first version. Currently it's pretty much a work in progress. This document will be updated when the library start to be usable.
 
