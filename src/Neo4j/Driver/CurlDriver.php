@@ -69,6 +69,8 @@ class CurlDriver implements DriverInterface
      * This method is used internally only, it is made public for partial mocking purposes
      *
      * @param Request $request Request instance
+     * @param Client $client Client instance
+     * @param Response $response Response instance
      *
      * @return array Return response array
      */
