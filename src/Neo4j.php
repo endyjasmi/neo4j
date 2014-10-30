@@ -124,11 +124,13 @@ class Neo4j extends Manager implements Neo4jInterface
      */
     public function getDefaultDriver()
     {
+        $driver = 'stream';
+
         if (function_exists('curl_init')) {
-            return 'curl';
+            $driver = 'curl';
         }
 
-        return 'stream';
+        return $driver;
     }
 
     /**
