@@ -159,9 +159,11 @@ class RequestTest extends TestCase
     public function testToArrayMethod()
     {
         $request = new Request($this->connection);
+        $request->setId($this->id);
 
         $array = $request->toArray();
 
+        $this->assertArrayHasKey('id', $array);
         $this->assertArrayHasKey('statements', $array);
     }
 
