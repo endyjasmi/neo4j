@@ -6,12 +6,12 @@
  */
 namespace EndyJasmi\Neo4j;
 
-use Illuminate\Container\Container;
+use Illuminate\Container\Container as IlluminateContainer;
 
 /**
  * Registry is an alias for illuminate container
  */
-class Registry extends Container
+class Container extends IlluminateContainer
 {
     /**
      * Registry constructor
