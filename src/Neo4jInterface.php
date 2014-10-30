@@ -20,7 +20,7 @@ interface Neo4jInterface
      *
      * @param ContainerInterface $container Container  instance
      */
-    public function __construct(ContainerInterface $container);
+    public function __construct(ContainerInterface $container = null);
 
     /**
      * Dyamically call the default connection instance
