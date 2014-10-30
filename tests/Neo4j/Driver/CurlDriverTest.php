@@ -132,6 +132,32 @@ class CurlDriverTest extends TestCase
         $this->assertArrayHasKey('errors', $response);
     }
 
+    public function testSendMethod()
+    {
+        // Mock here
+        $client = Mockery::mock('Buzz\Client\Curl');
+        $request = Mockery::mock('Buzz\Message\Request');
+        $response = Mockery::mock('Buzz\Message\Response');
+
+        $client->shouldReceive('send')
+            ->once();
+
+        $response->shouldReceive('getHeader')
+            ->once()
+            ->andReturn('http://localhost:7474/db/data/transaction/1');
+
+        $response->shouldReceive('getContent')
+            ->once()
+            ->andReturn('{}');
+
+        // Test start here
+        $driver = new CurlDriver($this->options);
+
+        $response = $driver->send($request, $client, $response);
+
+        $this->assertArrayHasKey('id', $response);
+    }
+
     public function testSetOptionsMethod()
     {
         $client = new CurlDriver($this->options);

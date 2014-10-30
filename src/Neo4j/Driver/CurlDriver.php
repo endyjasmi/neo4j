@@ -72,10 +72,10 @@ class CurlDriver implements DriverInterface
      *
      * @return array Return response array
      */
-    public function send(Request $request)
+    public function send(Request $request, Client $client = null, Response $response = null)
     {
-        $client = new Client;
-        $response = new Response;
+        $client = $client ?: new Client;
+        $response = $response ?: new Response;
 
         $client->send($request, $response);
 
