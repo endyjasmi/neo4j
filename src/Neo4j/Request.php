@@ -165,7 +165,7 @@ class Request extends Collection implements RequestInterface
      */
     public function setResponse(ResponseInterface $response)
     {
-        $this->response = $response->setId($this->getId());
+        $this->response = $response;
 
         return $this;
     }
