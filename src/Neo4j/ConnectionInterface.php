@@ -10,12 +10,21 @@ use EndyJasmi\Neo4j\Request\StatementInterface;
 use EndyJasmi\Neo4j\Response\ErrorsInterface;
 use EndyJasmi\Neo4j\Response\ResultInterface;
 use EndyJasmi\Neo4j\Response\StatusInterface;
+use Illuminate\Contracts\Container\Container as ContainerInterface;
 
 /**
  * ConnectionInterface is an interface for connection class
  */
 interface ConnectionInterface
 {
+    /**
+     * Connection constructor
+     *
+     * @param ContainerInterface $container Container instance
+     * @param DriverInterface $driver Driver instance
+     */
+    public function __construct(ContainerInterface $container, DriverInterface $driver);
+
     /**
      * Begin a new transaction
      *
@@ -68,12 +77,12 @@ interface ConnectionInterface
     /**
      * Create result instance
      *
-     * @param RequestInterface $request Request instance
+     * @param StatementInterface $statement Statement instance
      * @param array $result Result array
      *
      * @return ResultInterface Return result instance
      */
-    public function createResult(RequestInterface $request, array $result);
+    public function createResult(StatementInterface $statement, array $result);
 
     /**
      * Create statement instance
@@ -96,6 +105,20 @@ interface ConnectionInterface
     public function createStatus(ResultInterface $result, array $status);
 
     /**
+     * Get container instance
+     *
+     * @return ContainerInterface Return container instance
+     */
+    public function getContainer();
+
+    /**
+     * Get driver instance
+     *
+     * @return DriverInterface Return driver instance
+     */
+    public function getDriver();
+
+    /**
      * Execute an open transaction
      *
      * @param RequestInterface $request Request instance
@@ -112,6 +135,24 @@ interface ConnectionInterface
      * @return ResponseInterface Return response instance
      */
     public function rollback(RequestInterface $request);
+
+    /**
+     * Set container instance
+     *
+     * @param ContainerInterface $container Container instance
+     *
+     * @return ConnectionInterface Return self
+     */
+    public function setContainer(ContainerInterface $container);
+
+    /**
+     * Set driver instance
+     *
+     * @param DriverInterface $driver Driver instance
+     *
+     * @return ConnectionInterface Return self
+     */
+    public function setDriver(DriverInterface $driver);
 
     /**
      * Run a general statement
