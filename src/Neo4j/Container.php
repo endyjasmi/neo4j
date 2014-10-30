@@ -19,7 +19,7 @@ class Container extends IlluminateContainer
     public function __construct()
     {
         // Basic binding
-        // $this->bind('EndyJasmi\Neo4j\ConnectionInterface', 'EndyJasmi\Neo4j\Connection');
+        $this->bind('EndyJasmi\Neo4j\ConnectionInterface', 'EndyJasmi\Neo4j\Connection');
         $this->bind('EndyJasmi\Neo4j\RequestInterface', 'EndyJasmi\Neo4j\Request');
         $this->bind('EndyJasmi\Neo4j\Request\StatementInterface', 'EndyJasmi\Neo4j\Request\Statement');
         $this->bind('EndyJasmi\Neo4j\ResponseInterface', 'EndyJasmi\Neo4j\Response');
@@ -34,7 +34,7 @@ class Container extends IlluminateContainer
                 return $registry->make(
                     'Illuminate\Config\FileLoader',
                     [
-                        'defaultPath' => dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config'
+                        'defaultPath' => dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config'
                     ]
                 );
             }
@@ -42,8 +42,8 @@ class Container extends IlluminateContainer
 
         $this->bindShared(
             'config',
-            function ($registry) {
-                return $registry->make(
+            function ($container) {
+                return $container->make(
                     'Illuminate\Config\Repository',
                     [
                         'environment' => 'production'
