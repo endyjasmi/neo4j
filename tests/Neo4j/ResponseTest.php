@@ -20,17 +20,34 @@ class ResponseTest extends TestCase
         'errors' => []
     ];
 
+    protected $statement;
+
+    protected $result;
+
     public function setUp()
     {
         $this->connection = Mockery::mock('EndyJasmi\Neo4j\ConnectionInterface');
         $this->errors = Mockery::mock('EndyJasmi\Neo4j\Response\ErrorsInterface');
         $this->request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
         $this->response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
+        $this->result = Mockery::mock('EndyJasmi\Neo4j\Response\ResultInterface');
+        $this->statement = Mockery::mock('EndyJasmi\Neo4j\Request\StatementInterface');
     }
 
     public function testCommitMethod()
     {
+        // Sample data
+        $this->responseArray['results'] = [
+            [
+                'columns' => ['name', 'age'],
+                'data' => [],
+                'stats' => []
+            ]
+        ];
+
         // Mock actions
+        $request = Mockery::mock('EndyJasmi\Neo4j\Request');
+
         $this->connection->shouldReceive('createRequest')
             ->once()
             ->andReturn($this->request);
@@ -39,17 +56,25 @@ class ResponseTest extends TestCase
             ->once()
             ->andReturn($this->errors);
 
+        $request->shouldReceive('offsetGet')
+            ->once()
+            ->andReturn($this->statement);
+
+        $this->connection->shouldReceive('createResult')
+            ->once()
+            ->andReturn($this->result);
+
         $this->connection->shouldReceive('commit')
             ->once()
             ->andReturn($this->response);
 
-        $this->request->shouldReceive('setResponse')
+        $request->shouldReceive('setResponse')
             ->once()
             ->andReturn($this->request);
 
         // Test start here
         $this->responseArray['id'] = $this->id;
-        $transaction = new Response($this->connection, $this->request, $this->responseArray);
+        $transaction = new Response($this->connection, $request, $this->responseArray);
 
         $response = $transaction->commit();
 
@@ -80,6 +105,29 @@ class ResponseTest extends TestCase
         $response = $transaction->commit();
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
+    }
+
+    public function testCreateRequestMethod()
+    {
+        // Mock actions
+        $this->connection->shouldReceive('createErrors')
+            ->once()
+            ->andReturn($this->errors);
+
+        $this->request->shouldReceive('setResponse')
+            ->once()
+            ->andReturn($this->request);
+
+        $this->connection->shouldReceive('createRequest')
+            ->once()
+            ->andReturn($this->request);
+
+        // Test start here
+        $response = new Response($this->connection, $this->request, $this->responseArray);
+
+        $request = $response->createRequest();
+
+        $this->assertInstanceOf('EndyJasmi\Neo4j\RequestInterface', $request);
     }
 
     public function testGetConnectionMethod()
@@ -279,5 +327,43 @@ class ResponseTest extends TestCase
         $return = $response->setRequest($this->request);
 
         $this->assertSame($response, $return);
+    }
+
+    public function testStatementMethod()
+    {
+        // Mock actions
+        $this->connection->shouldReceive('createErrors')
+            ->once()
+            ->andReturn($this->errors);
+
+        $this->request->shouldReceive('setResponse')
+            ->once()
+            ->andReturn($this->request);
+
+        $this->connection->shouldReceive('createStatement')
+            ->once()
+            ->andReturn($this->statement);
+
+        $this->connection->shouldReceive('createRequest')
+            ->once()
+            ->andReturn($this->request);
+
+        $this->request->shouldReceive('pushStatement')
+            ->once()
+            ->andReturn($this->request);
+
+        $this->request->shouldReceive('execute')
+            ->once();
+
+        $this->statement->shouldReceive('getResult')
+            ->once()
+            ->andReturn($this->result);
+
+        // Test start here
+        $response = new Response($this->connection, $this->request, $this->responseArray);
+
+        $result = $response->statement('match n return n');
+
+        $this->assertInstanceOf('EndyJasmi\Neo4j\Response\ResultInterface', $result);
     }
 }
