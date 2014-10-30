@@ -197,6 +197,20 @@ class Connection implements ConnectionInterface
     }
 
     /**
+     * Fire query event
+     *
+     * @param string $query Query string
+     * @param array $parameters Parameters array
+     * @param float $time Runnin time
+     */
+    public function fire($query, $parameters, $time)
+    {
+        $container = $this->getContainer();
+
+        $container['events']->fire('neo4j.query', [$query, $parameters, $time]);
+    }
+
+    /**
      * Get container instance
      *
      * @return ContainerInterface Return container instance
@@ -229,6 +243,18 @@ class Connection implements ConnectionInterface
             ->executeTransaction($request->toArray());
 
         return $this->createResponse($request, $response);
+    }
+
+    /**
+     * Listen to query event
+     *
+     * @param callable $listener Callable listener
+     */
+    public function listen(callable $listener)
+    {
+        $container = $this->getContainer();
+
+        $container['events']->listen('neo4j.query', $listener);
     }
 
     /**

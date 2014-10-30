@@ -58,7 +58,7 @@ class Container extends IlluminateContainer
         $this->bindShared(
             'events',
             function ($container) {
-                $container->make(
+                return $container->make(
                     'Illuminate\Contracts\Events\Dispatcher',
                     [
                         'container' => $container

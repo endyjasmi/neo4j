@@ -48,6 +48,18 @@ class ResultTest extends TestCase
             ->once()
             ->andReturn($this->statement);
 
+        $this->statement->shouldReceive('getQuery')
+            ->once();
+
+        $this->statement->shouldReceive('getParameters')
+            ->once();
+
+        $this->statement->shouldReceive('getTime')
+            ->once();
+
+        $this->connection->shouldReceive('fire')
+            ->once();
+
         // Test start here
         $result = new Result($this->connection, $this->statement, $this->result);
 
@@ -62,6 +74,18 @@ class ResultTest extends TestCase
         $this->statement->shouldReceive('setResult')
             ->once()
             ->andReturn($this->statement);
+
+        $this->statement->shouldReceive('getQuery')
+            ->once();
+
+        $this->statement->shouldReceive('getParameters')
+            ->once();
+
+        $this->statement->shouldReceive('getTime')
+            ->once();
+
+        $this->connection->shouldReceive('fire')
+            ->once();
 
         // Test start here
         $result = new Result($this->connection, $this->statement, $this->result);
@@ -82,6 +106,18 @@ class ResultTest extends TestCase
             ->once()
             ->andReturn($this->status);
 
+        $this->statement->shouldReceive('getQuery')
+            ->once();
+
+        $this->statement->shouldReceive('getParameters')
+            ->once();
+
+        $this->statement->shouldReceive('getTime')
+            ->once();
+
+        $this->connection->shouldReceive('fire')
+            ->once();
+
         // Test start here
         $result = new Result($this->connection, $this->statement, $this->result);
 
@@ -97,6 +133,18 @@ class ResultTest extends TestCase
             ->once()
             ->andReturn($this->statement);
 
+        $this->statement->shouldReceive('getQuery')
+            ->once();
+
+        $this->statement->shouldReceive('getParameters')
+            ->once();
+
+        $this->statement->shouldReceive('getTime')
+            ->once();
+
+        $this->connection->shouldReceive('fire')
+            ->once();
+
         // Test start here
         $result = new Result($this->connection, $this->statement, $this->result);
 
@@ -111,6 +159,18 @@ class ResultTest extends TestCase
         $this->statement->shouldReceive('setResult')
             ->once()
             ->andReturn($this->statement);
+
+        $this->statement->shouldReceive('getQuery')
+            ->once();
+
+        $this->statement->shouldReceive('getParameters')
+            ->once();
+
+        $this->statement->shouldReceive('getTime')
+            ->once();
+
+        $this->connection->shouldReceive('fire')
+            ->once();
 
         // Test start here
         $result = new Result($this->connection, $this->statement, $this->result);

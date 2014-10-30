@@ -105,6 +105,9 @@ class Result extends Collection implements ResultInterface
     {
         $this->statement = $statement->setResult($this);
 
+        $this->getConnection()
+            ->fire($statement->getQuery(), $statement->getParameters(), $statement->getTime());
+
         return $this;
     }
 }

@@ -14,6 +14,10 @@ use Illuminate\Contracts\Container\Container as ContainerInterface;
 
 /**
  * ConnectionInterface is an interface for connection class
+ * @todo log
+ * @todo transaction
+ * @todo laravel
+ * @todo documentation
  */
 interface ConnectionInterface
 {
@@ -104,6 +108,15 @@ interface ConnectionInterface
     public function createStatus(ResultInterface $result, array $status);
 
     /**
+     * Fire query event
+     *
+     * @param string $query Query string
+     * @param array $parameters Parameters array
+     * @param float $time Runnin time
+     */
+    public function fire($query, $parameters, $time);
+
+    /**
      * Get container instance
      *
      * @return ContainerInterface Return container instance
@@ -125,6 +138,13 @@ interface ConnectionInterface
      * @return ResponseInterface Return response instance
      */
     public function execute(RequestInterface $request);
+
+    /**
+     * Listen to query event
+     *
+     * @param callable $listener Callable listener
+     */
+    public function listen(callable $listener);
 
     /**
      * Rollback an open transaction

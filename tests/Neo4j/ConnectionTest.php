@@ -11,6 +11,8 @@ class ConnectionTest extends TestCase
 
     protected $errors;
 
+    protected $events;
+
     protected $request;
 
     protected $response;
@@ -35,6 +37,7 @@ class ConnectionTest extends TestCase
         $this->container = Mockery::mock('Illuminate\Contracts\Container\Container');
         $this->driver = Mockery::mock('EndyJasmi\Neo4j\DriverInterface');
         $this->errors = Mockery::mock('EndyJasmi\Neo4j\Response\ErrorsInterface');
+        $this->events = Mockery::mock('Illuminate\Contracts\Events\Dispatcher');
         $this->request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
         $this->response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
         $this->result = Mockery::mock('EndyJasmi\Neo4j\Response\ResultInterface');
@@ -214,6 +217,24 @@ class ConnectionTest extends TestCase
         $this->assertInstanceOf('EndyJasmi\Neo4j\Response\StatusInterface', $status);
     }
 
+    public function testFireMethod()
+    {
+        // Mock actions
+        $container = Mockery::mock('Illuminate\Container\Container');
+
+        $container->shouldReceive('offsetGet')
+            ->once()
+            ->andReturn($this->events);
+
+        $this->events->shouldReceive('fire')
+            ->once();
+
+        // Test start here
+        $connection = new Connection($container, $this->driver);
+
+        $connection->fire('query', null, microtime(true));
+    }
+
     public function testGetContainerMethod()
     {
         $connection = new Connection($this->container, $this->driver);
@@ -253,6 +274,28 @@ class ConnectionTest extends TestCase
         $response = $connection->execute($this->request);
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
+    }
+
+    public function testListenMethod()
+    {
+        // Mock actions
+        $container = Mockery::mock('Illuminate\Container\Container');
+
+        $container->shouldReceive('offsetGet')
+            ->once()
+            ->andReturn($this->events);
+
+        $this->events->shouldReceive('listen')
+            ->once();
+
+        // Test start here
+        $connection = new Connection($container, $this->driver);
+
+        $connection->listen(
+            function () {
+
+            }
+        );
     }
 
     public function testRollbackMethod()
