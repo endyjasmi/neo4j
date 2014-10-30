@@ -132,6 +132,12 @@ class RequestTest extends TestCase
 
     public function testSetResponseMethod()
     {
+        // Mock actions
+        $this->response->shouldReceive('setId')
+            ->once()
+            ->andReturn($this->response);
+
+        // Test start here
         $request = new Request($this->connection);
 
         $return = $request->setResponse($this->response);

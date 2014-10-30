@@ -52,8 +52,10 @@ class Connection implements ConnectionInterface
             $request = $this->createRequest();
         }
 
-        return $this->getDriver()
+        $response = $this->getDriver()
             ->beginTransaction($request->toArray());
+
+        return $this->createResponse($request, $response);
     }
 
     /**
@@ -65,8 +67,10 @@ class Connection implements ConnectionInterface
      */
     public function commit(RequestInterface $request)
     {
-        return $this->getDriver()
+        $response = $this->getDriver()
             ->commitTransaction($request->toArray());
+
+        return $this->createResponse($request, $response);
     }
 
     /**
@@ -113,12 +117,11 @@ class Connection implements ConnectionInterface
      *
      * @param RequestInterface $request Request instance
      * @param array $response Response array
-     * @param integer $id Transaction id
      * @param boolean $throws Auth throws exception
      *
      * @return ResponseInterface Return response instance
      */
-    public function createResponse(RequestInterface $request, array $response, $id = null, $throws = true)
+    public function createResponse(RequestInterface $request, array $response, $throws = true)
     {
         return $this->getContainer()
             ->make(
@@ -127,7 +130,6 @@ class Connection implements ConnectionInterface
                     'connection' => $this,
                     'request' => $request,
                     'response' => $response,
-                    'id' => $id,
                     'throws' => $throws
                 ]
             );
@@ -223,8 +225,10 @@ class Connection implements ConnectionInterface
      */
     public function execute(RequestInterface $request)
     {
-        return $this->getDriver()
+        $response = $this->getDriver()
             ->executeTransaction($request->toArray());
+
+        return $this->createResponse($request, $response);
     }
 
     /**
@@ -236,8 +240,10 @@ class Connection implements ConnectionInterface
      */
     public function rollback(RequestInterface $request)
     {
-        return $this->getDriver()
+        $response = $this->getDriver()
             ->rollbackTransaction($request->toArray());
+
+        return $this->createResponse($request, $response);
     }
 
     /**

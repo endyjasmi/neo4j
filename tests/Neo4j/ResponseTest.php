@@ -48,9 +48,10 @@ class ResponseTest extends TestCase
             ->andReturn($this->request);
 
         // Test start here
-        $transaction = new Response($this->connection, $this->request, $this->responseArray, $this->id);
+        $transaction = new Response($this->connection, $this->request, $this->responseArray);
 
-        $response = $transaction->commit();
+        $response = $transaction->setId($this->id)
+            ->commit();
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
@@ -58,7 +59,6 @@ class ResponseTest extends TestCase
     /**
      * @expectedException DomainException
      */
-
     public function testCommitMethodThrowDomainException()
     {
         // Mock actions
@@ -94,7 +94,7 @@ class ResponseTest extends TestCase
             ->andReturn($this->request);
 
         // Test start here
-        $response = new Response($this->connection, $this->request, $this->responseArray, $this->id);
+        $response = new Response($this->connection, $this->request, $this->responseArray);
 
         $connection = $response->getConnection();
 
@@ -153,7 +153,8 @@ class ResponseTest extends TestCase
         // Test start here
         $response = new Response($this->connection, $this->request, $this->responseArray, $this->id);
 
-        $id = $response->getId();
+        $id = $response->setId($this->id)
+            ->getId();
 
         $this->assertEquals($this->id, $id);
     }
@@ -199,7 +200,8 @@ class ResponseTest extends TestCase
         // Test start here
         $transaction = new Response($this->connection, $this->request, $this->responseArray, $this->id);
 
-        $response = $transaction->rollback();
+        $response = $transaction->setId($this->id)
+            ->rollback();
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }

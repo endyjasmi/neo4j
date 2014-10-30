@@ -40,14 +40,12 @@ class Response extends Collection implements ResponseInterface
      * @param ConnectionInterface $connection Connection instance
      * @param RequestInterface $request Request instance
      * @param array $response Response array
-     * @param integer $id Transaction id
      * @param boolean $throws Auto throws exception
      */
     public function __construct(
         ConnectionInterface $connection,
         RequestInterface $request,
         array $response,
-        $id = null,
         $throws = true
     ) {
         $this->setConnection($connection)
@@ -61,10 +59,6 @@ class Response extends Collection implements ResponseInterface
                 ->createResult($request[$index], $result);
 
             $this->push($result);
-        }
-
-        if (! is_null($id)) {
-            $this->setId($id);
         }
     }
 

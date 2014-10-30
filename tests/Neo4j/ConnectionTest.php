@@ -15,6 +15,10 @@ class ConnectionTest extends TestCase
 
     protected $response;
 
+    protected $requestArray = [
+        'statements' => []
+    ];
+
     protected $responseArray = [
         'results' => [],
         'errors' => []
@@ -47,9 +51,13 @@ class ConnectionTest extends TestCase
 
         $this->request->shouldReceive('toArray')
             ->once()
-            ->andReturn($this->responseArray);
+            ->andReturn($this->requestArray);
 
         $this->driver->shouldReceive('beginTransaction')
+            ->once()
+            ->andReturn($this->responseArray);
+
+        $this->container->shouldReceive('make')
             ->once()
             ->andReturn($this->response);
 
@@ -66,9 +74,13 @@ class ConnectionTest extends TestCase
         // Mock actions
         $this->request->shouldReceive('toArray')
             ->once()
-            ->andReturn($this->responseArray);
+            ->andReturn($this->requestArray);
 
         $this->driver->shouldReceive('beginTransaction')
+            ->once()
+            ->andReturn($this->responseArray);
+
+        $this->container->shouldReceive('make')
             ->once()
             ->andReturn($this->response);
 
@@ -85,9 +97,13 @@ class ConnectionTest extends TestCase
         // Mock actions
         $this->request->shouldReceive('toArray')
             ->once()
-            ->andReturn($this->responseArray);
+            ->andReturn($this->requestArray);
 
         $this->driver->shouldReceive('commitTransaction')
+            ->once()
+            ->andReturn($this->responseArray);
+
+        $this->container->shouldReceive('make')
             ->once()
             ->andReturn($this->response);
 
@@ -221,9 +237,13 @@ class ConnectionTest extends TestCase
         // Mock actions
         $this->request->shouldReceive('toArray')
             ->once()
-            ->andReturn($this->responseArray);
+            ->andReturn($this->requestArray);
 
         $this->driver->shouldReceive('executeTransaction')
+            ->once()
+            ->andReturn($this->responseArray);
+
+        $this->container->shouldReceive('make')
             ->once()
             ->andReturn($this->response);
 
@@ -240,9 +260,13 @@ class ConnectionTest extends TestCase
         // Mock actions
         $this->request->shouldReceive('toArray')
             ->once()
-            ->andReturn($this->responseArray);
+            ->andReturn($this->requestArray);
 
         $this->driver->shouldReceive('rollbackTransaction')
+            ->once()
+            ->andReturn($this->responseArray);
+
+        $this->container->shouldReceive('make')
             ->once()
             ->andReturn($this->response);
 
@@ -312,9 +336,13 @@ class ConnectionTest extends TestCase
 
         $this->request->shouldReceive('toArray')
             ->once()
-            ->andReturn($this->responseArray);
+            ->andReturn($this->requestArray);
 
         $this->driver->shouldReceive('beginTransaction')
+            ->once()
+            ->andReturn($this->responseArray);
+
+        $this->container->shouldReceive('make')
             ->once()
             ->andReturn($this->response);
 

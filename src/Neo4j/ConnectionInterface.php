@@ -67,12 +67,11 @@ interface ConnectionInterface
      *
      * @param RequestInterface $request Request instance
      * @param array $response Response array
-     * @param integer $id Transaction id
      * @param boolean $throws Auth throws exception
      *
      * @return ResponseInterface Return response instance
      */
-    public function createResponse(RequestInterface $request, array $response, $id = null, $throws = true);
+    public function createResponse(RequestInterface $request, array $response, $throws = true);
 
     /**
      * Create result instance
