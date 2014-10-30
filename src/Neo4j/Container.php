@@ -51,5 +51,20 @@ class Container extends IlluminateContainer
                 );
             }
         );
+
+        // Setup event component
+        $this->bind('Illuminate\Contracts\Events\Dispatcher', 'Illuminate\Events\Dispatcher');
+        
+        $this->bindShared(
+            'events',
+            function ($container) {
+                $container->make(
+                    'Illuminate\Contracts\Events\Dispatcher',
+                    [
+                        'container' => $container
+                    ]
+                );
+            }
+        );
     }
 }
