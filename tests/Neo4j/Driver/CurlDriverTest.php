@@ -50,6 +50,7 @@ class CurlDriverTest extends TestCase
             ->andReturn($this->response);
 
         // Test start here
+        $this->request['id'] = 1;
         $response = $client->commitTransaction($this->request);
 
         $this->assertArrayHasKey('results', $response);
