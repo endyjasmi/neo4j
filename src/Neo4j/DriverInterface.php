@@ -14,36 +14,36 @@ use InvalidArgumentException;
 interface DriverInterface
 {
     /**
-     * Driver options
+     * Driver constructor
      *
-     * @param array $options Driver options
+     * @param array $options Options array
      */
     public function __construct(array $options = []);
 
     /**
      * Begin a new transaction
      *
-     * @param array $request Transaction request
+     * @param array $request Request array
      *
-     * @return array Return transaction response
+     * @return array Return Response array
      */
     public function beginTransaction(array $request);
 
     /**
      * Commit a transaction
      *
-     * @param array $request Transaction request
+     * @param array $request Request array
      *
-     * @return array Return transaction response
+     * @return array Return response array
      */
     public function commitTransaction(array $request);
 
     /**
      * Execute an open transaction
      *
-     * @param array $request Transaction request
+     * @param array $request Request array
      *
-     * @return array Return transaction response
+     * @return array Return response array
      *
      * @throws InvalidArgumentException If request does not have id
      */
@@ -52,9 +52,9 @@ interface DriverInterface
     /**
      * Rollback an open transaction
      *
-     * @param array $request Transaction request
+     * @param array $request Request array
      *
-     * @return array Return transaction response
+     * @return array Return response array
      *
      * @throws InvalidArgumentException If request does not have id
      */
@@ -63,7 +63,7 @@ interface DriverInterface
     /**
      * Set driver options
      *
-     * @param array $options Driver options
+     * @param array $options Options array
      *
      * @return DriverInterface Return self
      */
