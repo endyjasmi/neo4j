@@ -69,13 +69,15 @@ class StreamDriver implements DriverInterface
      * This method is used internally only, it is made public for partial mocking purposes
      *
      * @param Request $request Request instance
+     * @param Client $client Client instance
+     * @param Response $response Response instance
      *
      * @return array Return response array
      */
-    public function send(Request $request)
+    public function send(Request $request, Client $client = null, Response $response = null)
     {
-        $client = new Client;
-        $response = new Response;
+        $client = $client ?: new Client;
+        $response = $response ?: new Response;
 
         $client->send($request, $response);
 
