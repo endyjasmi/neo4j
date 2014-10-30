@@ -128,13 +128,13 @@ class StreamDriver implements DriverInterface
      */
     public function commitTransaction(array $request)
     {
+        $path = '/db/data/transaction/commit';
+
         if (isset($request['id'])) {
             $id = $request['id'];
             unset($request['id']);
 
             $path = "/db/data/transaction/$id/commit";
-        } else {
-            $path = '/db/data/transaction/commit';
         }
 
         $request = $this->createRequest('post', $path, $request);
