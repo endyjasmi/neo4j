@@ -328,7 +328,7 @@ class ConnectionTest extends TestCase
 
         $connection->transaction(
             function ($transaction) use ($that) {
-                $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $transaction);
+                $that->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $transaction);
             }
         );
     }
