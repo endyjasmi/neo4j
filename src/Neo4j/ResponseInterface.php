@@ -39,6 +39,13 @@ interface ResponseInterface
     public function commit();
 
     /**
+     * Create request instance
+     *
+     * @return RequestInstance Return request instance
+     */
+    public function createRequest();
+
+    /**
      * Get connection instance
      *
      * @return ConnectionInterface Return connection instance
@@ -101,4 +108,14 @@ interface ResponseInterface
      * @return ResponseInterface Return self
      */
     public function setRequest(RequestInterface $request);
+
+    /**
+     * Run a single statement
+     *
+     * @param string $query Query string
+     * @param array $parameters Parameters array
+     *
+     * @return ResultInterface Return result instance
+     */
+    public function statement($query, array $parameters = []);
 }

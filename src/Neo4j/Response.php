@@ -60,6 +60,10 @@ class Response extends Collection implements ResponseInterface
 
             $this->push($result);
         }
+
+        if (array_key_exists('id', $response)) {
+            $this->setId($response['id']);
+        }
     }
 
     /**
@@ -80,6 +84,17 @@ class Response extends Collection implements ResponseInterface
 
         return $this->getConnection()
             ->commit($request);
+    }
+
+    /**
+     * Create request instance
+     *
+     * @return RequestInstance Return request instance
+     */
+    public function createRequest()
+    {
+        return $this->getConnection()
+            ->createRequest($this->getId());
     }
 
     /**
@@ -182,5 +197,25 @@ class Response extends Collection implements ResponseInterface
         $this->request = $request->setResponse($this);
 
         return $this;
+    }
+
+    /**
+     * Run a single statement
+     *
+     * @param string $query Query string
+     * @param array $parameters Parameters array
+     *
+     * @return ResultInterface Return result instance
+     */
+    public function statement($query, array $parameters = [])
+    {
+        $statement = $this->getConnection()
+            ->createStatement($query, $parameters);
+
+        $this->createRequest()
+            ->pushStatement($statement)
+            ->execute();
+
+        return $statement->getResult();
     }
 }

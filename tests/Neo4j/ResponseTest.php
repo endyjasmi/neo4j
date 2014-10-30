@@ -48,10 +48,10 @@ class ResponseTest extends TestCase
             ->andReturn($this->request);
 
         // Test start here
+        $this->responseArray['id'] = $this->id;
         $transaction = new Response($this->connection, $this->request, $this->responseArray);
 
-        $response = $transaction->setId($this->id)
-            ->commit();
+        $response = $transaction->commit();
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
@@ -151,10 +151,10 @@ class ResponseTest extends TestCase
             ->andReturn($this->request);
 
         // Test start here
+        $this->responseArray['id'] = $this->id;
         $response = new Response($this->connection, $this->request, $this->responseArray, $this->id);
 
-        $id = $response->setId($this->id)
-            ->getId();
+        $id = $response->getId();
 
         $this->assertEquals($this->id, $id);
     }
@@ -198,10 +198,10 @@ class ResponseTest extends TestCase
             ->andReturn($this->request);
 
         // Test start here
+        $this->responseArray['id'] = $this->id;
         $transaction = new Response($this->connection, $this->request, $this->responseArray, $this->id);
 
-        $response = $transaction->setId($this->id)
-            ->rollback();
+        $response = $transaction->rollback();
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
