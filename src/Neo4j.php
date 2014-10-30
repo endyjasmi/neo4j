@@ -49,6 +49,7 @@ class Neo4j extends Manager implements Neo4jInterface
 
         $this->default = $this->app['config']->get('database.neo4j.default');
         $this->profiles = $this->app['config']->get('database.neo4j.profiles');
+        $this->events = $this->app['events'];
     }
 
     /**
