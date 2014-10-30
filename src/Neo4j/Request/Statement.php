@@ -52,7 +52,7 @@ class Statement extends Fluent implements StatementInterface
      */
     public function getQuery()
     {
-        return $this->query;
+        return $this->statement;
     }
 
     /**
@@ -88,7 +88,7 @@ class Statement extends Fluent implements StatementInterface
      */
     public function setQuery($query)
     {
-        $this->query = $query;
+        $this->statement = $query;
 
         return $this;
     }
