@@ -18,7 +18,7 @@ class Neo4j extends Facade
      *
      * @return string Return component name string
      */
-    protected function getFacadeAccessor()
+    protected static function getFacadeAccessor()
     {
         return 'neo4j';
     }
