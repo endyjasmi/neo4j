@@ -7,7 +7,6 @@
 namespace EndyJasmi\Neo4j\Laravel;
 
 use EndyJasmi\Neo4j;
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
 /**
