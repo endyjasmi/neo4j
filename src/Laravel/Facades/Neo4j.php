@@ -4,7 +4,7 @@
  *
  * @package EndyJasmi\Neo4j\Laravel;
  */
-namespace EndyJasmi\Neo4j\Laravel;
+namespace EndyJasmi\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
