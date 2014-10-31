@@ -14,10 +14,6 @@ use Illuminate\Contracts\Container\Container as ContainerInterface;
 
 /**
  * ConnectionInterface is an interface for connection class
- * @todo log
- * @todo transaction
- * @todo laravel
- * @todo documentation
  */
 interface ConnectionInterface
 {
