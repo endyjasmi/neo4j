@@ -4,6 +4,18 @@
     "keywords": ["neo4j", "cypher", "database", "laravel"],
     "license": "MIT",
     "type": "library",
+    "authors": [
+        {
+            "name": "Endy Jasmi",
+            "email": "endyjasmi@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "endyjasmi@gmail.com",
+        "issues": "https://github.com/endyjasmi/neo4j/issues",
+        "source": "https://github.com/endyjasmi/neo4j"
+    },
     "autoload": {
         "psr-4": {
             "EndyJasmi\\": "src/"
@@ -15,6 +27,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "php": ">= 5.4",
         "illuminate/config": "5.*",
         "illuminate/container": "5.*",
         "illuminate/events": "5.*",
@@ -22,10 +35,13 @@
         "kriswallsmith/buzz": "0.*"
     },
     "require-dev": {
-    	"squizlabs/php_codesniffer": "1.*",
+        "squizlabs/php_codesniffer": "1.*",
         "phpunit/phpunit": "4.*",
         "mockery/mockery": "0.*",
         "phpdocumentor/phpdocumentor": "2.*",
         "satooshi/php-coveralls": "0.*"
+    },
+    "suggest": {
+        "ext-curl": "*"
     }
 }
