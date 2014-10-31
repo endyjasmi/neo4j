@@ -19,10 +19,7 @@
     "autoload": {
         "psr-4": {
             "EndyJasmi\\": "src/"
-        },
-        "files": [
-            "vendor/illuminate/support/helpers.php"
-        ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
