@@ -24,17 +24,6 @@ class Neo4jServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
-     * Run after every component is registered
-     *
-     * @param Dispatcher $event Event dispatcher instance
-     */
-    public function boot()
-    {
-        AliasLoader::getInstance()
-            ->alias('Neo4j', 'EndyJasmi\Neo4j\Laravel\Neo4j');
-    }
-
-    /**
      * Register the service provider.
      */
     public function register()
@@ -50,7 +39,7 @@ class Neo4jServiceProvider extends ServiceProvider
         $this->app->bindShared(
             'neo4j',
             function ($app) {
-                return new Neo4j($this->app);
+                return new Neo4j($app);
             }
         );
     }
