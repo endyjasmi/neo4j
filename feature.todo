@@ -1,16 +1,19 @@
 Feature:
- ☐ Authentication
- ☐ Cache
- ☐ Log
- ☐ Event
- ☐ Service provider
- ☐ Facades
- ☐ Localization
- ☐ Pagination
- ☐ Validation
  ☐ Query builder
  ☐ Object graph mapper
  ☐ Schema builder
  ☐ Migration and seeding
+ ☐ Authentication
+ ☐ Cache
+ ☐ Log
+ ☐ Localization
+ ☐ Pagination
+ ☐ Validation
  ☐ Command line interface
  ☐ Access control list
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ Event @done (14-10-31 11:46) @project(Feature)
+ ✔ Service provider @done (14-10-31 11:45) @project(Feature)
+ ✔ Facades @done (14-10-31 11:45) @project(Feature)
