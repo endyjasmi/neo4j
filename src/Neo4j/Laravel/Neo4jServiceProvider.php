@@ -7,7 +7,6 @@
 namespace EndyJasmi\Neo4j\Laravel;
 
 use EndyJasmi\Neo4j;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,7 +28,7 @@ class Neo4jServiceProvider extends ServiceProvider
      *
      * @param Dispatcher $event Event dispatcher instance
      */
-    public function boot(Dispatcher $events)
+    public function boot()
     {
         AliasLoader::getInstance()
             ->alias('Neo4j', 'EndyJasmi\Neo4j\Laravel\Neo4j');
@@ -63,6 +62,15 @@ class Neo4jServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return [];
+        return [
+            'EndyJasmi\Neo4j\ConnectionInterface',
+            'EndyJasmi\Neo4j\RequestInterface',
+            'EndyJasmi\Neo4j\Request\StatementInterface',
+            'EndyJasmi\Neo4j\ResponseInterface',
+            'EndyJasmi\Neo4j\Response\ErrorsInterface',
+            'EndyJasmi\Neo4j\Response\ResultInterface',
+            'EndyJasmi\Neo4j\Response\StatusInterface',
+            'neo4j'
+        ];
     }
 }
