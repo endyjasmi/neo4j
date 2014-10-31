@@ -1,12 +1,17 @@
 {
-	"autoload": {
+    "name": "endyjasmi/neo4j",
+    "description": "Neo4j for PHP",
+    "keywords": ["neo4j", "cypher", "database", "laravel"],
+    "license": "MIT",
+    "type": "library",
+    "autoload": {
         "psr-4": {
             "EndyJasmi\\": "src/"
         },
         "files": [
             "vendor/illuminate/support/helpers.php"
         ]
-	},
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
