@@ -12,8 +12,18 @@ Feature:
  ☐ Command line interface
  ☐ Access control list
 
+Documentation:
+ ☐ Configuration
+ ☐ Basic usage
+   Connection, events, status, collection
+ ☐ Error handling
+ ☐ Transaction
+ ☐ Laravel 5
+ ☐ Contribution guide
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Installation @done (14-10-31 15:51) @project(Documentation)
+ ✔ Home @done (14-10-31 15:51) @project(Documentation)
  ✔ Event @done (14-10-31 11:46) @project(Feature)
  ✔ Service provider @done (14-10-31 11:45) @project(Feature)
  ✔ Facades @done (14-10-31 11:45) @project(Feature)
