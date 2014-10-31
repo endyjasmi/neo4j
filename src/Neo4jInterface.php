@@ -18,9 +18,10 @@ interface Neo4jInterface
     /**
      * Neo4j constructor
      *
+     * @param string $configPath Configuration path
      * @param ContainerInterface $container Container  instance
      */
-    public function __construct(ContainerInterface $container = null);
+    public function __construct($configPath = null, ContainerInterface $container = null);
 
     /**
      * Dyamically call the default connection instance

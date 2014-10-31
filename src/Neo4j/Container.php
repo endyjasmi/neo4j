@@ -16,7 +16,7 @@ class Container extends IlluminateContainer
     /**
      * Registry constructor
      */
-    public function __construct()
+    public function __construct($configPath = null)
     {
         // Basic binding
         $this->bind('EndyJasmi\Neo4j\ConnectionInterface', 'EndyJasmi\Neo4j\Connection');
@@ -28,13 +28,15 @@ class Container extends IlluminateContainer
         $this->bind('EndyJasmi\Neo4j\Response\StatusInterface', 'EndyJasmi\Neo4j\Response\Status');
         
         // Setup config component
+        $configPath = $configPath ?: dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config';
+
         $this->bindShared(
             'Illuminate\Config\LoaderInterface',
-            function ($registry) {
+            function ($registry) use ($configPath) {
                 return $registry->make(
                     'Illuminate\Config\FileLoader',
                     [
-                        'defaultPath' => dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config'
+                        'defaultPath' =>  $configPath
                     ]
                 );
             }

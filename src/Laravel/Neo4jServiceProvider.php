@@ -29,7 +29,7 @@ class Neo4jServiceProvider extends ServiceProvider
         $this->app->bindShared(
             'neo4j',
             function ($app) {
-                return new Neo4j($app);
+                return new Neo4j(null, $app);
             }
         );
     }

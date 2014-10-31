@@ -37,12 +37,13 @@ class Neo4j extends Manager implements Neo4jInterface
     /**
      * Neo4j constructor
      *
+     * @param string $configPath Configuration path
      * @param ContainerInterface $container Container  instance
      */
-    public function __construct(ContainerInterface $container = null)
+    public function __construct($configPath = null, ContainerInterface $container = null)
     {
         if (is_null($container)) {
-            $container = new Container;
+            $container = new Container($configPath);
         }
 
         parent::__construct($container);
