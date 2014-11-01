@@ -1,5 +1,4 @@
 <?php
-
 return [
     'neo4j' => [
         'default' => 'development',
