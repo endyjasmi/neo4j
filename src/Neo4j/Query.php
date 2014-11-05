@@ -259,7 +259,7 @@ class Query implements QueryInterface
     public function string()
     {
         $queries = array_map(
-            function ($clause) {
+            function (ClauseInterface $clause) {
                 return $clause->getQuery();
             },
             $this->clauses

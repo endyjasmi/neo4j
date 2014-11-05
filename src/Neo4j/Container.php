@@ -33,7 +33,7 @@ class Container extends IlluminateContainer
 
         $this->bindShared(
             'Illuminate\Config\LoaderInterface',
-            function ($registry) use ($configPath) {
+            function (Container $registry) use ($configPath) {
                 return $registry->make(
                     'Illuminate\Config\FileLoader',
                     [
@@ -45,7 +45,7 @@ class Container extends IlluminateContainer
 
         $this->bindShared(
             'config',
-            function ($container) {
+            function (Container $container) {
                 return $container->make(
                     'Illuminate\Config\Repository',
                     [
@@ -60,7 +60,7 @@ class Container extends IlluminateContainer
         
         $this->bindShared(
             'events',
-            function ($container) {
+            function (Container $container) {
                 return $container->make(
                     'Illuminate\Contracts\Events\Dispatcher',
                     [

@@ -6,6 +6,7 @@
  */
 namespace EndyJasmi\Neo4j\Response;
 
+use Exception;
 use Illuminate\Support\Collection;
 
 /**
@@ -49,7 +50,7 @@ class Errors extends Collection implements ErrorsInterface
     public function toArray()
     {
         return array_map(
-            function ($error) {
+            function (Exception $error) {
                 return [
                     'code' => $error->getCode(),
                     'message' => $error->getMessage()
