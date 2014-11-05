@@ -12,16 +12,6 @@ namespace EndyJasmi\Neo4j\Clause;
 interface ClauseInterface
 {
     /**
-     * Redirect to parent
-     *
-     * @param string $method Name string
-     * @param array $parameters Parameter array
-     *
-     * @return mixed Return parent result
-     */
-    public function __call($method, array $parameters = []);
-    
-    /**
      * Get parameter array
      *
      * @return array Return parameter array
