@@ -3,7 +3,7 @@
 use Mockery;
 use PHPUnit_Framework_TestCase as TestCase;
 
-class MatchClauseTest extends TestCase
+class OptionalMatchClauseTest extends TestCase
 {
     protected $query;
 
@@ -14,7 +14,7 @@ class MatchClauseTest extends TestCase
 
     public function testGetParametersMethod()
     {
-        $match = new MatchClause($this->query, '(n:Person {name: {name}})', ['name' => 'John Doe']);
+        $match = new OptionalMatchClause($this->query, '(n:Person {name: {name}})', ['name' => 'John Doe']);
 
         $parameters = $match->getParameters();
 
@@ -23,25 +23,25 @@ class MatchClauseTest extends TestCase
 
     public function testGetQueryMethod()
     {
-        $match = new MatchClause($this->query, 'n');
+        $match = new OptionalMatchClause($this->query, 'n');
 
         $query = $match->getQuery();
         
-        $this->assertEquals('MATCH n', $query);
+        $this->assertEquals('OPTIONAL MATCH n', $query);
     }
 
     public function testMatchMethod()
     {
-        $match = new MatchClause($this->query, 'n');
+        $match = new OptionalMatchClause($this->query, 'n');
 
-        $return = $match->match('m');
+        $return = $match->optionalMatch('m');
 
         $this->assertSame($match, $return);
     }
 
     public function testUsingIndexMethod()
     {
-        $match = new MatchClause($this->query, 'n');
+        $match = new OptionalMatchClause($this->query, 'n');
 
         $using = $match->usingIndex('n:Person(name)');
 
@@ -54,7 +54,7 @@ class MatchClauseTest extends TestCase
 
     public function testUsingScanMethod()
     {
-        $match = new MatchClause($this->query, 'n');
+        $match = new OptionalMatchClause($this->query, 'n');
 
         $using = $match->usingScan('n:Person(name)');
 
@@ -67,7 +67,7 @@ class MatchClauseTest extends TestCase
 
     public function testWhereMethod()
     {
-        $match = new MatchClause($this->query, 'n');
+        $match = new OptionalMatchClause($this->query, 'n');
 
         $where = $match->where('n.name = "John Doe"');
 
