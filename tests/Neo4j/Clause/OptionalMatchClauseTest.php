@@ -35,7 +35,17 @@ class OptionalMatchClauseTest extends TestCase
         $this->assertEquals('OPTIONAL MATCH n USING SCAN n:Person WHERE n.name = {name}', $query);
     }
 
+    /**
+     * @expectedException BadMethodCallException
+     */
     public function testMatchMethod()
+    {
+        $match = new OptionalMatchClause($this->query, 'n');
+
+        $match->match('m');
+    }
+
+    public function testOptionalMatchMethod()
     {
         $match = new OptionalMatchClause($this->query, 'n');
 
