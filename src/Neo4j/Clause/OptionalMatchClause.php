@@ -6,28 +6,14 @@
  */
 namespace EndyJasmi\Neo4j\Clause;
 
+use BadMethodCallException;
 use EndyJasmi\Neo4j\QueryInterface;
 
 /**
  * OptionalMatchClause is a concrete implementation of clause interface
  */
-class OptionalMatchClause extends AbstractClause
+class OptionalMatchClause extends MatchClause
 {
-    /**
-     * @var array Pattern array
-     */
-    protected $patterns = [];
-
-    /**
-     * @var ClauseInterface Using instance
-     */
-    protected $using;
-
-    /**
-     * @var ClauseInterface Where instance
-     */
-    protected $where;
-
     /**
      * Match clause constructor
      *
@@ -42,46 +28,18 @@ class OptionalMatchClause extends AbstractClause
     }
 
     /**
-     * Get parameter array
+     * Match pattern
      *
-     * @return array Return parameter
-     */
-    public function getParameters()
-    {
-        $parameters = $this->parameters;
-
-        if (! is_null($this->where)) {
-            $parameters = array_merge($parameters, $this->where->getParameters());
-        }
-
-        return $parameters;
-    }
-
-    /**
-     * Get query string
+     * @param string $pattern Pattern string
+     * @param array $parameters Parameter array
      *
-     * @return string Return query
+     * @return ClauseInterface Return self
+     *
+     * @throws BadMethodCallException If called
      */
-    public function getQuery()
+    public function match($pattern, array $parameters = [])
     {
-        $patterns = implode(', ', $this->patterns);
-        $match = "OPTIONAL MATCH $patterns";
-
-        if (! is_null($this->using)) {
-            $using = $this->using
-                ->getQuery();
-
-            $match = "$match $using";
-        }
-
-        if (! is_null($this->where)) {
-            $where = $this->where
-                ->getQuery();
-
-            $match = "$match $where";
-        }
-
-        return $match;
+        throw new BadMethodCallException("Cannot call this method");
     }
 
     /**
@@ -94,58 +52,18 @@ class OptionalMatchClause extends AbstractClause
      */
     public function optionalMatch($pattern, array $parameters = [])
     {
-        $this->patterns[] = $pattern;
-        $this->parameters = array_merge($this->parameters, $parameters);
-
-        return $this;
+        return parent::match($pattern, $parameters);
     }
 
     /**
-     * Using index
+     * Get query string
      *
-     * @param string $index Index string
-     *
-     * @return ClauseInterface Return self
+     * @return string Return query string
      */
-    public function usingIndex($index)
+    public function getQuery()
     {
-        if (is_null($this->using)) {
-            $this->using = new UsingClause($this, UsingClause::INDEX, $index);
-        } else {
-            $this->using->usingIndex($index);
-        }
+        $query = parent::getQuery();
 
-        return $this->using;
-    }
-
-    /**
-     * Using scan
-     *
-     * @param string $index Index string
-     *
-     * @return ClauseInterface Return self
-     */
-    public function usingScan($index)
-    {
-        if (is_null($this->using)) {
-            $this->using = new UsingClause($this, UsingClause::SCAN, $index);
-        } else {
-            $this->using->usingIndex($index);
-        }
-
-        return $this->using;
-    }
-
-    /**
-     * Where condition
-     *
-     * @param string $condition Condition string
-     * @param array $parameters Parameter array
-     *
-     * @return  ClauseInterface Return where instance
-     */
-    public function where($condition, array $parameters = [])
-    {
-        return $this->where = new WhereClause($this, $condition, $parameters);
+        return "OPTIONAL $query";
     }
 }

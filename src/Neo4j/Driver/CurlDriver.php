@@ -6,6 +6,7 @@
  */
 namespace EndyJasmi\Neo4j\Driver;
 
+use Buzz\Client\ClientInterface;
 use Buzz\Client\Curl as Client;
 use Buzz\Message\Request;
 use Buzz\Message\Response;
@@ -74,7 +75,7 @@ class CurlDriver implements DriverInterface
      *
      * @return array Return response array
      */
-    public function send(Request $request, Client $client = null, Response $response = null)
+    public function send(Request $request, ClientInterface $client = null, Response $response = null)
     {
         $client = $client ?: new Client;
         $response = $response ?: new Response;
