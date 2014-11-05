@@ -48,7 +48,9 @@ require 'vendor/autoload.php';
 
 $neo4j = new \EndyJasmi\Neo4j;
 
-$result = $neo4j->statement('match n return n');
+$result = $neo4j->match('(n:Person)')
+	->output('n', 'person')
+	->run();
 
 var_dump($result[0]['n']);
 ```
