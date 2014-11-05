@@ -54,6 +54,10 @@ class OutputClauseTest extends TestCase
         $order = $output->orderBy('n.name');
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\Clause\OrderByClause', $order);
+
+        $order = $output->orderBy('n.name');
+
+        $this->assertInstanceOf('EndyJasmi\Neo4j\Clause\OrderByClause', $order);
     }
 
     public function testOutputMethod()

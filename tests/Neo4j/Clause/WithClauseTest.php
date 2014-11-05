@@ -26,16 +26,19 @@ class WithClauseTest extends TestCase
 
     public function testGetQueryMethod()
     {
-        $with = new WithClause($this->query, 'n');
+        $with = new WithClause($this->query, 'n', 'entity');
 
-        $with->where('n.name = {name}', ['name' => 'John Doe']);
-        $with->orderBy('n.name');
+        $with->where('entity.name = {name}', ['name' => 'John Doe']);
+        $with->orderBy('entity.name');
         $with->skip(0);
         $with->limit(50);
 
         $query = $with->getQuery();
 
-        $this->assertEquals('WITH n WHERE n.name = {name} ORDER BY n.name SKIP {skip} LIMIT {limit}', $query);
+        $this->assertEquals(
+            'WITH n AS entity WHERE entity.name = {name} ORDER BY entity.name SKIP {skip} LIMIT {limit}',
+            $query
+        );
     }
 
     public function testLimitMethod()

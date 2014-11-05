@@ -16,6 +16,8 @@ class MatchClauseTest extends TestCase
     {
         $match = new MatchClause($this->query, '(n:Person {name: {name}})', ['name' => 'John Doe']);
 
+        $match->where('n.age = 21');
+
         $parameters = $match->getParameters();
 
         $this->assertArrayHasKey('name', $parameters);
@@ -25,9 +27,12 @@ class MatchClauseTest extends TestCase
     {
         $match = new MatchClause($this->query, 'n');
 
+        $match->usingScan('n:Person');
+        $match->where('n.name = {name}', ['name' => 'John Doe']);
+
         $query = $match->getQuery();
         
-        $this->assertEquals('MATCH n', $query);
+        $this->assertEquals('MATCH n USING SCAN n:Person WHERE n.name = {name}', $query);
     }
 
     public function testMatchMethod()
