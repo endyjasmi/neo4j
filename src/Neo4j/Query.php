@@ -38,9 +38,9 @@ class Query implements QueryInterface
     /**
      * Query constructor
      *
-     * @param ConnectionInterface $connection Connection instance
+     * @param ConnectionInterface|ResponseInterface $connection Connection instance
      */
-    public function __construct(ConnectionInterface $connection)
+    public function __construct($connection)
     {
         $this->setConnection($connection);
     }
@@ -90,7 +90,7 @@ class Query implements QueryInterface
      */
     public function first()
     {
-        $result = $this->get();
+        $result = $this->run();
 
         return $result[0];
     }
@@ -102,8 +102,7 @@ class Query implements QueryInterface
      */
     public function get()
     {
-        return $this->getConnection()
-            ->statement($this->string(), $this->parameters());
+        return $this->run();
     }
 
     /**
@@ -215,6 +214,17 @@ class Query implements QueryInterface
     }
 
     /**
+     * Run query
+     *
+     * @return ResultInterface Return result instance
+     */
+    public function run()
+    {
+        return $this->getConnection()
+            ->statement($this->string(), $this->parameters());
+    }
+
+    /**
      * Set pattern
      *
      * @param string $pattern Pattern string
@@ -230,11 +240,11 @@ class Query implements QueryInterface
     /**
      * Set connection instance
      *
-     * @param ConnectionInterface $connection Connection instance
+     * @param ConnectionInterface|ResponseInterface $connection Connection instance
      *
      * @return QueryInterface Return self
      */
-    public function setConnection(ConnectionInterface $connection)
+    public function setConnection($connection)
     {
         $this->connection = $connection;
 

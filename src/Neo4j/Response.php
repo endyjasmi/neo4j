@@ -34,6 +34,20 @@ class Response extends Collection implements ResponseInterface
      * @var RequestInterface Request instance
      */
     protected $request;
+
+    /**
+     * Redirect to query builder
+     *
+     * @param string $method Method name
+     * @param array $parameters Parameter array
+     *
+     * @return mixed Return query result
+     */
+    public function __call($method, array $parameters = [])
+    {
+        return call_user_func_array([$this->getConnection()->createBuilder($this), $method], $parameters);
+    }
+
     /**
      * Response constructor
      *

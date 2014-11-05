@@ -37,15 +37,7 @@ class Connection implements ConnectionInterface
      */
     public function __call($method, array $parameters = [])
     {
-        $builder = $this->getContainer()
-            ->make(
-                'EndyJasmi\Neo4j\QueryInterface',
-                [
-                    'connection' => $this
-                ]
-            );
-
-        return call_user_func_array([$builder, $method], $parameters);
+        return call_user_func_array([$this->createBuilder($this), $method], $parameters);
     }
 
     /**
@@ -92,6 +84,24 @@ class Connection implements ConnectionInterface
             ->commitTransaction($request->toArray());
 
         return $this->createResponse($request, $response);
+    }
+
+    /**
+     * Create builder instance
+     *
+     * @param ConnectionInterface|ResponseInterface Connection instance
+     *
+     * @return QueryInterface Return builder instance
+     */
+    public function createBuilder($connection)
+    {
+        return $this->getContainer()
+            ->make(
+                'EndyJasmi\Neo4j\QueryInterface',
+                [
+                    'connection' => $connection
+                ]
+            );
     }
 
     /**

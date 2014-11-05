@@ -5,6 +5,8 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 class ResponseTest extends TestCase
 {
+    protected $builder;
+
     protected $connection;
 
     protected $errors;
@@ -26,6 +28,7 @@ class ResponseTest extends TestCase
 
     public function setUp()
     {
+        $this->builder = Mockery::mock('EndyJasmi\Neo4j\QueryInterface');
         $this->connection = Mockery::mock('EndyJasmi\Neo4j\ConnectionInterface');
         $this->errors = Mockery::mock('EndyJasmi\Neo4j\Response\ErrorsInterface');
         $this->request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
@@ -363,6 +366,33 @@ class ResponseTest extends TestCase
         $response = new Response($this->connection, $this->request, $this->responseArray);
 
         $result = $response->statement('match n return n');
+
+        $this->assertInstanceOf('EndyJasmi\Neo4j\Response\ResultInterface', $result);
+    }
+
+    public function testRunMagicMethod()
+    {
+        // Mock actions
+        $this->connection->shouldReceive('createBuilder')
+            ->once()
+            ->andReturn($this->builder);
+
+        $this->builder->shouldReceive('run')
+            ->once()
+            ->andReturn($this->result);
+
+        $this->connection->shouldReceive('createErrors')
+            ->once()
+            ->andReturn($this->errors);
+
+        $this->request->shouldReceive('setResponse')
+            ->once()
+            ->andReturn($this->request);
+
+        // Test start here
+        $response = new Response($this->connection, $this->request, $this->responseArray);
+
+        $result = $response->run();
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\Response\ResultInterface', $result);
     }

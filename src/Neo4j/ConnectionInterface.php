@@ -44,6 +44,15 @@ interface ConnectionInterface
     public function commit(RequestInterface $request);
 
     /**
+     * Create builder instance
+     *
+     * @param ConnectionInterface|ResponseInterface Connection instance
+     *
+     * @return QueryInterface Return builder instance
+     */
+    public function createBuilder($connection);
+
+    /**
      * Create response errors
      *
      * @param array $errors Errors array

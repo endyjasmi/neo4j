@@ -5,6 +5,8 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 class ConnectionTest extends TestCase
 {
+    protected $builder;
+
     protected $container;
 
     protected $driver;
@@ -34,6 +36,7 @@ class ConnectionTest extends TestCase
 
     public function setUp()
     {
+        $this->builder = Mockery::mock('EndyJasmi\Neo4j\QueryInterface');
         $this->container = Mockery::mock('Illuminate\Contracts\Container\Container');
         $this->driver = Mockery::mock('EndyJasmi\Neo4j\DriverInterface');
         $this->errors = Mockery::mock('EndyJasmi\Neo4j\Response\ErrorsInterface');
@@ -116,6 +119,21 @@ class ConnectionTest extends TestCase
         $response = $connection->commit($this->request);
 
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
+    }
+
+    public function testCreateBuilderMethod()
+    {
+        // Mock actions
+        $this->container->shouldReceive('make')
+            ->once()
+            ->andReturn($this->builder);
+
+        // Test start here
+        $connection = new Connection($this->container, $this->driver);
+
+        $builder = $connection->createBuilder($connection);
+
+        $this->assertInstanceOf('EndyJasmi\Neo4j\QueryInterface', $builder);
     }
 
     public function testCreateErrorMethod()
@@ -402,5 +420,24 @@ class ConnectionTest extends TestCase
                 $that->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $transaction);
             }
         );
+    }
+
+    public function testRunMagicMethod()
+    {
+        // Mock actions
+        $this->container->shouldReceive('make')
+            ->once()
+            ->andReturn($this->builder);
+
+        $this->builder->shouldReceive('run')
+            ->once()
+            ->andReturn($this->result);
+
+        // Test start here
+        $connection = new Connection($this->container, $this->driver);
+
+        $result = $connection->run();
+
+        $this->assertInstanceOf('EndyJasmi\Neo4j\Response\ResultInterface', $result);
     }
 }

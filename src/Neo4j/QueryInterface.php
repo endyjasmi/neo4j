@@ -17,9 +17,9 @@ interface QueryInterface
     /**
      * Query constructor
      *
-     * @param ConnectionInterface $connection Connection instance
+     * @param ConnectionInterface|ResponseInterface $connection Connection instance
      */
-    public function __construct(ConnectionInterface $connection);
+    public function __construct($connection);
 
     /**
      * Create pattern
@@ -135,6 +135,13 @@ interface QueryInterface
     public function remove($pattern);
 
     /**
+     * Run query
+     *
+     * @return ResultInterface Return result instance
+     */
+    public function run();
+
+    /**
      * Set pattern
      *
      * @param string $pattern Pattern string
@@ -147,9 +154,9 @@ interface QueryInterface
     /**
      * Set connection instance
      *
-     * @param ConnectionInterface $connection Connection instance
+     * @param ConnectionInterface|ResponseInterface $connection Connection instance
      *
      * @return QueryInterface Return self
      */
-    public function setConnection(ConnectionInterface $connection);
+    public function setConnection($connection);
 }
