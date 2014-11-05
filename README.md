@@ -8,7 +8,7 @@ Following the development roadmap for neo4j graph database, cypher are going to 
 
 For more information about cypher query language, you can [refer to the official cypher query language documentation](http://neo4j.com/docs/stable/cypher-query-lang.html).
 
-Most application programming interface(API) of this library are inspired by laravel database adapter. Hence there are also a query builder and object graph mapper(OGM) on the way.
+Most application programming interface(API) of this library are inspired by laravel database adapter.
 
 Head first neo4j library? [go to wiki](https://github.com/endyjasmi/neo4j/wiki).
 
