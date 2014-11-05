@@ -11,6 +11,7 @@ use Buzz\Client\Curl as Client;
 use Buzz\Message\Request;
 use Buzz\Message\Response;
 use EndyJasmi\Neo4j\DriverInterface;
+use InvalidArgumentException;
 
 /**
  * CurlDriver is a concrete implementation of driver interface

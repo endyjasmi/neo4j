@@ -11,7 +11,6 @@ use Buzz\Client\FileGetContents as Client;
 use Buzz\Message\Request;
 use Buzz\Message\Response;
 use EndyJasmi\Neo4j\DriverInterface;
-use InvalidArgumentException;
 
 /**
  * StreamDriver is a concrete implementation of driver interface
