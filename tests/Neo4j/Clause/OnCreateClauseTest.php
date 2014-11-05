@@ -18,6 +18,6 @@ class OnCreateClauseTest extends TestCase
 
         $query = $onCreate->getQuery();
 
-        $this->assertEquals('ON MATCH', $query);
+        $this->assertEquals('ON CREATE', $query);
     }
 }
