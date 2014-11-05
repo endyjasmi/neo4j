@@ -20,13 +20,14 @@ class Container extends IlluminateContainer
     {
         // Basic binding
         $this->bind('EndyJasmi\Neo4j\ConnectionInterface', 'EndyJasmi\Neo4j\Connection');
+        $this->bind('EndyJasmi\Neo4j\QueryInterface', 'EndyJasmi\Neo4j\Query');
         $this->bind('EndyJasmi\Neo4j\RequestInterface', 'EndyJasmi\Neo4j\Request');
         $this->bind('EndyJasmi\Neo4j\Request\StatementInterface', 'EndyJasmi\Neo4j\Request\Statement');
         $this->bind('EndyJasmi\Neo4j\ResponseInterface', 'EndyJasmi\Neo4j\Response');
         $this->bind('EndyJasmi\Neo4j\Response\ErrorsInterface', 'EndyJasmi\Neo4j\Response\Errors');
         $this->bind('EndyJasmi\Neo4j\Response\ResultInterface', 'EndyJasmi\Neo4j\Response\Result');
         $this->bind('EndyJasmi\Neo4j\Response\StatusInterface', 'EndyJasmi\Neo4j\Response\Status');
-        
+
         // Setup config component
         $configPath = $configPath ?: dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config';
 

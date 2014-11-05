@@ -7,12 +7,20 @@
 namespace EndyJasmi\Neo4j;
 
 use EndyJasmi\Neo4j\Clause\ClauseInterface;
+use EndyJasmi\Neo4j\Response\ResultInterface;
 
 /**
  * QueryInterface is an interface for query class
  */
 interface QueryInterface
 {
+    /**
+     * Query constructor
+     *
+     * @param ConnectionInterface $connection Connection instance
+     */
+    public function __construct(ConnectionInterface $connection);
+
     /**
      * Create pattern
      *
@@ -41,6 +49,27 @@ interface QueryInterface
      * @return DeleteInterface Return delete instance
      */
     public function delete($pattern);
+
+    /**
+     * Get first result
+     *
+     * @return mixed|null Return first row or null
+     */
+    public function first();
+
+    /**
+     * Commit query
+     *
+     * @return ResultInterface Return result instance
+     */
+    public function get();
+
+    /**
+     * Get connection instance
+     *
+     * @return ConnectionInterface Return connection instance
+     */
+    public function getConnection();
 
     /**
      * Match pattern
@@ -114,4 +143,13 @@ interface QueryInterface
      * @return ClauseInterface Return set instance
      */
     public function set($pattern, array $parameters = []);
+
+    /**
+     * Set connection instance
+     *
+     * @param ConnectionInterface $connection Connection instance
+     *
+     * @return QueryInterface Return self
+     */
+    public function setConnection(ConnectionInterface $connection);
 }

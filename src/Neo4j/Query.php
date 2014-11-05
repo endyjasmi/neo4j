@@ -31,6 +31,21 @@ class Query implements QueryInterface
     protected $clauses = [];
 
     /**
+     * @var ConnectionInterface Connection instance
+     */
+    protected $connection;
+
+    /**
+     * Query constructor
+     *
+     * @param ConnectionInterface $connection Connection instance
+     */
+    public function __construct(ConnectionInterface $connection)
+    {
+        $this->setConnection($connection);
+    }
+
+    /**
      * Create pattern
      *
      * @param string $pattern Pattern string
@@ -66,6 +81,39 @@ class Query implements QueryInterface
     public function delete($pattern)
     {
         return $this->clauses[] = new DeleteClause($this, $pattern);
+    }
+
+    /**
+     * Get first result
+     *
+     * @return mixed|null Return first row or null
+     */
+    public function first()
+    {
+        $result = $this->get();
+
+        return $result[0];
+    }
+
+    /**
+     * Commit query
+     *
+     * @return ResultInterface Return result instance
+     */
+    public function get()
+    {
+        return $this->getConnection()
+            ->statement($this->string(), $this->parameters());
+    }
+
+    /**
+     * Get connection instance
+     *
+     * @return ConnectionInterface Return connection instance
+     */
+    public function getConnection()
+    {
+        return $this->connection;
     }
 
     /**
@@ -177,6 +225,20 @@ class Query implements QueryInterface
     public function set($pattern, array $parameters = [])
     {
         return $this->clauses[] = new SetClause($this, $pattern, $parameters);
+    }
+
+    /**
+     * Set connection instance
+     *
+     * @param ConnectionInterface $connection Connection instance
+     *
+     * @return QueryInterface Return self
+     */
+    public function setConnection(ConnectionInterface $connection)
+    {
+        $this->connection = $connection;
+
+        return $this;
     }
 
     /**

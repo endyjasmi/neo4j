@@ -28,6 +28,27 @@ class Connection implements ConnectionInterface
     protected $driver;
 
     /**
+     * Redirect to query builder
+     *
+     * @param string $method Method name
+     * @param array $parameters Parameter array
+     *
+     * @return mixed Return query result
+     */
+    public function __call($method, array $parameters = [])
+    {
+        $builder = $this->getContainer()
+            ->make(
+                'EndyJasmi\Neo4j\QueryInterface',
+                [
+                    'connection' => $this
+                ]
+            );
+
+        return call_user_func_array([$builder, $method], $parameters);
+    }
+
+    /**
      * Connection constructor
      *
      * @param ContainerInterface $container Container instance
