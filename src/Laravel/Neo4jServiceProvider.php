@@ -58,6 +58,7 @@ class Neo4jServiceProvider extends ServiceProvider
     {
         return [
             'EndyJasmi\Neo4j\ConnectionInterface',
+            'EndyJasmi\Neo4j\QueryInterface',
             'EndyJasmi\Neo4j\RequestInterface',
             'EndyJasmi\Neo4j\Request\StatementInterface',
             'EndyJasmi\Neo4j\ResponseInterface',
