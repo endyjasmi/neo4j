@@ -139,7 +139,8 @@ class QueryTest extends TestCase
     {
         $query = new Query($this->connection);
 
-        $parameters = $query->parameters();
+        $parameters = $query->match('n')
+            ->parameters();
 
         $this->assertEmpty($parameters);
     }
@@ -190,9 +191,9 @@ class QueryTest extends TestCase
     {
         $query = new Query($this->connection);
 
-        $string = $query->string();
+        $string = $query->match('n')->string();
 
-        $this->assertEquals('', $string);
+        $this->assertEquals('MATCH n', $string);
     }
 
     public function testWithMethod()
