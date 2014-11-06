@@ -22,7 +22,7 @@ class Neo4jServiceProvider extends ServiceProvider
     {
         $this->app['validator']->resolver(
             function ($translator, $data, $rules, $messages) use ($neo4j) {
-                return new Neo4jValidator($translator, $data, $rules, $messages, $neo4j);
+                return new Neo4jValidator($translator, $data, $rules, $messages, [], $neo4j);
             }
         );
     }
