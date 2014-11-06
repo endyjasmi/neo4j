@@ -22,19 +22,6 @@ class Neo4jServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
-     * Post registration hook
-     */
-    public function boot()
-    {
-        $this->app->bindShared(
-            'neo4j',
-            function ($app) {
-                return new Neo4j(null, $app);
-            }
-        );
-    }
-
-    /**
      * Register the service provider.
      */
     public function register()
@@ -47,6 +34,16 @@ class Neo4jServiceProvider extends ServiceProvider
         $this->app->bind('EndyJasmi\Neo4j\Response\ErrorsInterface', 'EndyJasmi\Neo4j\Response\Errors');
         $this->app->bind('EndyJasmi\Neo4j\Response\ResultInterface', 'EndyJasmi\Neo4j\Response\Result');
         $this->app->bind('EndyJasmi\Neo4j\Response\StatusInterface', 'EndyJasmi\Neo4j\Response\Status');
+
+        $this->app->bind('EndyJasmi\Neo4jInterface', 'EndyJasmi\Neo4j');
+        $this->app->bind('neo4j', 'EndyJasmi\Neo4j');
+
+        $this->app->bindShared(
+            'EndyJasmi\Neo4j',
+            function ($app) {
+                return new Neo4j(null, $app);
+            }
+        );
     }
 
     /**
