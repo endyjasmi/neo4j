@@ -1,6 +1,4 @@
 Feature:
- ☐ Localization
- ☐ Pagination
  ☐ Authentication
  ☐ Command line interface
  ☐ Access control list
@@ -12,6 +10,8 @@ Keep in view:
  ☐ Object graph mapper
  ☐ Schema builder
  ☐ Migration and seeding
+ ☐ Localization
+ ☐ Pagination
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
  ✔ Validation @done (14-11-06 15:45) @project(Feature)
