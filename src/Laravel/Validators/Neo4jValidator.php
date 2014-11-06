@@ -37,7 +37,13 @@ class Neo4jValidator extends Validator
     }
 
     /**
-     * Custom validation rules
+     * Validate unique node with target property and value
+     *
+     * @param string $attribute Attribute name
+     * @param mixed $value Attribute value
+     * @param array $parameters Validation parameter
+     *
+     * @return boolean Return true if passed, false otherwise
      */
     public function validateUniqueNode($attribute, $value, $parameters)
     {
