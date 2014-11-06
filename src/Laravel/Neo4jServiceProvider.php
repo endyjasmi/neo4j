@@ -22,6 +22,18 @@ class Neo4jServiceProvider extends ServiceProvider
     protected $defer = true;
 
     /**
+     * Post register setup
+     */
+    public function boot(validator $validator, neo4j $neo4j)
+    {
+        $validator->resolver(
+            function ($translator, $data, $rules, $messages) use ($neo4j) {
+                return new Neo4jValidator($translator, $data, $rules, $messages, $neo4j);
+            }
+        );
+    }
+
+    /**
      * Register the service provider.
      */
     public function register()
