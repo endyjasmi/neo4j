@@ -16,13 +16,6 @@ use Illuminate\Support\ServiceProvider;
 class Neo4jServiceProvider extends ServiceProvider
 {
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
-    /**
      * Post register setup
      */
     public function boot(Neo4j $neo4j)
@@ -57,26 +50,5 @@ class Neo4jServiceProvider extends ServiceProvider
                 return new Neo4j(null, $app);
             }
         );
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return [
-            'EndyJasmi\Neo4j\ConnectionInterface',
-            'EndyJasmi\Neo4j\QueryInterface',
-            'EndyJasmi\Neo4j\RequestInterface',
-            'EndyJasmi\Neo4j\Request\StatementInterface',
-            'EndyJasmi\Neo4j\ResponseInterface',
-            'EndyJasmi\Neo4j\Response\ErrorsInterface',
-            'EndyJasmi\Neo4j\Response\ResultInterface',
-            'EndyJasmi\Neo4j\Response\StatusInterface',
-            'EndyJasmi\Neo4jInterface',
-            'neo4j'
-        ];
     }
 }
