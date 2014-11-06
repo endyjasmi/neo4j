@@ -1,7 +1,4 @@
 Feature:
- ☐ Object graph mapper
- ☐ Schema builder
- ☐ Migration and seeding
  ☐ Authentication
  ☐ Cache
  ☐ Log
@@ -13,6 +10,11 @@ Feature:
 
 Documentation:
  ☐ Contribution guide
+
+Keep in view:
+ ☐ Object graph mapper
+ ☐ Schema builder
+ ☐ Migration and seeding
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
  ✔ Query builder @done (14-11-06 09:41) @project(Documentation)
