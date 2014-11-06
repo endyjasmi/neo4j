@@ -62,6 +62,7 @@ class Neo4jServiceProvider extends ServiceProvider
             'EndyJasmi\Neo4j\Response\ErrorsInterface',
             'EndyJasmi\Neo4j\Response\ResultInterface',
             'EndyJasmi\Neo4j\Response\StatusInterface',
+            'EndyJasmi\Neo4jInterface',
             'neo4j'
         ];
     }
