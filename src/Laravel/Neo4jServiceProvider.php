@@ -40,7 +40,7 @@ class Neo4jServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('EndyJasmi\Neo4j\ConnectionInterface', 'EndyJasmi\Neo4j\Connection');
-        $this->bind('EndyJasmi\Neo4j\QueryInterface', 'EndyJasmi\Neo4j\Query');
+        $this->app->bind('EndyJasmi\Neo4j\QueryInterface', 'EndyJasmi\Neo4j\Query');
         $this->app->bind('EndyJasmi\Neo4j\RequestInterface', 'EndyJasmi\Neo4j\Request');
         $this->app->bind('EndyJasmi\Neo4j\Request\StatementInterface', 'EndyJasmi\Neo4j\Request\Statement');
         $this->app->bind('EndyJasmi\Neo4j\ResponseInterface', 'EndyJasmi\Neo4j\Response');
