@@ -1,10 +1,8 @@
 Feature:
- ☐ Authentication
- ☐ Cache
- ☐ Log
+ ☐ Validation
  ☐ Localization
  ☐ Pagination
- ☐ Validation
+ ☐ Authentication
  ☐ Command line interface
  ☐ Access control list
 
