@@ -56,6 +56,6 @@ class Neo4jValidator extends Validator
             ->output('count(node)', 'count')
             ->run();
 
-        return $result[0]['count'] > 0;
+        return $result[0]['count'] < 1;
     }
 }
