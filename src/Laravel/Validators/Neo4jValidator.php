@@ -29,8 +29,14 @@ class Neo4jValidator extends Validator
      * @param  array  $messages
      * @param  array  $customAttributes
      */
-    public function __construct(TranslatorInterface $translator, array $data, array $rules, array $messages = array(), array $customAttributes = array(), Neo4j $neo4j)
-    {
+    public function __construct(
+        TranslatorInterface $translator,
+        array $data,
+        array $rules,
+        array $messages = array(),
+        array $customAttributes = array(),
+        Neo4j $neo4j = null
+    ) {
         parent::__construct($translator, $data, $rules, $messages, $customAttributes);
 
         $this->neo4j = $neo4j;
