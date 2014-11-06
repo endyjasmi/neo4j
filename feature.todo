@@ -1,7 +1,8 @@
 Feature:
- ☐ Authentication
  ☐ Command line interface
+ ☐ Authentication
  ☐ Access control list
+ ☐ OAuth2
 
 Documentation:
  ☐ Contribution guide
