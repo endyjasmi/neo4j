@@ -25,9 +25,9 @@ class Neo4jServiceProvider extends ServiceProvider
     /**
      * Post register setup
      */
-    public function boot(\validator $validator, \neo4j $neo4j)
+    public function boot(Neo4j $neo4j)
     {
-        $validator->resolver(
+        $this->app['validator']->resolver(
             function ($translator, $data, $rules, $messages) use ($neo4j) {
                 return new Neo4jValidator($translator, $data, $rules, $messages, $neo4j);
             }
