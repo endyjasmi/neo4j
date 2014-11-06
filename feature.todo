@@ -13,9 +13,9 @@ Feature:
 
 Documentation:
  ☐ Contribution guide
- ☐ Query builder
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Query builder @done (14-11-06 09:41) @project(Documentation)
  ✔ Configuration @done (14-11-05 11:52) @project(Documentation)
  ✔ Basic usage @done (14-11-05 11:52) @project(Documentation)
   Connection, events, status, collection
