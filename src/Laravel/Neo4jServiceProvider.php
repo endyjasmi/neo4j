@@ -7,6 +7,7 @@
 namespace EndyJasmi\Laravel;
 
 use EndyJasmi\Neo4j;
+use EndyJasmi\Laravel\Validators\Neo4jValidator;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -24,7 +25,7 @@ class Neo4jServiceProvider extends ServiceProvider
     /**
      * Post register setup
      */
-    public function boot(validator $validator, neo4j $neo4j)
+    public function boot(\validator $validator, \neo4j $neo4j)
     {
         $validator->resolver(
             function ($translator, $data, $rules, $messages) use ($neo4j) {
