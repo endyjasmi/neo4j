@@ -1,0 +1,26 @@
+Feature:
+ ☐ Use illuminate 4.*
+ ☐ Use factory for object creation
+ ☐ Query manager
+
+Documentation:
+ ☐ Contribution guide
+
+Archive:
+ ✔ Remove config dependency @done (14-11-25 15:45) @project(Feature)
+ ✔ Remove query builder @done (14-11-25 15:32) @project(Feature)
+ ✔ Use gulp builder @done (14-11-25 15:23) @project(Feature)
+ ✔ Validation @done (14-11-06 15:45) @project(Feature)
+ ✔ Query builder @done (14-11-06 09:41) @project(Documentation)
+ ✔ Transaction @done (14-11-05 11:52) @project(Documentation)
+ ✔ Query builder @done (14-11-05 11:52) @project(Feature)
+ ✔ Laravel 5 @done (14-11-05 11:52) @project(Documentation)
+ ✔ Error handling @done (14-11-05 11:52) @project(Documentation)
+ ✔ Configuration @done (14-11-05 11:52) @project(Documentation)
+ ✔ Basic usage @done (14-11-05 11:52) @project(Documentation)
+  Connection, events, status, collection
+ ✔ Installation @done (14-10-31 15:51) @project(Documentation)
+ ✔ Home @done (14-10-31 15:51) @project(Documentation)
+ ✔ Event @done (14-10-31 11:46) @project(Feature)
+ ✔ Service provider @done (14-10-31 11:45) @project(Feature)
+ ✔ Facades @done (14-10-31 11:45) @project(Feature)

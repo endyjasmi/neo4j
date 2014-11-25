@@ -1,0 +1,8 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-phpcs": "^0.2.1",
+    "gulp-phpunit": "^0.7.0"
+  }
+}
