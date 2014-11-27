@@ -9,6 +9,13 @@ use InvalidArgumentException;
 abstract class AbstractDriver implements DriverInterface
 {
     /**
+     * Create client instance
+     *
+     * @return ClientInterface
+     */
+    abstract public function createClient();
+
+    /**
      * @var array
      */
     protected $options = [
