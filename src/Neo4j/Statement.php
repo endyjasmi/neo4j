@@ -75,6 +75,10 @@ class Statement extends Collection implements StatementInterface
      */
     public function setQuery($query)
     {
+        if (! is_string($query)) {
+            throw new InvalidArgumentException('$query is not string.');
+        }
+
         $this->put('statement', $query);
 
         return $this;

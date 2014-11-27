@@ -69,6 +69,18 @@ class StatementTest extends TestCase
         $this->assertSame($statement, $self);
     }
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testSetQueryMethodThrowsInvalidArgumentException()
+    {
+        // Given
+        $statement = new Statement($this->query);
+
+        // When
+        $statement->setQuery(123);
+    }
+
     public function testSetResultMethod()
     {
         // Given
