@@ -1,3 +1,4 @@
+/src/Neo4j/Error/
 /node_modules/
 /vendor/
 composer.lock
