@@ -80,7 +80,7 @@ class Connection implements ConnectionInterface
 
         list($id, $response) = $output;
 
-        $response = $this->createResponse($request, $response, $id);
+        $response = $this->createResponse($request, $response);
         $request->setResponse($response);
 
         return $response;
@@ -145,7 +145,7 @@ class Connection implements ConnectionInterface
 
         list($id, $response) = $output;
 
-        $response = $this->createResponse($request, $response, $id);
+        $response = $this->createResponse($request, $response);
         $request->setResponse($response);
 
         return $response;
