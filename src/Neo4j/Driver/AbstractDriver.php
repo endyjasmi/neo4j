@@ -139,7 +139,7 @@ abstract class AbstractDriver implements DriverInterface
         $content = $response->getContent();
         $response = json_decode($content, true);
 
-        return [$id, $response];
+        return [(int) $id, $response];
     }
 
     /**
@@ -173,7 +173,7 @@ abstract class AbstractDriver implements DriverInterface
         $content = $response->getContent();
         $response = json_decode($content, true);
 
-        return [$id, $response];
+        return [(int) $id, $response];
     }
 
     /**
@@ -203,7 +203,7 @@ abstract class AbstractDriver implements DriverInterface
         $content = $response->getContent();
         $response = json_decode($content, true);
 
-        return [$id, $response];
+        return [(int) $id, $response];
     }
 
     /**
@@ -274,7 +274,7 @@ abstract class AbstractDriver implements DriverInterface
         $content = $response->getContent();
         $response = json_decode($content, true);
 
-        return [$id, $response];
+        return [(int) $id, $response];
     }
 
     /**
