@@ -61,7 +61,9 @@ class Statement extends Collection implements StatementInterface
      */
     public function setParameters(array $parameters)
     {
-        $this->put('parameters', $parameters);
+        if (count($parameters)) {
+            $this->put('parameters', $parameters);
+        }
 
         return $this;
     }
