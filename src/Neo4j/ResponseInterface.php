@@ -15,7 +15,7 @@ interface ResponseInterface extends ConnectionManagerInterface, CollectionInterf
      * @param array $response
      * @param integer $id
      * @param boolean $throws
-     * @throws InvalidArgumentException If $id is not null and integer
+     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function __construct(
         FactoryInterface $factory,
@@ -52,7 +52,7 @@ interface ResponseInterface extends ConnectionManagerInterface, CollectionInterf
      *
      * @param null|integer $id
      * @return ResponseInterface
-     * @throws InvalidArgumentException If $id is not null and integer
+     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function setId($id);
 

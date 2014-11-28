@@ -32,7 +32,7 @@ class Response extends Collection implements ResponseInterface
      * @param array $response
      * @param integer $id
      * @param boolean $throws
-     * @throws InvalidArgumentException If $id is not null and integer
+     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function __construct(
         FactoryInterface $factory,
@@ -95,7 +95,7 @@ class Response extends Collection implements ResponseInterface
      *
      * @param null|integer $id
      * @return ResponseInterface
-     * @throws InvalidArgumentException If $id is not null and integer
+     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function setId($id)
     {
