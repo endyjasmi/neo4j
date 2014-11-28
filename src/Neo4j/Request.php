@@ -156,4 +156,16 @@ class Request extends Collection implements RequestInterface
 
         return $this->pushStatement($statement);
     }
+
+    /**
+     * Convert to array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'statements' => parent::toArray()
+        ];
+    }
 }

@@ -174,4 +174,16 @@ class RequestTest extends TestCase
         // Expect
         $this->assertSame($request, $self);
     }
+
+    public function testToArrayMethod()
+    {
+        // Given
+        $request = new Request($this->factory, $this->connection, $this->id);
+
+        // When
+        $array = $request->toArray();
+
+        // Expect
+        $this->assertArrayHasKey('statements', $array);
+    }
 }
