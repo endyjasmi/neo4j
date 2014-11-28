@@ -100,7 +100,7 @@ class Response extends Collection implements ResponseInterface
     public function setId($id)
     {
         if (! is_null($id) && ! is_integer($id)) {
-            throw new InvalidArgumentException('$id is not a null or integer');
+            throw new InvalidArgumentException('$id is not a null or integer.');
         }
 
         $this->id = $id;
