@@ -27,6 +27,20 @@ interface ResponseInterface extends ConnectionManagerInterface, CollectionInterf
     );
 
     /**
+     * Commit transaction
+     *
+     * @return ResponseInterface
+     */
+    public function commit();
+
+    /**
+     * Create request instance
+     *
+     * @return RequestInterface
+     */
+    public function createRequest();
+
+    /**
      * Get error instance
      *
      * @return ErrorInterface
@@ -48,6 +62,13 @@ interface ResponseInterface extends ConnectionManagerInterface, CollectionInterf
     public function getRequest();
 
     /**
+     * Rollback transaction
+     *
+     * @return ResponseInterface
+     */
+    public function rollback();
+
+    /**
      * Set response id
      *
      * @param null|integer $id
@@ -63,4 +84,14 @@ interface ResponseInterface extends ConnectionManagerInterface, CollectionInterf
      * @return ResponseInterface
      */
     public function setRequest(RequestInterface $request);
+
+    /**
+     * Run statement
+     *
+     * @param string $query
+     * @param array $parameters
+     * @return ResultInterface
+     * @throws InvalidArgumentException If $query is not string
+     */
+    public function statement($query, array $parameters = []);
 }

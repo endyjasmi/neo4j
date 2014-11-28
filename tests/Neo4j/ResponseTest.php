@@ -61,6 +61,45 @@ class ResponseTest extends TestCase
             ->once();
     }
 
+    public function testCommitMethod()
+    {
+        // Given
+        $response = new Response($this->factory, $this->connection, $this->request, $this->response);
+
+        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
+        $this->connection->shouldReceive('createRequest')
+            ->once()
+            ->andReturn($request);
+
+        $commitResponse = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
+        $request->shouldReceive('commit')
+            ->once()
+            ->andReturn($commitResponse);
+
+        // When
+        $response = $response->commit();
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
+    }
+
+    public function testCreateRequestMethod()
+    {
+        // Given
+        $response = new Response($this->factory, $this->connection, $this->request, $this->response);
+
+        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
+        $this->connection->shouldReceive('createRequest')
+            ->once()
+            ->andReturn($request);
+
+        // When
+        $request = $response->createRequest();
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\RequestInterface', $request);
+    }
+
     public function testGetErrorsMethod()
     {
         // Given
@@ -97,6 +136,28 @@ class ResponseTest extends TestCase
         $this->assertSame($this->request, $request);
     }
 
+    public function testRollbackMethod()
+    {
+        // Given
+        $response = new Response($this->factory, $this->connection, $this->request, $this->response);
+
+        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
+        $this->connection->shouldReceive('createRequest')
+            ->once()
+            ->andReturn($request);
+
+        $rollbackResponse = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
+        $this->connection->shouldReceive('rollback')
+            ->once()
+            ->andReturn($rollbackResponse);
+
+        // When
+        $response = $response->rollback();
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
+    }
+
     public function testSetIdMethod()
     {
         // Given
@@ -131,5 +192,41 @@ class ResponseTest extends TestCase
 
         // Expect
         $this->assertSame($response, $self);
+    }
+
+    public function testStatementMethod()
+    {
+        // Given
+        $response = new Response($this->factory, $this->connection, $this->request, $this->response);
+
+        $statement = Mockery::mock('EndyJasmi\Neo4j\StatementInterface');
+        $this->factory->shouldReceive('createStatement')
+            ->once()
+            ->andReturn($statement);
+
+        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
+        $this->connection->shouldReceive('createRequest')
+            ->once()
+            ->andReturn($request);
+
+        $request->shouldReceive('pushStatement')
+            ->once()
+            ->andReturn($request);
+
+        $request->shouldReceive('execute')
+            ->once();
+
+        $result = Mockery::mock('EndyJasmi\Neo4j\ResultInterface');
+        $statement->shouldReceive('getResult')
+            ->once()
+            ->andReturn($result);
+
+        $query = 'MATCH n RETURN n';
+
+        // When
+        $result = $response->statement($query);
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\ResultInterface', $result);
     }
 }

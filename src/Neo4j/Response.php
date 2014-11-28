@@ -61,6 +61,28 @@ class Response extends Collection implements ResponseInterface
     }
 
     /**
+     * Commit transaction
+     *
+     * @return ResponseInterface
+     */
+    public function commit()
+    {
+        return $this->createRequest()
+            ->commit();
+    }
+
+    /**
+     * Create request instance
+     *
+     * @return RequestInterface
+     */
+    public function createRequest()
+    {
+        return $this->getConnection()
+            ->createRequest($this->getId());
+    }
+
+    /**
      * Get error instance
      *
      * @return ErrorInterface
@@ -88,6 +110,19 @@ class Response extends Collection implements ResponseInterface
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * Rollback transaction
+     *
+     * @return ResponseInterface
+     */
+    public function rollback()
+    {
+        $request = $this->createRequest();
+
+        return $this->getConnection()
+            ->rollback($request);
     }
 
     /**
@@ -119,5 +154,25 @@ class Response extends Collection implements ResponseInterface
         $this->request = $request;
 
         return $this;
+    }
+
+    /**
+     * Run statement
+     *
+     * @param string $query
+     * @param array $parameters
+     * @return ResultInterface
+     * @throws InvalidArgumentException If $query is not string
+     */
+    public function statement($query, array $parameters = [])
+    {
+        $statement = $this->getFactory()
+            ->createStatement($query, $parameters);
+
+        $this->createRequest()
+            ->pushStatement($statement)
+            ->execute();
+
+        return $statement->getResult();
     }
 }
