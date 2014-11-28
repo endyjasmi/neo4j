@@ -1,15 +1,26 @@
 <?php namespace EndyJasmi;
 
 use EndyJasmi\Neo4j\DriverInterface;
+use EndyJasmi\Neo4j\FactoryInterface;
+use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
 
-interface Neo4jInterface
+interface Neo4jInterface extends FactoryManagerInterface
 {
     /**
      * Neo4j constructor
      *
      * @param array $options
+     * @param FactoryInterface $factory
      */
-    public function __construct(array $options = []);
+    public function __construct(array $options = [], FactoryInterface $factory = null);
+
+    /**
+     * Get a connection instance
+     *
+     * @param string $connection
+     * @return ConnectionInterface
+     */
+    public function connection($connection = null);
 
     /**
      * Get a driver instance
