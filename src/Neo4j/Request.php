@@ -120,7 +120,7 @@ class Request extends Collection implements RequestInterface
     public function setId($id)
     {
         if (! is_null($id) && ! is_integer($id)) {
-            throw new InvalidArgumentException('$id is not integer.');
+            throw new InvalidArgumentException('$id is not a null or integer.');
         }
 
         $this->id = $id;
