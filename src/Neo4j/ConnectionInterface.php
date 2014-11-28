@@ -1,6 +1,7 @@
 <?php namespace EndyJasmi\Neo4j;
 
 use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
+use InvalidArgumentException;
 
 interface ConnectionInterface extends CollectionInterface, FactoryManagerInterface
 {
@@ -45,6 +46,17 @@ interface ConnectionInterface extends CollectionInterface, FactoryManagerInterfa
     public function execute(RequestInterface $request);
 
     /**
+     * Fire event listener
+     *
+     * @param string $query
+     * @param array $parameters
+     * @param float $time
+     * @throws InvalidArgumentException If $query is not string
+     * @throws InvalidArgumentException If $time is not float
+     */
+    public function fire($query, array $parameters, $time);
+
+    /**
      * Get driver instance
      *
      * @return DriverInterface
@@ -57,6 +69,14 @@ interface ConnectionInterface extends CollectionInterface, FactoryManagerInterfa
      * @return null|ResponseInterface
      */
     public function getTransaction();
+
+    /**
+     * Listen to event
+     *
+     * @param callable $listener
+     * @return ConnectionInterface
+     */
+    public function listen(callable $listener);
 
     /**
      * Pop transaction instance

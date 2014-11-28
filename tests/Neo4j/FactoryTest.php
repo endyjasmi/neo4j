@@ -11,6 +11,9 @@ class FactoryTest extends TestCase
 
         $this->container->shouldReceive('bind')
             ->times(7);
+
+        $this->container->shouldReceive('bindShared')
+            ->once();
     }
 
     public function testCreateConnectionMethod()

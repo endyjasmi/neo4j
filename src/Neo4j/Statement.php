@@ -10,6 +10,16 @@ class Statement extends Collection implements StatementInterface
     protected $result;
 
     /**
+     * @var float
+     */
+    protected $start;
+
+    /**
+     * @var float
+     */
+    protected $time;
+
+    /**
      * Statement constructor
      *
      * @param string $query
@@ -21,6 +31,8 @@ class Statement extends Collection implements StatementInterface
         $this->setQuery($query)
             ->setParameters($parameters)
             ->put('includeStats', true);
+
+            $this->start = microtime(true);
     }
 
     /**
@@ -51,6 +63,16 @@ class Statement extends Collection implements StatementInterface
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * Get statement tile
+     *
+     * @return null|float
+     */
+    public function getTime()
+    {
+        return $this->time;
     }
 
     /**
@@ -95,6 +117,8 @@ class Statement extends Collection implements StatementInterface
     public function setResult(ResultInterface $result)
     {
         $this->result = $result;
+
+        $this->time = microtime(true) - $this->start;
 
         return $this;
     }

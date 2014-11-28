@@ -11,9 +11,33 @@ class Factory implements FactoryInterface
     protected $container;
 
     /**
+     * Bind event component
+     *
+     * @param Containter Container
+     * @return Factory
+     */
+    protected function bindEvent(Container $container)
+    {
+        $container->bindShared(
+            'events',
+            function (Container $container) {
+                return $container->make(
+                    'Illuminate\Events\Dispatcher',
+                    [
+                        'container' => $container
+                    ]
+                );
+            }
+        );
+
+        return $this;
+    }
+
+    /**
      * Bind interfaces
      *
      * @param Container $container
+     * @return Factory
      */
     protected function bindInterfaces(Container $container)
     {
@@ -24,6 +48,8 @@ class Factory implements FactoryInterface
         $container->bind('EndyJasmi\Neo4j\ResultInterface', 'EndyJasmi\Neo4j\Result');
         $container->bind('EndyJasmi\Neo4j\StatementInterface', 'EndyJasmi\Neo4j\Statement');
         $container->bind('EndyJasmi\Neo4j\StatusInterface', 'EndyJasmi\Neo4j\Status');
+
+        return $this;
     }
 
     /**
@@ -36,7 +62,8 @@ class Factory implements FactoryInterface
         $container = $container ?: new Container;
 
         $this->setContainer($container)
-            ->bindInterfaces($container);
+            ->bindInterfaces($container)
+            ->bindEvent($container);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php namespace EndyJasmi\Neo4j;
 
 use EndyJasmi\Neo4j\Manager\FactoryManagerTrait;
+use InvalidArgumentException;
 
 class Connection extends Collection implements ConnectionInterface
 {
@@ -10,6 +11,11 @@ class Connection extends Collection implements ConnectionInterface
      * @var DriverInterface
      */
     protected $driver;
+
+    /**
+     * @var array
+     */
+    protected $transaction = [];
 
     /**
      * Create response instance
@@ -133,6 +139,31 @@ class Connection extends Collection implements ConnectionInterface
     }
 
     /**
+     * Fire event listener
+     *
+     * @param string $query
+     * @param array $parameters
+     * @param float $time
+     * @throws InvalidArgumentException If $query is not string
+     * @throws InvalidArgumentException If $time is not float
+     */
+    public function fire($query, array $parameters, $time)
+    {
+        if (! is_string($query)) {
+            throw new InvalidArgumentException('$query is not string.');
+        }
+
+        if (! is_float($time)) {
+            throw new InvalidArgumentException('$time is not float.');
+        }
+
+        $container = $this->getFactory()
+            ->getContainer();
+
+        $container['events']->fire('neo4j.query', [$query, $parameters, $time]);
+    }
+
+    /**
      * Get driver instance
      *
      * @return DriverInterface
@@ -150,6 +181,20 @@ class Connection extends Collection implements ConnectionInterface
     public function getTransaction()
     {
         return $this->last();
+    }
+
+    /**
+     * Listen to event
+     *
+     * @param callable $listener
+     * @return ConnectionInterface
+     */
+    public function listen(callable $listener)
+    {
+        $container = $this->getFactory()
+            ->getContainer();
+
+        $container['events']->listen('neo4j.query', $listener);
     }
 
     /**

@@ -35,6 +35,13 @@ interface StatementInterface extends CollectionInterface
     public function getResult();
 
     /**
+     * Get statement tile
+     *
+     * @return null|float
+     */
+    public function getTime();
+
+    /**
      * Set statement parameters
      *
      * @param array $parameters
