@@ -159,7 +159,7 @@ abstract class AbstractDriver implements DriverInterface
 
         // Initial setup
         $method = 'post';
-        $path = '/db/data/trasanction/commit';
+        $path = '/db/data/transaction/commit';
 
         if (is_integer($id)) {
             $path = str_replace('/commit', "/$id/commit", $path);
