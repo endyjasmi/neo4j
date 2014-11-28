@@ -2,7 +2,7 @@
 
 use EndyJasmi\Neo4j\Manager\FactoryManagerTrait;
 
-class Connection implements ConnectionInterface
+class Connection extends Collection implements ConnectionInterface
 {
     use FactoryManagerTrait;
 
@@ -61,6 +61,8 @@ class Connection implements ConnectionInterface
         $response = $this->createResponse($request, $response, $id);
         $request->setResponse($response);
 
+        $this->pushTransaction($response);
+
         return $response;
     }
 
@@ -70,8 +72,10 @@ class Connection implements ConnectionInterface
      * @param RequestInterface
      * @return ResponseInterface
      */
-    public function commit(RequestInterface $request)
+    public function commit(RequestInterface $request = null)
     {
+        $request = $request ?: $this->createRequest();
+
         $input = $request->toArray();
         $id = $request->getId();
 
@@ -82,6 +86,8 @@ class Connection implements ConnectionInterface
 
         $response = $this->createResponse($request, $response);
         $request->setResponse($response);
+
+        $this->popTransaction();
 
         return $response;
     }
@@ -94,6 +100,12 @@ class Connection implements ConnectionInterface
      */
     public function createRequest($id = null)
     {
+        $transaction = $this->getTransaction();
+
+        if (is_null($id) && ! is_null($transaction)) {
+            $id = $transaction->getId();
+        }
+
         return $this->getFactory()
             ->createRequest($this, $id);
     }
@@ -131,13 +143,48 @@ class Connection implements ConnectionInterface
     }
 
     /**
+     * Get last transaction instance
+     *
+     * @return null|ResponseInterface
+     */
+    public function getTransaction()
+    {
+        return $this->last();
+    }
+
+    /**
+     * Pop transaction instance
+     *
+     * @return null|ResponseInterface
+     */
+    public function popTransaction()
+    {
+        return $this->pop();
+    }
+
+    /**
+     * Push transaction instance
+     *
+     * @param ResponseInterface $transaction
+     * @return ConnectionInterface
+     */
+    public function pushTransaction(ResponseInterface $transaction)
+    {
+        $this->push($transaction);
+
+        return $this;
+    }
+
+    /**
      * Rollback transaction
      *
      * @param RequestInterface $request
      * @return ResponseInterface
      */
-    public function rollback(RequestInterface $request)
+    public function rollback(RequestInterface $request = null)
     {
+        $request = $request ?: $this->createRequest();
+
         $id = $request->getId();
 
         $output = $this->getDriver()
@@ -147,6 +194,8 @@ class Connection implements ConnectionInterface
 
         $response = $this->createResponse($request, $response);
         $request->setResponse($response);
+
+        $this->popTransaction();
 
         return $response;
     }
@@ -174,12 +223,19 @@ class Connection implements ConnectionInterface
      */
     public function statement($query, array $parameters = [])
     {
+        $transaction = $this->getTransaction();
+
         $statement = $this->getFactory()
             ->createStatement($query, $parameters);
 
-        $this->createRequest()
-            ->pushStatement($statement)
-            ->commit();
+        $request = $this->createRequest()
+            ->pushStatement($statement);
+
+        if (is_null($transaction)) {
+            $request->commit();
+        } else {
+            $request->execute();
+        }
 
         return $statement->getResult();
     }

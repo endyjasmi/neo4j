@@ -2,7 +2,7 @@
 
 use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
 
-interface ConnectionInterface extends FactoryManagerInterface
+interface ConnectionInterface extends CollectionInterface, FactoryManagerInterface
 {
     /**
      * Connection constructor
@@ -26,7 +26,7 @@ interface ConnectionInterface extends FactoryManagerInterface
      * @param RequestInterface
      * @return ResponseInterface
      */
-    public function commit(RequestInterface $request);
+    public function commit(RequestInterface $request = null);
 
     /**
      * Create request instance
@@ -52,12 +52,34 @@ interface ConnectionInterface extends FactoryManagerInterface
     public function getDriver();
 
     /**
+     * Get last transaction instance
+     *
+     * @return null|ResponseInterface
+     */
+    public function getTransaction();
+
+    /**
+     * Pop transaction instance
+     *
+     * @return null|ResponseInterface
+     */
+    public function popTransaction();
+
+    /**
+     * Push transaction instance
+     *
+     * @param ResponseInterface $transaction
+     * @return ConnectionInterface
+     */
+    public function pushTransaction(ResponseInterface $transaction);
+
+    /**
      * Rollback transaction
      *
      * @param RequestInterface $request
      * @return ResponseInterface
      */
-    public function rollback(RequestInterface $request);
+    public function rollback(RequestInterface $request = null);
 
     /**
      * Set driver instance

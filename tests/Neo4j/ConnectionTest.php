@@ -155,6 +155,44 @@ class ConnectionTest extends TestCase
         $this->assertSame($this->driver, $driver);
     }
 
+    public function testGetTransactionMethod()
+    {
+        // Given
+        $connection = new Connection($this->factory, $this->driver);
+
+        // When
+        $transaction = $connection->getTransaction();
+
+        // Expect
+        $this->assertNull($transaction);
+    }
+
+    public function testPopTransactionMethod()
+    {
+        // Given
+        $connection = new Connection($this->factory, $this->driver);
+
+        // When
+        $transaction = $connection->popTransaction();
+
+        // Expect
+        $this->assertNull($transaction);
+    }
+
+    public function testPushTransactionMethod()
+    {
+        // Given
+        $connection = new Connection($this->factory, $this->driver);
+
+        $transaction = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
+
+        // When
+        $self = $connection->pushTransaction($transaction);
+
+        // Expect
+        $this->assertSame($connection, $self);
+    }
+
     public function testRollbackMethod()
     {
         // Given
