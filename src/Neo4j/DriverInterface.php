@@ -25,7 +25,7 @@ interface DriverInterface
      * @param array $request
      * @param null|integer $id
      * @return array
-     * @throws InvalidArgumentException If $id is not null and integer
+     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function commit(array $request, $id = null);
 

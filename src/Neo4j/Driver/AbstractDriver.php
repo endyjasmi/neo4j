@@ -40,11 +40,11 @@ abstract class AbstractDriver implements DriverInterface
     {
         // Validate arguments
         if (! is_string($method)) {
-            throw new InvalidArgumentException('$method is not string.');
+            throw new InvalidArgumentException('$method is not a string.');
         }
 
         if (! is_string($path)) {
-            throw new InvalidArgumentException('$path is not string.');
+            throw new InvalidArgumentException('$path is not a string.');
         }
 
         // Initial setup
@@ -148,13 +148,13 @@ abstract class AbstractDriver implements DriverInterface
      * @param array $request
      * @param null|integer $id
      * @return array
-     * @throws InvalidArgumentException If $id is not null and integer
+     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function commit(array $request, $id = null)
     {
         // Validate arguments
         if (! is_null($id) && ! is_integer($id)) {
-            throw new InvalidArgumentException('$id is not null and integer.');
+            throw new InvalidArgumentException('$id is not a null or integer.');
         }
 
         // Initial setup
@@ -188,7 +188,7 @@ abstract class AbstractDriver implements DriverInterface
     {
         // Validate arguments
         if (! is_integer($id)) {
-            throw new InvalidArgumentException('$id is not integer.');
+            throw new InvalidArgumentException('$id is not an integer.');
         }
 
         // Initial setup
@@ -227,7 +227,7 @@ abstract class AbstractDriver implements DriverInterface
     {
         // Validate arguments
         if (! is_string($url)) {
-            throw new InvalidArgumentException('$url is not string.');
+            throw new InvalidArgumentException('$url is not a string.');
         }
 
         // Initial setup
@@ -259,7 +259,7 @@ abstract class AbstractDriver implements DriverInterface
     {
         // Validate arguments
         if (! is_integer($id)) {
-            throw new InvalidArgumentException('$id is not integer.');
+            throw new InvalidArgumentException('$id is not an integer.');
         }
 
         // Initial setup
