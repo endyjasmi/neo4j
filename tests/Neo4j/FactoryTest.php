@@ -8,6 +8,9 @@ class FactoryTest extends TestCase
     public function setUp()
     {
         $this->container = Mockery::mock('Illuminate\Container\Container');
+
+        $this->container->shouldReceive('bind')
+            ->times(7);
     }
 
     public function testCreateConnectionMethod()

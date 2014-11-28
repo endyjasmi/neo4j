@@ -15,7 +15,7 @@ class Factory implements FactoryInterface
      *
      * @param Container $container
      */
-    protected static function bindInterfaces(Container $container)
+    protected function bindInterfaces(Container $container)
     {
         $container->bind('EndyJasmi\Neo4j\ConnectionInterface', 'EndyJasmi\Neo4j\Connection');
         $container->bind('EndyJasmi\Neo4j\ErrorInterface', 'EndyJasmi\Neo4j\Error');
@@ -35,7 +35,8 @@ class Factory implements FactoryInterface
     {
         $container = $container ?: new Container;
 
-        $this->setContainer($container);
+        $this->setContainer($container)
+            ->bindInterfaces($container);
     }
 
     /**
