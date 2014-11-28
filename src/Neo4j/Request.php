@@ -24,10 +24,10 @@ class Request extends Collection implements RequestInterface
      *
      * @param FactoryInterface $factory
      * @param ConnectionInterface $connection
-     * @param integer $id
-     * @throws InvalidArgumentException If $id is not integer
+     * @param null|integer $id
+     * @throws InvalidArgumentException If $id is not null and integer
      */
-    public function __construct(FactoryInterface $factory, ConnectionInterface $connection, $id)
+    public function __construct(FactoryInterface $factory, ConnectionInterface $connection, $id = null)
     {
         $this->setFactory($factory)
             ->setConnection($connection)
@@ -113,13 +113,13 @@ class Request extends Collection implements RequestInterface
     /**
      * Set request id
      *
-     * @param integer $id
+     * @param null|integer $id
      * @return RequestInterface
-     * @throws InvalidArgumentException If $id is not integer
+     * @throws InvalidArgumentException If $id is not null and integer
      */
     public function setId($id)
     {
-        if (! is_integer($id)) {
+        if (! is_null($id) && ! is_integer($id)) {
             throw new InvalidArgumentException('$id is not integer.');
         }
 

@@ -11,10 +11,10 @@ interface RequestInterface extends ConnectionManagerInterface, CollectionInterfa
      *
      * @param FactoryInterface $factory
      * @param ConnectionInterface $connection
-     * @param integer $id
-     * @throws InvalidArgumentException If $id is not integer
+     * @param null|integer $id
+     * @throws InvalidArgumentException If $id is not null and integer
      */
-    public function __construct(FactoryInterface $factory, ConnectionInterface $connection, $id);
+    public function __construct(FactoryInterface $factory, ConnectionInterface $connection, $id = null);
 
     /**
      * Begin transaction
@@ -69,9 +69,9 @@ interface RequestInterface extends ConnectionManagerInterface, CollectionInterfa
     /**
      * Set request id
      *
-     * @param integer $id
+     * @param null|integer $id
      * @return RequestInterface
-     * @throws InvalidArgumentException If $id is not integer
+     * @throws InvalidArgumentException If $id is not null and integer
      */
     public function setId($id);
 
