@@ -148,13 +148,13 @@ abstract class AbstractDriver implements DriverInterface
      * @param array $request
      * @param null|integer $id
      * @return array
-     * @throws InvalidArgumentException If $id is not null or integer
+     * @throws InvalidArgumentException If $id is not null and integer
      */
     public function commit(array $request, $id = null)
     {
         // Validate arguments
         if (! is_null($id) && ! is_integer($id)) {
-            throw new InvalidArgumentException('$id is not null or integer.');
+            throw new InvalidArgumentException('$id is not null and integer.');
         }
 
         // Initial setup
