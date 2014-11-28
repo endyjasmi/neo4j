@@ -16,6 +16,13 @@ interface CollectionInterface extends ArrayAccess, Countable, IteratorAggregate,
     public function get($key);
 
     /**
+     * Get the last item
+     *
+     * @return mixed
+     */
+    public function last();
+
+    /**
      * Get and remove the last item
      *
      * @return mixed
