@@ -65,4 +65,18 @@ interface StatementInterface extends CollectionInterface
      * @return StatementInterface
      */
     public function setResult(ResultInterface $result);
+
+    /**
+     * Start timer
+     *
+     * @return StatementInterface
+     */
+    public function startTimer();
+
+    /**
+     * Stop timer
+     *
+     * @return StatementInterface
+     */
+    public function stopTimer();
 }

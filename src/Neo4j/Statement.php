@@ -28,11 +28,10 @@ class Statement extends Collection implements StatementInterface
      */
     public function __construct($query, array $parameters = [])
     {
-        $this->setQuery($query)
+        $this->startTimer()
+            ->setQuery($query)
             ->setParameters($parameters)
             ->put('includeStats', true);
-
-            $this->start = microtime(true);
     }
 
     /**
@@ -118,6 +117,28 @@ class Statement extends Collection implements StatementInterface
     {
         $this->result = $result;
 
+        return $this->stopTimer();
+    }
+
+    /**
+     * Start timer
+     *
+     * @return StatementInterface
+     */
+    public function startTimer()
+    {
+        $this->start = microtime(true);
+
+        return $this;
+    }
+
+    /**
+     * Stop timer
+     *
+     * @return StatementInterface
+     */
+    public function stopTimer()
+    {
         $this->time = microtime(true) - $this->start;
 
         return $this;

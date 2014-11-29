@@ -94,4 +94,28 @@ class StatementTest extends TestCase
         // Expect
         $this->assertSame($statement, $self);
     }
+
+    public function testStartTimerMethod()
+    {
+        // Given
+        $statement = new Statement($this->query);
+
+        // When
+        $self = $statement->startTimer();
+
+        // Expect
+        $this->assertSame($statement, $self);
+    }
+
+    public function testStopTimerMethod()
+    {
+        // Given
+        $statement = new Statement($this->query);
+
+        // When
+        $self = $statement->stopTimer();
+
+        // Expect
+        $this->assertSame($statement, $self);
+    }
 }
