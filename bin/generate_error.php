@@ -12,10 +12,10 @@ define('VENDOR_DIR', ROOT_DIR . DS . 'vendor');
 require_once(BIN_DIR . DS . 'functions.php');
 require_once(VENDOR_DIR . DS . 'autoload.php');
 
-if (is_dir(SRC_DIR . DS . 'Neo4j' . DS . 'Error')) {
-    echo 'Deleting previously generated status code files' . PHP_EOL;
-    clean(SRC_DIR . DS . 'Neo4j' . DS . 'Error');
-}
+// if (is_dir(SRC_DIR . DS . 'Neo4j' . DS . 'Error')) {
+//     echo 'Deleting previously generated status code files' . PHP_EOL;
+//     clean(SRC_DIR . DS . 'Neo4j' . DS . 'Error');
+// }
 
 $neo4j = new \EndyJasmi\Neo4j;
 $driver = $neo4j->driver();
