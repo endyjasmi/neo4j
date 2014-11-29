@@ -14,11 +14,6 @@ class Response extends Collection implements ResponseInterface
     protected $error;
 
     /**
-     * @var integer
-     */
-    protected $id;
-
-    /**
      * @var RequestInterface
      */
     protected $request;
@@ -30,22 +25,18 @@ class Response extends Collection implements ResponseInterface
      * @param ConnectionInterface $connection
      * @param RequestInterface $request
      * @param array $response
-     * @param integer $id
      * @param boolean $throws
-     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function __construct(
         FactoryInterface $factory,
         ConnectionInterface $connection,
         RequestInterface $request,
         array $response,
-        $id = null,
         $throws = true
     ) {
         $this->setFactory($factory)
             ->setConnection($connection)
-            ->setRequest($request)
-            ->setId($id);
+            ->setRequest($request);
 
         $this->errors = $this->getFactory()
             ->createError($response['errors'], $throws);
@@ -79,7 +70,7 @@ class Response extends Collection implements ResponseInterface
     public function createRequest()
     {
         return $this->getConnection()
-            ->createRequest($this->getId());
+            ->createRequest();
     }
 
     /**
@@ -90,16 +81,6 @@ class Response extends Collection implements ResponseInterface
     public function getErrors()
     {
         return $this->errors;
-    }
-
-    /**
-     * Get response id
-     *
-     * @return null|integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -123,24 +104,6 @@ class Response extends Collection implements ResponseInterface
 
         return $this->getConnection()
             ->rollback($request);
-    }
-
-    /**
-     * Set response id
-     *
-     * @param null|integer $id
-     * @return ResponseInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
-     */
-    public function setId($id)
-    {
-        if (! is_null($id) && ! is_integer($id)) {
-            throw new InvalidArgumentException('$id is not a null or integer.');
-        }
-
-        $this->id = $id;
-
-        return $this;
     }
 
     /**

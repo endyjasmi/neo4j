@@ -13,16 +13,13 @@ interface ResponseInterface extends ConnectionManagerInterface, CollectionInterf
      * @param ConnectionInterface $connection
      * @param RequestInterface $request
      * @param array $response
-     * @param integer $id
      * @param boolean $throws
-     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function __construct(
         FactoryInterface $factory,
         ConnectionInterface $connection,
         RequestInterface $request,
         array $response,
-        $id = null,
         $throws = true
     );
 
@@ -48,13 +45,6 @@ interface ResponseInterface extends ConnectionManagerInterface, CollectionInterf
     public function getErrors();
 
     /**
-     * Get response id
-     *
-     * @return null|integer
-     */
-    public function getId();
-
-    /**
      * Get request instance
      *
      * @return RequestInterface
@@ -67,15 +57,6 @@ interface ResponseInterface extends ConnectionManagerInterface, CollectionInterf
      * @return ResponseInterface
      */
     public function rollback();
-
-    /**
-     * Set response id
-     *
-     * @param null|integer $id
-     * @return ResponseInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
-     */
-    public function setId($id);
 
     /**
      * Set request instance

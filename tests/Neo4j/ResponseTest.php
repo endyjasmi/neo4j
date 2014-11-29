@@ -112,18 +112,6 @@ class ResponseTest extends TestCase
         $this->assertInstanceOf('EndyJasmi\Neo4j\ErrorInterface', $errors);
     }
 
-    public function testGetIdMethod()
-    {
-        // Given
-        $response = new Response($this->factory, $this->connection, $this->request, $this->response);
-
-        // When
-        $id = $response->getId();
-
-        // Expect
-        $this->assertNull($id);
-    }
-
     public function testGetRequestMethod()
     {
         // Given
@@ -156,30 +144,6 @@ class ResponseTest extends TestCase
 
         // Expect
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
-    }
-
-    public function testSetIdMethod()
-    {
-        // Given
-        $response = new Response($this->factory, $this->connection, $this->request, $this->response);
-
-        // When
-        $self = $response->setId(1);
-
-        // Expect
-        $this->assertSame($response, $self);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIdMethodThrowInvalidArgumentException()
-    {
-        // Given
-        $response = new Response($this->factory, $this->connection, $this->request, $this->response);
-
-        // When
-        $response->setId('abc');
     }
 
     public function testSetRequestMethod()
