@@ -10,6 +10,24 @@ class Connection extends Collection implements ConnectionInterface
     use FactoryManagerTrait;
 
     /**
+     * Send request without transaction
+     *
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function send(RequestInterface $request)
+    {
+        $input = $request->toArray();
+        $output = $this->getDriver()
+            ->commit($input);
+
+        list($id, $response) = $output;
+
+        return $this->getFactory()
+            ->createResponse($request, $response);
+    }
+
+    /**
      * Connection constructor
      *
      * @param FactoryInterface $factory
@@ -49,9 +67,13 @@ class Connection extends Collection implements ConnectionInterface
     public function commit(RequestInterface $request = null)
     {
         $request = $request ?: $this->createRequest();
+        $transaction = $this->popTransaction();
 
-        return $this->popTransaction()
-            ->commit($request);
+        if (! is_null($transaction)) {
+            return $transaction->commit($request);
+        }
+
+        return $this->send($request);
     }
 
     /**
@@ -73,8 +95,13 @@ class Connection extends Collection implements ConnectionInterface
      */
     public function execute(RequestInterface $request)
     {
-        return $this->getTransaction()
-            ->execute($request);
+        $transaction = $this->getTransaction();
+
+        if (! is_null($transaction)) {
+            return $transaction->execute($request);
+        }
+
+        return $this->send($request);
     }
 
     /**

@@ -5,6 +5,10 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 class ConnectionTest extends TestCase
 {
+    protected $input = [
+        'statements' => []
+    ];
+
     protected $output = [
         1,
         [
@@ -83,6 +87,33 @@ class ConnectionTest extends TestCase
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
 
+    public function testCommitMethodWithoutTransaction()
+    {
+        // Given
+        $connection = new Connection($this->factory, $this->driver);
+
+        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
+
+        $request->shouldReceive('toArray')
+            ->once()
+            ->andReturn($this->input);
+
+        $this->driver->shouldReceive('commit')
+            ->once()
+            ->andReturn($this->output);
+
+        $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
+        $this->factory->shouldReceive('createResponse')
+            ->once()
+            ->andReturn($response);
+
+        // When
+        $response = $connection->commit($request);
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
+    }
+
     public function testCreateRequestMethod()
     {
         // Given
@@ -125,6 +156,33 @@ class ConnectionTest extends TestCase
             ->andReturn($response);
 
         $connection->beginTransaction();
+
+        // When
+        $response = $connection->execute($request);
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
+    }
+
+    public function testExecuteMethodWithoutTransaction()
+    {
+        // Given
+        $connection = new Connection($this->factory, $this->driver);
+
+        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
+
+        $request->shouldReceive('toArray')
+            ->once()
+            ->andReturn($this->input);
+
+        $this->driver->shouldReceive('commit')
+            ->once()
+            ->andReturn($this->output);
+
+        $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
+        $this->factory->shouldReceive('createResponse')
+            ->once()
+            ->andReturn($response);
 
         // When
         $response = $connection->execute($request);
