@@ -100,7 +100,6 @@ class FactoryTest extends TestCase
             ->once()
             ->andReturn($response);
 
-        $connection = Mockery::mock('EndyJasmi\Neo4j\ConnectionInterface');
         $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
         $response = [
             'errors' => [],
@@ -108,7 +107,7 @@ class FactoryTest extends TestCase
         ];
 
         // When
-        $response = $factory->createResponse($connection, $request, $response);
+        $response = $factory->createResponse($request, $response);
 
         // Expect
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
@@ -174,6 +173,26 @@ class FactoryTest extends TestCase
 
         // Expect
         $this->assertInstanceOf('EndyJasmi\Neo4j\StatusInterface', $status);
+    }
+
+    public function testCreateTransactionMethod()
+    {
+        // Given
+        $factory = new Factory($this->container);
+
+        $transaction = Mockery::mock('EndyJasmi\Neo4j\TransactionInterface');
+        $this->container->shouldReceive('make')
+            ->once()
+            ->andReturn($transaction);
+
+        $driver = Mockery::mock('EndyJasmi\Neo4j\DriverInterface');
+        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
+
+        // When
+        $transaction = $factory->createTransaction($driver, $request);
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\TransactionInterface', $transaction);
     }
 
     public function testGetContainerMethod()

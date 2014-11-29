@@ -42,28 +42,21 @@ interface FactoryInterface
      * Create request instance
      *
      * @param ConnectionInterface $connection
-     * @param null|integer $id
      * @return RequestInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
      */
-    public function createRequest(ConnectionInterface $connection, $id = null);
+    public function createRequest(ConnectionInterface $connection);
 
     /**
      * Create response instance
      *
-     * @param ConnectionInterface $connection
      * @param RequestInterface $request
      * @param array $response
-     * @param null|integer $id
      * @param boolean $throws
      * @return ResponseInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function createResponse(
-        ConnectionInterface $connection,
         RequestInterface $request,
         array $response,
-        $id = null,
         $throws = true
     );
 
@@ -92,6 +85,14 @@ interface FactoryInterface
      * @return StatusInterface
      */
     public function createStatus(array $status);
+
+    /**
+     * Create transaction instance
+     *
+     * @param DriverInterface $driver
+     * @param RequestInterface $request
+     */
+    public function createTransaction(DriverInterface $driver, RequestInterface $request);
 
     /**
      * Get container instance

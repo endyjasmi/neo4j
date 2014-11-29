@@ -48,6 +48,7 @@ class Factory implements FactoryInterface
         $container->bind('EndyJasmi\Neo4j\ResultInterface', 'EndyJasmi\Neo4j\Result');
         $container->bind('EndyJasmi\Neo4j\StatementInterface', 'EndyJasmi\Neo4j\Statement');
         $container->bind('EndyJasmi\Neo4j\StatusInterface', 'EndyJasmi\Neo4j\Status');
+        $container->bind('EndyJasmi\Neo4j\TransactionInterface', 'EndyJasmi\Neo4j\Transaction');
 
         return $this;
     }
@@ -126,11 +127,9 @@ class Factory implements FactoryInterface
      * Create request instance
      *
      * @param ConnectionInterface $connection
-     * @param null|integer $id
      * @return RequestInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
      */
-    public function createRequest(ConnectionInterface $connection, $id = null)
+    public function createRequest(ConnectionInterface $connection)
     {
         return $this->getContainer()
             ->make(
@@ -138,7 +137,6 @@ class Factory implements FactoryInterface
                 [
                     'factory' => $this,
                     'connection' => $connection,
-                    'id' => $id
                 ]
             );
     }
@@ -146,19 +144,14 @@ class Factory implements FactoryInterface
     /**
      * Create response instance
      *
-     * @param ConnectionInterface $connection
      * @param RequestInterface $request
      * @param array $response
-     * @param null|integer $id
      * @param boolean $throws
      * @return ResponseInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
      */
     public function createResponse(
-        ConnectionInterface $connection,
         RequestInterface $request,
         array $response,
-        $id = null,
         $throws = true
     ) {
         return $this->getContainer()
@@ -166,10 +159,8 @@ class Factory implements FactoryInterface
                 'EndyJasmi\Neo4j\ResponseInterface',
                 [
                     'factory' => $this,
-                    'connection' => $connection,
                     'request' => $request,
                     'response' => $response,
-                    'id' => $id,
                     'throws' => $throws
                 ]
             );
@@ -227,6 +218,25 @@ class Factory implements FactoryInterface
                 'EndyJasmi\Neo4j\StatusInterface',
                 [
                     'status' => $status
+                ]
+            );
+    }
+
+    /**
+     * Create transaction instance
+     *
+     * @param DriverInterface $driver
+     * @param RequestInterface $request
+     */
+    public function createTransaction(DriverInterface $driver, RequestInterface $request)
+    {
+        return $this->getContainer()
+            ->make(
+                'EndyJasmi\Neo4j\TransactionInterface',
+                [
+                    'factory' => $this,
+                    'driver' => $driver,
+                    'request' => $request
                 ]
             );
     }
