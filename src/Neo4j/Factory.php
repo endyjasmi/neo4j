@@ -199,6 +199,7 @@ class Factory implements FactoryInterface
             ->make(
                 'EndyJasmi\Neo4j\StatementInterface',
                 [
+                    'factory' => $this,
                     'query' => $query,
                     'parameters' => $parameters
                 ]
