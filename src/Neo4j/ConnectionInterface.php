@@ -1,9 +1,10 @@
 <?php namespace EndyJasmi\Neo4j;
 
 use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
+use EndyJasmi\Neo4j\Manager\DriverManagerInterface;
 use InvalidArgumentException;
 
-interface ConnectionInterface extends CollectionInterface, FactoryManagerInterface
+interface ConnectionInterface extends CollectionInterface, DriverManagerInterface, FactoryManagerInterface
 {
     /**
      * Connection constructor
@@ -16,74 +17,60 @@ interface ConnectionInterface extends CollectionInterface, FactoryManagerInterfa
     /**
      * Begin transaction
      *
-     * @param RequestInterface
+     * @param RequestInterface $request
      * @return ResponseInterface
      */
     public function beginTransaction(RequestInterface $request = null);
 
     /**
+     * Commit transaction
+     *
+     * @param RequestInterface $request
+     * @return ResponseInterface
+     */
+    public function commit(RequestInterface $request = null);
+
+    /**
      * Create request instance
      *
-     * @param integer $id
      * @return RequestInterface
      */
-    public function createRequest($id = null);
+    public function createRequest();
 
     /**
-     * Fire event listener
+     * Execute transaction
      *
-     * @param string $query
-     * @param array $parameters
-     * @param float $time
-     * @throws InvalidArgumentException If $query is not string
-     * @throws InvalidArgumentException If $time is not float
+     * @param RequestInterface $request
+     * @return ResponseInterface
      */
-    public function fire($query, array $parameters, $time);
-
-    /**
-     * Get driver instance
-     *
-     * @return DriverInterface
-     */
-    public function getDriver();
+    public function execute(RequestInterface $request);
 
     /**
      * Get last transaction instance
      *
-     * @return null|ResponseInterface
+     * @return TransactionInterface
      */
     public function getTransaction();
 
     /**
-     * Listen to event
-     *
-     * @param callable $listener
-     * @return ConnectionInterface
-     */
-    public function listen(callable $listener);
-
-    /**
      * Pop transaction instance
      *
-     * @return null|ResponseInterface
+     * @return null|TransactionInterface
      */
     public function popTransaction();
 
     /**
      * Push transaction instance
      *
-     * @param ResponseInterface $transaction
+     * @param TransactionInterface $transaction
      * @return ConnectionInterface
      */
-    public function pushTransaction(ResponseInterface $transaction);
+    public function pushTransaction(TransactionInterface $transaction);
 
     /**
-     * Set driver instance
-     *
-     * @param DriverInterface $driver
-     * @return ConnectionInterface
+     * Rollback transaction
      */
-    public function setDriver(DriverInterface $driver);
+    public function rollback();
 
     /**
      * Run statement
