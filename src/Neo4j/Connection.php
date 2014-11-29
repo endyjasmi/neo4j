@@ -47,14 +47,18 @@ class Connection extends Collection implements ConnectionInterface
      */
     public function beginTransaction(RequestInterface $request = null)
     {
+        // Initialize
         $driver = $this->getDriver();
         $request = $request ?: $this->createRequest();
 
+        // Begin transaction
         $transaction = $this->getFactory()
             ->createTransaction($driver, $request);
 
+        // Push to stack
         $this->pushTransaction($transaction);
 
+        // Return last transaction response
         return $transaction->getResponse();
     }
 
@@ -66,13 +70,16 @@ class Connection extends Collection implements ConnectionInterface
      */
     public function commit(RequestInterface $request = null)
     {
+        // Initialize
         $request = $request ?: $this->createRequest();
         $transaction = $this->popTransaction();
 
+        // Commit transaction
         if (! is_null($transaction)) {
             return $transaction->commit($request);
         }
 
+        // If not send single request commit
         return $this->send($request);
     }
 
@@ -95,12 +102,15 @@ class Connection extends Collection implements ConnectionInterface
      */
     public function execute(RequestInterface $request)
     {
+        // Initialize
         $transaction = $this->getTransaction();
 
+        // Execute transaction
         if (! is_null($transaction)) {
             return $transaction->execute($request);
         }
 
+        // If not send single request commit
         return $this->send($request);
     }
 
@@ -156,13 +166,16 @@ class Connection extends Collection implements ConnectionInterface
      */
     public function statement($query, array $parameters = [])
     {
+        // Create statement
         $statement = $this->getFactory()
             ->createStatement($query, $parameters);
 
+        // Run statement through the server
         $this->createRequest()
             ->pushStatement($statement)
             ->execute();
 
+        // Return statement result
         return $statement->getResult();
     }
 }
