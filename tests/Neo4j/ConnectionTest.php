@@ -57,40 +57,6 @@ class ConnectionTest extends TestCase
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
 
-    public function testCommitMethod()
-    {
-        // Given
-        $connection = new Connection($this->factory, $this->driver);
-
-        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
-        $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
-
-        $request->shouldReceive('toArray')
-            ->once()
-            ->andReturn($this->request);
-
-        $request->shouldReceive('getId')
-            ->once()
-            ->andReturn(1);
-
-        $this->driver->shouldReceive('commit')
-            ->once()
-            ->andReturn($this->output);
-
-        $this->factory->shouldReceive('createResponse')
-            ->once()
-            ->andReturn($response);
-
-        $request->shouldReceive('setResponse')
-            ->once();
-
-        // When
-        $response = $connection->commit($request);
-
-        // Expect
-        $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
-    }
-
     public function testCreateRequestMethod()
     {
         // Given
@@ -107,40 +73,6 @@ class ConnectionTest extends TestCase
 
         // Expect
         $this->assertInstanceOf('EndyJasmi\Neo4j\RequestInterface', $request);
-    }
-
-    public function testExecuteMethod()
-    {
-        // Given
-        $connection = new Connection($this->factory, $this->driver);
-
-        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
-        $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
-
-        $request->shouldReceive('toArray')
-            ->once()
-            ->andReturn($this->request);
-
-        $request->shouldReceive('getId')
-            ->once()
-            ->andReturn(1);
-
-        $this->driver->shouldReceive('execute')
-            ->once()
-            ->andReturn($this->output);
-
-        $this->factory->shouldReceive('createResponse')
-            ->once()
-            ->andReturn($response);
-
-        $request->shouldReceive('setResponse')
-            ->once();
-
-        // When
-        $response = $connection->execute($request);
-
-        // Expect
-        $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
 
     public function testGetDriverMethod()
@@ -191,36 +123,6 @@ class ConnectionTest extends TestCase
 
         // Expect
         $this->assertSame($connection, $self);
-    }
-
-    public function testRollbackMethod()
-    {
-        // Given
-        $connection = new Connection($this->factory, $this->driver);
-
-        $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
-        $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
-
-        $request->shouldReceive('getId')
-            ->once()
-            ->andReturn(1);
-
-        $this->driver->shouldReceive('rollback')
-            ->once()
-            ->andReturn($this->output);
-
-        $this->factory->shouldReceive('createResponse')
-            ->once()
-            ->andReturn($response);
-
-        $request->shouldReceive('setResponse')
-            ->once();
-
-        // When
-        $response = $connection->rollback($request);
-
-        // Expect
-        $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
 
     public function testSetDriverMethod()

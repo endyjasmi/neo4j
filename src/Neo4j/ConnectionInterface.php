@@ -22,28 +22,12 @@ interface ConnectionInterface extends CollectionInterface, FactoryManagerInterfa
     public function beginTransaction(RequestInterface $request = null);
 
     /**
-     * Commit transaction
-     *
-     * @param RequestInterface
-     * @return ResponseInterface
-     */
-    public function commit(RequestInterface $request = null);
-
-    /**
      * Create request instance
      *
      * @param integer $id
      * @return RequestInterface
      */
     public function createRequest($id = null);
-
-    /**
-     * Execute transaction
-     *
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
-    public function execute(RequestInterface $request);
 
     /**
      * Fire event listener
@@ -92,14 +76,6 @@ interface ConnectionInterface extends CollectionInterface, FactoryManagerInterfa
      * @return ConnectionInterface
      */
     public function pushTransaction(ResponseInterface $transaction);
-
-    /**
-     * Rollback transaction
-     *
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
-    public function rollback(RequestInterface $request = null);
 
     /**
      * Set driver instance

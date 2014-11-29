@@ -73,32 +73,6 @@ class Connection extends Collection implements ConnectionInterface
     }
 
     /**
-     * Commit transaction
-     *
-     * @param RequestInterface
-     * @return ResponseInterface
-     */
-    public function commit(RequestInterface $request = null)
-    {
-        $request = $request ?: $this->createRequest();
-
-        $input = $request->toArray();
-        $id = $request->getId();
-
-        $output = $this->getDriver()
-            ->commit($input, $id);
-
-        list($id, $response) = $output;
-
-        $response = $this->createResponse($request, $response);
-        $request->setResponse($response);
-
-        $this->popTransaction();
-
-        return $response;
-    }
-
-    /**
      * Create request instance
      *
      * @param integer $id
@@ -114,28 +88,6 @@ class Connection extends Collection implements ConnectionInterface
 
         return $this->getFactory()
             ->createRequest($this, $id);
-    }
-
-    /**
-     * Execute transaction
-     *
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
-    public function execute(RequestInterface $request)
-    {
-        $input = $request->toArray();
-        $id = $request->getId();
-
-        $output = $this->getDriver()
-            ->execute($input, $id);
-
-        list($id, $response) = $output;
-
-        $response = $this->createResponse($request, $response, $id);
-        $request->setResponse($response);
-
-        return $response;
     }
 
     /**
@@ -218,31 +170,6 @@ class Connection extends Collection implements ConnectionInterface
         $this->push($transaction);
 
         return $this;
-    }
-
-    /**
-     * Rollback transaction
-     *
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
-    public function rollback(RequestInterface $request = null)
-    {
-        $request = $request ?: $this->createRequest();
-
-        $id = $request->getId();
-
-        $output = $this->getDriver()
-            ->rollback($id);
-
-        list($id, $response) = $output;
-
-        $response = $this->createResponse($request, $response);
-        $request->setResponse($response);
-
-        $this->popTransaction();
-
-        return $response;
     }
 
     /**
