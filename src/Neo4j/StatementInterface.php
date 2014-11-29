@@ -1,17 +1,19 @@
 <?php namespace EndyJasmi\Neo4j;
 
+use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
 use InvalidArgumentException;
 
-interface StatementInterface extends CollectionInterface
+interface StatementInterface extends CollectionInterface, FactoryManagerInterface
 {
     /**
      * Statement constructor
      *
+     * @param FactoryInterface $factory
      * @param string $query
      * @param array $parameters
      * @throws InvalidArgumentException If $query is not string
      */
-    public function __construct($query, array $parameters = []);
+    public function __construct(FactoryInterface $factory, $query, array $parameters = []);
 
     /**
      * Get statement parameters

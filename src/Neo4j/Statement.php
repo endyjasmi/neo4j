@@ -1,9 +1,12 @@
 <?php namespace EndyJasmi\Neo4j;
 
+use EndyJasmi\Neo4j\Manager\FactoryManagerTrait;
 use InvalidArgumentException;
 
 class Statement extends Collection implements StatementInterface
 {
+    use FactoryManagerTrait;
+
     /**
      * @var ResultInterface
      */
@@ -22,13 +25,15 @@ class Statement extends Collection implements StatementInterface
     /**
      * Statement constructor
      *
+     * @param FactoryInterface $factory
      * @param string $query
      * @param array $parameters
      * @throws InvalidArgumentException If $query is not string
      */
-    public function __construct($query, array $parameters = [])
+    public function __construct(FactoryInterface $factory, $query, array $parameters = [])
     {
         $this->startTimer()
+            ->setFactory($factory)
             ->setQuery($query)
             ->setParameters($parameters)
             ->put('includeStats', true);
@@ -139,7 +144,17 @@ class Statement extends Collection implements StatementInterface
      */
     public function stopTimer()
     {
+        // Calculate time
         $this->time = microtime(true) - $this->start;
+
+        // Initial setup for evvent
+        $query = $this->getQuery();
+        $parameters = $this->getParameters();
+        $time = $this->getTime();
+
+        // Launch event
+        $factory = $this->getFactory();
+        $factory['events']->fire('neo4j.query', [$query, $parameters, $time]);
 
         return $this;
     }
