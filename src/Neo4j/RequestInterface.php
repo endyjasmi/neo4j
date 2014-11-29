@@ -14,7 +14,6 @@ interface RequestInterface extends
      *
      * @param FactoryInterface $factory
      * @param ConnectionInterface $connection
-     * @param TransactionInterface $transaction
      */
     public function __construct(FactoryInterface $factory, ConnectionInterface $connection);
     /**

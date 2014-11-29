@@ -19,7 +19,6 @@ class Request extends Collection implements RequestInterface
      *
      * @param FactoryInterface $factory
      * @param ConnectionInterface $connection
-     * @param TransactionInterface $transaction
      */
     public function __construct(FactoryInterface $factory, ConnectionInterface $connection)
     {
