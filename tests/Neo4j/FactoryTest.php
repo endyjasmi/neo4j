@@ -218,4 +218,25 @@ class FactoryTest extends TestCase
         // Expect
         $this->assertSame($factory, $self);
     }
+
+    public function testArrayAccess()
+    {
+        // Given
+        $factory = new Factory;
+
+        // When
+        $factory['test'] = function () {
+            return 'test';
+        };
+
+        $test = $factory['test'];
+
+        unset($factory['test']);
+
+        $false = isset($factory['test']);
+
+        // Expect
+        $this->assertEquals('test', $test);
+        $this->assertFalse($false);
+    }
 }

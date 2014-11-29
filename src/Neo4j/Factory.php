@@ -252,6 +252,56 @@ class Factory implements FactoryInterface
     }
 
     /**
+     * Determine if component exists
+     *
+     * @param string $key
+     * @return boolean
+     */
+    public function offsetExists($key)
+    {
+        $container = $this->getContainer();
+
+        return isset($container[$key]);
+    }
+
+    /**
+     * Get the component
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function offsetGet($key)
+    {
+        $container = $this->getContainer();
+
+        return $container[$key];
+    }
+
+    /**
+     * Set the component
+     *
+     * @param string $key
+     * @param mixed $value
+     */
+    public function offsetSet($key, $value)
+    {
+        $container = $this->getContainer();
+        $container[$key] = $value;
+    }
+
+    /**
+     * Unset the component
+     *
+     * @param string $key
+     */
+    public function offsetUnset($key)
+    {
+        $container = $this->getContainer();
+
+        unset($container[$key]);
+    }
+
+    /**
      * Set container instance
      *
      * @param Container $container

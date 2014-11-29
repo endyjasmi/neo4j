@@ -1,10 +1,11 @@
 <?php namespace EndyJasmi\Neo4j;
 
+use ArrayAccess;
 use EndyJasmi\Neo4j\Error\Neo;
 use Illuminate\Container\Container;
 use InvalidArgumentException;
 
-interface FactoryInterface
+interface FactoryInterface extends ArrayAccess
 {
     /**
      * Factory constructor
