@@ -11,10 +11,8 @@ interface RequestInterface extends ConnectionManagerInterface, CollectionInterfa
      *
      * @param FactoryInterface $factory
      * @param ConnectionInterface $connection
-     * @param null|integer $id
-     * @throws InvalidArgumentException If $id is not null and not integer
      */
-    public function __construct(FactoryInterface $factory, ConnectionInterface $connection, $id = null);
+    public function __construct(FactoryInterface $factory, ConnectionInterface $connection);
 
     /**
      * Begin transaction
@@ -38,13 +36,6 @@ interface RequestInterface extends ConnectionManagerInterface, CollectionInterfa
     public function execute();
 
     /**
-     * Get request id
-     *
-     * @return null|integer
-     */
-    public function getId();
-
-    /**
      * Get response instace
      *
      * @return ResponseInterface
@@ -65,15 +56,6 @@ interface RequestInterface extends ConnectionManagerInterface, CollectionInterfa
      * @return RequestInterface
      */
     public function pushStatement(StatementInterface $statement);
-
-    /**
-     * Set request id
-     *
-     * @param null|integer $id
-     * @return RequestInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
-     */
-    public function setId($id);
 
     /**
      * Set response instance

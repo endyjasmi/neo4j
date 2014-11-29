@@ -5,8 +5,6 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 class RequestTest extends TestCase
 {
-    protected $id = 1;
-
     public function setUp()
     {
         $this->factory = Mockery::mock('EndyJasmi\Neo4j\FactoryInterface');
@@ -16,7 +14,7 @@ class RequestTest extends TestCase
     public function testBeginTransactionMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
 
@@ -34,7 +32,7 @@ class RequestTest extends TestCase
     public function testCommitMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
 
@@ -52,7 +50,7 @@ class RequestTest extends TestCase
     public function testExecuteMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
 
@@ -67,22 +65,10 @@ class RequestTest extends TestCase
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
 
-    public function testGetIdMethod()
-    {
-        // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
-
-        // When
-        $id = $request->getId();
-
-        // Expect
-        $this->assertInternalType('integer', $id);
-    }
-
     public function testGetResponseMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         // When
         $response = $request->getResponse();
@@ -94,7 +80,7 @@ class RequestTest extends TestCase
     public function testPopStatementMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         // When
         $statement = $request->popStatement();
@@ -106,7 +92,7 @@ class RequestTest extends TestCase
     public function testPushStatementMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         $statement = Mockery::mock('EndyJasmi\Neo4j\StatementInterface');
 
@@ -117,34 +103,10 @@ class RequestTest extends TestCase
         $this->assertSame($request, $self);
     }
 
-    public function testSetIdMethod()
-    {
-        // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
-
-        // When
-        $self = $request->setId($this->id);
-
-        // Expect
-        $this->assertSame($request, $self);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testSetIdMethodThrowInvalidArgumentException()
-    {
-        // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
-
-        // When
-        $request->setId('abc');
-    }
-
     public function testSetResponseMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
 
@@ -158,7 +120,7 @@ class RequestTest extends TestCase
     public function testStatementMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         $query = 'MATCH n RETURN n';
 
@@ -178,7 +140,7 @@ class RequestTest extends TestCase
     public function testToArrayMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection, $this->id);
+        $request = new Request($this->factory, $this->connection);
 
         // When
         $array = $request->toArray();

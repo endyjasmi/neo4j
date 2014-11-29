@@ -10,11 +10,6 @@ class Request extends Collection implements RequestInterface
     use FactoryManagerTrait;
 
     /**
-     * @var integer
-     */
-    protected $id;
-
-    /**
      * @var ResponseInterface
      */
     protected $response;
@@ -24,14 +19,11 @@ class Request extends Collection implements RequestInterface
      *
      * @param FactoryInterface $factory
      * @param ConnectionInterface $connection
-     * @param null|integer $id
-     * @throws InvalidArgumentException If $id is not null and not integer
      */
-    public function __construct(FactoryInterface $factory, ConnectionInterface $connection, $id = null)
+    public function __construct(FactoryInterface $factory, ConnectionInterface $connection)
     {
         $this->setFactory($factory)
-            ->setConnection($connection)
-            ->setId($id);
+            ->setConnection($connection);
     }
 
     /**
@@ -68,16 +60,6 @@ class Request extends Collection implements RequestInterface
     }
 
     /**
-     * Get request id
-     *
-     * @return null|integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Get response instace
      *
      * @return ResponseInterface
@@ -106,24 +88,6 @@ class Request extends Collection implements RequestInterface
     public function pushStatement(StatementInterface $statement)
     {
         $this->push($statement);
-
-        return $this;
-    }
-
-    /**
-     * Set request id
-     *
-     * @param null|integer $id
-     * @return RequestInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
-     */
-    public function setId($id)
-    {
-        if (! is_null($id) && ! is_integer($id)) {
-            throw new InvalidArgumentException('$id is not a null or integer.');
-        }
-
-        $this->id = $id;
 
         return $this;
     }
