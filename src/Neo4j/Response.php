@@ -1,13 +1,11 @@
 <?php namespace EndyJasmi\Neo4j;
 
-use EndyJasmi\Neo4j\Manager\ConnectionManagerTrait;
 use EndyJasmi\Neo4j\Manager\FactoryManagerTrait;
-use InvalidArgumentException;
 
 class Response extends Collection implements ResponseInterface
 {
-    use ConnectionManagerTrait;
     use FactoryManagerTrait;
+
     /**
      * @var ErrorInterface
      */
@@ -22,20 +20,17 @@ class Response extends Collection implements ResponseInterface
      * Response constructor
      *
      * @param FactoryInterface $factory
-     * @param ConnectionInterface $connection
      * @param RequestInterface $request
      * @param array $response
      * @param boolean $throws
      */
     public function __construct(
         FactoryInterface $factory,
-        ConnectionInterface $connection,
         RequestInterface $request,
         array $response,
         $throws = true
     ) {
         $this->setFactory($factory)
-            ->setConnection($connection)
             ->setRequest($request);
 
         $this->errors = $this->getFactory()
@@ -49,28 +44,6 @@ class Response extends Collection implements ResponseInterface
             $statement->setResult($result);
             $this->push($result);
         }
-    }
-
-    /**
-     * Commit transaction
-     *
-     * @return ResponseInterface
-     */
-    public function commit()
-    {
-        return $this->createRequest()
-            ->commit();
-    }
-
-    /**
-     * Create request instance
-     *
-     * @return RequestInterface
-     */
-    public function createRequest()
-    {
-        return $this->getConnection()
-            ->createRequest();
     }
 
     /**
@@ -94,19 +67,6 @@ class Response extends Collection implements ResponseInterface
     }
 
     /**
-     * Rollback transaction
-     *
-     * @return ResponseInterface
-     */
-    public function rollback()
-    {
-        $request = $this->createRequest();
-
-        return $this->getConnection()
-            ->rollback($request);
-    }
-
-    /**
      * Set request instance
      *
      * @param RequestInterface $request
@@ -117,25 +77,5 @@ class Response extends Collection implements ResponseInterface
         $this->request = $request;
 
         return $this;
-    }
-
-    /**
-     * Run statement
-     *
-     * @param string $query
-     * @param array $parameters
-     * @return ResultInterface
-     * @throws InvalidArgumentException If $query is not string
-     */
-    public function statement($query, array $parameters = [])
-    {
-        $statement = $this->getFactory()
-            ->createStatement($query, $parameters);
-
-        $this->createRequest()
-            ->pushStatement($statement)
-            ->execute();
-
-        return $statement->getResult();
     }
 }
