@@ -53,6 +53,14 @@ interface ConnectionInterface extends CollectionInterface, DriverManagerInterfac
     public function getTransaction();
 
     /**
+     * Listen to query events
+     *
+     * @param callable $callback
+     * @return ConnectionInterface
+     */
+    public function listen(callable $callback);
+
+    /**
      * Pop transaction instance
      *
      * @return null|TransactionInterface

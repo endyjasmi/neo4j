@@ -125,6 +125,21 @@ class Connection extends Collection implements ConnectionInterface
     }
 
     /**
+     * Listen to query events
+     *
+     * @param callable $callback
+     * @return ConnectionInterface
+     */
+    public function listen(callable $callback)
+    {
+        $factory = $this->getFactory();
+
+        $factory['events']->listen('neo4j.query', $callback);
+
+        return $this;
+    }
+
+    /**
      * Pop transaction instance
      *
      * @return null|TransactionInterface

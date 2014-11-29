@@ -203,6 +203,28 @@ class ConnectionTest extends TestCase
         $this->assertNull($transaction);
     }
 
+    public function testListenMethod()
+    {
+        // Given
+        $connection = new Connection($this->factory, $this->driver);
+
+        $events = Mockery::mock('Illuminate\Events\Dispatcher');
+        $this->factory->shouldReceive('offsetGet')
+            ->once()
+            ->andReturn($events);
+
+        $events->shouldReceive('listen')
+            ->once();
+
+        // When
+        $self = $connection->listen(function ($query, array $parameters, $time) {
+
+        });
+
+        // Expect
+        $this->assertSame($connection, $self);
+    }
+
     public function testPopTransactionMethod()
     {
         // Given
