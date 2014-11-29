@@ -9,12 +9,13 @@ class RequestTest extends TestCase
     {
         $this->factory = Mockery::mock('EndyJasmi\Neo4j\FactoryInterface');
         $this->connection = Mockery::mock('EndyJasmi\Neo4j\ConnectionInterface');
+        $this->transaction = Mockery::mock('EndyJasmi\Neo4j\TransactionInterface');
     }
 
     public function testBeginTransactionMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
 
@@ -32,7 +33,7 @@ class RequestTest extends TestCase
     public function testCommitMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
 
@@ -50,7 +51,7 @@ class RequestTest extends TestCase
     public function testExecuteMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
 
@@ -68,7 +69,7 @@ class RequestTest extends TestCase
     public function testGetResponseMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         // When
         $response = $request->getResponse();
@@ -80,7 +81,7 @@ class RequestTest extends TestCase
     public function testPopStatementMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         // When
         $statement = $request->popStatement();
@@ -92,7 +93,7 @@ class RequestTest extends TestCase
     public function testPushStatementMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         $statement = Mockery::mock('EndyJasmi\Neo4j\StatementInterface');
 
@@ -106,7 +107,7 @@ class RequestTest extends TestCase
     public function testSetResponseMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         $response = Mockery::mock('EndyJasmi\Neo4j\ResponseInterface');
 
@@ -120,7 +121,7 @@ class RequestTest extends TestCase
     public function testStatementMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         $query = 'MATCH n RETURN n';
 
@@ -140,7 +141,7 @@ class RequestTest extends TestCase
     public function testToArrayMethod()
     {
         // Given
-        $request = new Request($this->factory, $this->connection);
+        $request = new Request($this->factory, $this->connection, $this->transaction);
 
         // When
         $array = $request->toArray();

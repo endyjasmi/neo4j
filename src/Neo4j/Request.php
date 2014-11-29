@@ -2,12 +2,14 @@
 
 use EndyJasmi\Neo4j\Manager\ConnectionManagerTrait;
 use EndyJasmi\Neo4j\Manager\FactoryManagerTrait;
+use EndyJasmi\Neo4j\Manager\TransactionManagerTrait;
 use InvalidArgumentException;
 
 class Request extends Collection implements RequestInterface
 {
     use ConnectionManagerTrait;
     use FactoryManagerTrait;
+    use TransactionManagerTrait;
 
     /**
      * @var ResponseInterface
@@ -19,9 +21,13 @@ class Request extends Collection implements RequestInterface
      *
      * @param FactoryInterface $factory
      * @param ConnectionInterface $connection
+     * @param TransactionInterface $transaction
      */
-    public function __construct(FactoryInterface $factory, ConnectionInterface $connection)
-    {
+    public function __construct(
+        FactoryInterface $factory,
+        ConnectionInterface $connection,
+        TransactionInterface $transaction
+    ) {
         $this->setFactory($factory)
             ->setConnection($connection);
     }
