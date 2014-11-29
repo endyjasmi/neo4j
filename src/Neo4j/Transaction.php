@@ -85,7 +85,7 @@ class Transaction implements TransactionInterface
     /**
      * Get transaction id
      *
-     * @return null|integer
+     * @return integer
      */
     public function getId()
     {
@@ -117,13 +117,13 @@ class Transaction implements TransactionInterface
     /**
      * Set transaction id
      *
-     * @param null|integer $id
+     * @param integer $id
      * @return TransactionInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
+     * @throws InvalidArgumentException If $id is not integer
      */
     public function setId($id)
     {
-        if (! is_null($id) && ! is_integer($id)) {
+        if (! is_integer($id)) {
             throw new InvalidArgumentException('$id is not a null or integer.');
         }
 

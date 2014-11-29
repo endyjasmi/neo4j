@@ -34,7 +34,7 @@ interface TransactionInterface extends DriverManagerInterface, FactoryManagerInt
     /**
      * Get transaction id
      *
-     * @return null|integer
+     * @return integer
      */
     public function getId();
 
@@ -55,9 +55,9 @@ interface TransactionInterface extends DriverManagerInterface, FactoryManagerInt
     /**
      * Set transaction id
      *
-     * @param null|integer $id
+     * @param integer $id
      * @return TransactionInterface
-     * @throws InvalidArgumentException If $id is not null and not integer
+     * @throws InvalidArgumentException If $id is not integer
      */
     public function setId($id);
 }
