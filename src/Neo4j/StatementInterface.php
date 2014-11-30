@@ -1,20 +1,20 @@
 <?php namespace EndyJasmi\Neo4j;
 
-use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
+use EndyJasmi\Neo4j\Manager\EventManagerInterface;
 use InvalidArgumentException;
 
-interface StatementInterface extends CollectionInterface, FactoryManagerInterface
+interface StatementInterface extends CollectionInterface, EventManagerInterface
 {
     /**
      * Statement constructor
      *
-     * @param FactoryInterface $factory
+     * @param EventInterface $event
      * @param TimerInterface $timer
      * @param string $query
      * @param array $parameters
      * @throws InvalidArgumentException If $query is not string
      */
-    public function __construct(FactoryInterface $factory, TimerInterface $timer, $query, array $parameters = []);
+    public function __construct(EventInterface $event, TimerInterface $timer, $query, array $parameters = []);
 
     /**
      * Get statement parameters
