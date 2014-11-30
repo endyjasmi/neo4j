@@ -9,11 +9,25 @@ class FactoryTest extends TestCase
     {
         $this->container = Mockery::mock('Illuminate\Container\Container');
 
-        $this->container->shouldReceive('bind')
-            ->times(10);
+        $this->container->shouldReceive('offsetExists')
+            ->once()
+            ->andReturn(false);
 
         $this->container->shouldReceive('bindShared')
             ->once();
+
+        $this->container->shouldReceive('bind')
+            ->times(10);
+
+        $dispatcher = Mockery::mock('Illuminate\Events\Dispatcher');
+        $this->container->shouldReceive('offsetGet')
+            ->once()
+            ->andReturn($dispatcher);
+
+        $event = Mockery::mock('EndyJasmi\Neo4j\EventInterface');
+        $this->container->shouldReceive('make')
+            ->once()
+            ->andReturn($event);
     }
 
     public function testCreateConnectionMethod()
@@ -163,6 +177,11 @@ class FactoryTest extends TestCase
     {
         // Given
         $factory = new Factory($this->container);
+
+        $timer = Mockery::mock('EndyJasmi\Neo4j\TimerInterface');
+        $this->container->shouldReceive('make')
+            ->once()
+            ->andReturn($timer);
 
         $statement = Mockery::mock('EndyJasmi\Neo4j\StatementInterface');
         $this->container->shouldReceive('make')

@@ -1,36 +1,51 @@
 <?php namespace EndyJasmi\Neo4j;
 
+use EndyJasmi\Neo4j\Manager\EventManagerTrait;
 use Illuminate\Container\Container;
 use InvalidArgumentException;
 
 class Factory implements FactoryInterface
 {
+    use EventManagerTrait;
+
     /**
      * @var Container
      */
     protected $container;
 
     /**
-     * Bind event component
+     * Bind dispatcher component
      *
      * @param Containter Container
      * @return Factory
      */
-    protected function bindEvent(Container $container)
+    protected function bindDispatcher(Container $container)
     {
-        $container->bindShared(
-            'events',
-            function (Container $container) {
-                return $container->make(
-                    'Illuminate\Events\Dispatcher',
-                    [
-                        'container' => $container
-                    ]
-                );
-            }
-        );
+        if (! isset($container['events'])) {
+            $container->bindShared(
+                'events',
+                function (Container $container) {
+                    return $container->make(
+                        'Illuminate\Events\Dispatcher',
+                        [
+                            'container' => $container
+                        ]
+                    );
+                }
+            );
+        }
 
         return $this;
+    }
+
+    /**
+     * Bind event component
+     */
+    public function bindEvent()
+    {
+        $event = $this->createEvent();
+
+        return $this->setEvent($event);
     }
 
     /**
@@ -65,8 +80,9 @@ class Factory implements FactoryInterface
         $container = $container ?: new Container;
 
         $this->setContainer($container)
+            ->bindDispatcher($container)
             ->bindInterfaces($container)
-            ->bindEvent($container);
+            ->bindEvent();
     }
 
     /**

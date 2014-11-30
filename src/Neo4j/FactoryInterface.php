@@ -2,10 +2,11 @@
 
 use ArrayAccess;
 use EndyJasmi\Neo4j\Error\Neo;
+use EndyJasmi\Neo4j\Manager\EventManagerInterface;
 use Illuminate\Container\Container;
 use InvalidArgumentException;
 
-interface FactoryInterface extends ArrayAccess
+interface FactoryInterface extends ArrayAccess, EventManagerInterface
 {
     /**
      * Factory constructor
