@@ -142,4 +142,16 @@ class TransactionTest extends TestCase
         // Expect
         $this->assertSame($transaction, $self);
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testSetIdMethodThrowInvalidArgumentException()
+    {
+        // Given
+        $transaction = new Transaction($this->factory, $this->driver, $this->request);
+
+        // When
+        $transaction->setId('abc');
+    }
 }
