@@ -1,18 +1,24 @@
 <?php namespace EndyJasmi\Neo4j;
 
-use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
 use EndyJasmi\Neo4j\Manager\DriverManagerInterface;
+use EndyJasmi\Neo4j\Manager\EventManagerInterface;
+use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
 use InvalidArgumentException;
 
-interface ConnectionInterface extends CollectionInterface, DriverManagerInterface, FactoryManagerInterface
+interface ConnectionInterface extends
+    CollectionInterface,
+    DriverManagerInterface,
+    EventManagerInterface,
+    FactoryManagerInterface
 {
     /**
      * Connection constructor
      *
      * @param FactoryInterface $factory
      * @param DriverInterface $driver
+     * @param EventInterface $event
      */
-    public function __construct(FactoryInterface $factory, DriverInterface $driver);
+    public function __construct(FactoryInterface $factory, DriverInterface $driver, EventInterface $event);
 
     /**
      * Begin transaction

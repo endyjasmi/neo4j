@@ -1,12 +1,14 @@
 <?php namespace EndyJasmi\Neo4j;
 
 use EndyJasmi\Neo4j\Manager\DriverManagerTrait;
+use EndyJasmi\Neo4j\Manager\EventManagerTrait;
 use EndyJasmi\Neo4j\Manager\FactoryManagerTrait;
 use InvalidArgumentException;
 
 class Connection extends Collection implements ConnectionInterface
 {
     use DriverManagerTrait;
+    use EventManagerTrait;
     use FactoryManagerTrait;
 
     /**
@@ -32,11 +34,13 @@ class Connection extends Collection implements ConnectionInterface
      *
      * @param FactoryInterface $factory
      * @param DriverInterface $driver
+     * @param EventInterface $event
      */
-    public function __construct(FactoryInterface $factory, DriverInterface $driver)
+    public function __construct(FactoryInterface $factory, DriverInterface $driver, EventInterface $event)
     {
         $this->setFactory($factory)
-            ->setDriver($driver);
+            ->setDriver($driver)
+            ->setEvent($event);
     }
 
     /**
@@ -132,9 +136,8 @@ class Connection extends Collection implements ConnectionInterface
      */
     public function listen(callable $callback)
     {
-        $factory = $this->getFactory();
-
-        $factory['events']->listen('neo4j.query', $callback);
+        $this->getEvent()
+            ->listen($callback);
 
         return $this;
     }
