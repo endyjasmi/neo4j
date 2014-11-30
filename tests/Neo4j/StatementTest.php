@@ -5,7 +5,9 @@ use PHPUnit_Framework_TestCase as TestCase;
 
 class StatementTest extends TestCase
 {
-    protected $parameters = [];
+    protected $parameters = [
+        'name' => 'John Doe'
+    ];
 
     protected $query = 'MATCH n RETURN n';
 
