@@ -98,6 +98,19 @@ class StatementTest extends TestCase
         $result = Mockery::mock('EndyJasmi\Neo4j\ResultInterface');
 
         $this->timer->shouldReceive('stop')
+            ->once()
+            ->andReturn($this->timer);
+
+        $this->timer->shouldReceive('getTime')
+            ->once()
+            ->andReturn(microtime(true));
+
+        $events = Mockery::mock('Illuminate\Events\Dispatcher');
+        $this->factory->shouldReceive('offsetGet')
+            ->once()
+            ->andReturn($events);
+
+        $events->shouldReceive('fire')
             ->once();
 
         // When

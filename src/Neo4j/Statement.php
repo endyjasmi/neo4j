@@ -121,8 +121,14 @@ class Statement extends Collection implements StatementInterface
     {
         $this->result = $result;
 
-        $this->getTimer()
-            ->stop();
+        $query = $this->getQuery();
+        $parameters = $this->getParameters();
+        $time = $this->getTimer()
+            ->stop()
+            ->getTime();
+
+        $factory = $this->getFactory();
+        $factory['events']->fire('neo4j.query', [$query, $parameters, $time]);
 
         return $this;
     }
