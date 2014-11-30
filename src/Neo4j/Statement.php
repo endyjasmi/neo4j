@@ -106,7 +106,10 @@ class Statement extends Collection implements StatementInterface
             throw new InvalidArgumentException('$query is not string.');
         }
 
-        $this->put('statement', trim($query));
+        $query = trim($query);
+        $query = preg_replace('/\s+/', ' ', $query);
+
+        $this->put('statement', $query);
 
         return $this;
     }
