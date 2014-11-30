@@ -48,6 +48,7 @@ class Factory implements FactoryInterface
         $container->bind('EndyJasmi\Neo4j\ResultInterface', 'EndyJasmi\Neo4j\Result');
         $container->bind('EndyJasmi\Neo4j\StatementInterface', 'EndyJasmi\Neo4j\Statement');
         $container->bind('EndyJasmi\Neo4j\StatusInterface', 'EndyJasmi\Neo4j\Status');
+        $container->bind('EndyJasmi\Neo4j\TimerInterface', 'EndyJasmi\Neo4j\Timer');
         $container->bind('EndyJasmi\Neo4j\TransactionInterface', 'EndyJasmi\Neo4j\Transaction');
 
         return $this;
@@ -221,6 +222,17 @@ class Factory implements FactoryInterface
                     'status' => $status
                 ]
             );
+    }
+
+    /**
+     * Create timer instance
+     *
+     * @return TimerInterface
+     */
+    public function createTimer()
+    {
+        return $this->getContainer()
+            ->make('EndyJasmi\Neo4j\TimerInterface');
     }
 
     /**

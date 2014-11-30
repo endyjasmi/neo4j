@@ -175,6 +175,23 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf('EndyJasmi\Neo4j\StatusInterface', $status);
     }
 
+    public function testCreateTimerMethod()
+    {
+        // Given
+        $factory = new Factory($this->container);
+
+        $timer = Mockery::mock('EndyJasmi\Neo4j\TimerInterface');
+        $this->container->shouldReceive('make')
+            ->once()
+            ->andReturn($timer);
+
+        // When
+        $timer = $factory->createTimer();
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\TimerInterface', $timer);
+    }
+
     public function testCreateTransactionMethod()
     {
         // Given

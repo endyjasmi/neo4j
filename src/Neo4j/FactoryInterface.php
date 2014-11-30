@@ -88,6 +88,13 @@ interface FactoryInterface extends ArrayAccess
     public function createStatus(array $status);
 
     /**
+     * Create timer instance
+     *
+     * @return TimerInterface
+     */
+    public function createTimer();
+
+    /**
      * Create transaction instance
      *
      * @param DriverInterface $driver
