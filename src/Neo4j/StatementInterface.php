@@ -9,11 +9,12 @@ interface StatementInterface extends CollectionInterface, FactoryManagerInterfac
      * Statement constructor
      *
      * @param FactoryInterface $factory
+     * @param TimerInterface $timer
      * @param string $query
      * @param array $parameters
      * @throws InvalidArgumentException If $query is not string
      */
-    public function __construct(FactoryInterface $factory, $query, array $parameters = []);
+    public function __construct(FactoryInterface $factory, TimerInterface $timer, $query, array $parameters = []);
 
     /**
      * Get statement parameters
@@ -37,11 +38,11 @@ interface StatementInterface extends CollectionInterface, FactoryManagerInterfac
     public function getResult();
 
     /**
-     * Get statement tile
+     * Get timer instance
      *
-     * @return null|float
+     * @return TimerInterface
      */
-    public function getTime();
+    public function getTimer();
 
     /**
      * Set statement parameters
@@ -69,16 +70,10 @@ interface StatementInterface extends CollectionInterface, FactoryManagerInterfac
     public function setResult(ResultInterface $result);
 
     /**
-     * Start timer
+     * Set timer instance
      *
+     * @param TimerInterface $timer
      * @return StatementInterface
      */
-    public function startTimer();
-
-    /**
-     * Stop timer
-     *
-     * @return StatementInterface
-     */
-    public function stopTimer();
+    public function setTimer(TimerInterface $timer);
 }

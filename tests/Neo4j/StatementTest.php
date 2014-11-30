@@ -12,12 +12,16 @@ class StatementTest extends TestCase
     public function setUp()
     {
         $this->factory = Mockery::mock('EndyJasmi\Neo4j\FactoryInterface');
+        $this->timer = Mockery::mock('EndyJasmi\Neo4j\TimerInterface');
+
+        $this->timer->shouldReceive('start')
+            ->once();
     }
 
     public function testGetParametersMethod()
     {
         // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
+        $statement = new Statement($this->factory, $this->timer, $this->query, $this->parameters);
 
         // When
         $parameters = $statement->getParameters();
@@ -29,7 +33,7 @@ class StatementTest extends TestCase
     public function testGetQueryMethod()
     {
         // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
+        $statement = new Statement($this->factory, $this->timer, $this->query, $this->parameters);
 
         // When
         $query = $statement->getQuery();
@@ -41,7 +45,7 @@ class StatementTest extends TestCase
     public function testGetResultMethod()
     {
         // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
+        $statement = new Statement($this->factory, $this->timer, $this->query, $this->parameters);
 
         // When
         $result = $statement->getResult();
@@ -53,7 +57,7 @@ class StatementTest extends TestCase
     public function testSetParametersMethod()
     {
         // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
+        $statement = new Statement($this->factory, $this->timer, $this->query, $this->parameters);
 
         // When
         $self = $statement->setParameters($this->parameters);
@@ -65,7 +69,7 @@ class StatementTest extends TestCase
     public function testSetQueryMethod()
     {
         // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
+        $statement = new Statement($this->factory, $this->timer, $this->query, $this->parameters);
 
         // When
         $self = $statement->setQuery($this->query);
@@ -80,7 +84,7 @@ class StatementTest extends TestCase
     public function testSetQueryMethodThrowsInvalidArgumentException()
     {
         // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
+        $statement = new Statement($this->factory, $this->timer, $this->query, $this->parameters);
 
         // When
         $statement->setQuery(123);
@@ -89,52 +93,15 @@ class StatementTest extends TestCase
     public function testSetResultMethod()
     {
         // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
+        $statement = new Statement($this->factory, $this->timer, $this->query, $this->parameters);
 
         $result = Mockery::mock('EndyJasmi\Neo4j\ResultInterface');
 
-        $events = Mockery::mock('Illuminate\Events\Dispatcher');
-        $this->factory->shouldReceive('offsetGet')
-            ->once()
-            ->andReturn($events);
-
-        $events->shouldReceive('fire')
+        $this->timer->shouldReceive('stop')
             ->once();
 
         // When
         $self = $statement->setResult($result);
-
-        // Expect
-        $this->assertSame($statement, $self);
-    }
-
-    public function testStartTimerMethod()
-    {
-        // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
-
-        // When
-        $self = $statement->startTimer();
-
-        // Expect
-        $this->assertSame($statement, $self);
-    }
-
-    public function testStopTimerMethod()
-    {
-        // Given
-        $statement = new Statement($this->factory, $this->query, $this->parameters);
-
-        $events = Mockery::mock('Illuminate\Events\Dispatcher');
-        $this->factory->shouldReceive('offsetGet')
-            ->once()
-            ->andReturn($events);
-
-        $events->shouldReceive('fire')
-            ->once();
-
-        // When
-        $self = $statement->stopTimer();
 
         // Expect
         $this->assertSame($statement, $self);

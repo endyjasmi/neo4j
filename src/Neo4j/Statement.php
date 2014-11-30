@@ -13,30 +13,29 @@ class Statement extends Collection implements StatementInterface
     protected $result;
 
     /**
-     * @var float
+     * @var TimerInterface
      */
-    protected $start;
-
-    /**
-     * @var float
-     */
-    protected $time;
+    protected $timer;
 
     /**
      * Statement constructor
      *
      * @param FactoryInterface $factory
+     * @param TimerInterface $timer
      * @param string $query
      * @param array $parameters
      * @throws InvalidArgumentException If $query is not string
      */
-    public function __construct(FactoryInterface $factory, $query, array $parameters = [])
+    public function __construct(FactoryInterface $factory, TimerInterface $timer, $query, array $parameters = [])
     {
-        $this->startTimer()
-            ->setFactory($factory)
+        $this->setFactory($factory)
+            ->setTimer($timer)
             ->setQuery($query)
             ->setParameters($parameters)
             ->put('includeStats', true);
+
+        $this->getTimer()
+            ->start();
     }
 
     /**
@@ -70,13 +69,13 @@ class Statement extends Collection implements StatementInterface
     }
 
     /**
-     * Get statement tile
+     * Get timer instance
      *
-     * @return null|float
+     * @return TimerInterface
      */
-    public function getTime()
+    public function getTimer()
     {
-        return $this->time;
+        return $this->timer;
     }
 
     /**
@@ -122,39 +121,21 @@ class Statement extends Collection implements StatementInterface
     {
         $this->result = $result;
 
-        return $this->stopTimer();
-    }
-
-    /**
-     * Start timer
-     *
-     * @return StatementInterface
-     */
-    public function startTimer()
-    {
-        $this->start = microtime(true);
+        $this->getTimer()
+            ->stop();
 
         return $this;
     }
 
     /**
-     * Stop timer
+     * Set timer instance
      *
+     * @param TimerInterface $timer
      * @return StatementInterface
      */
-    public function stopTimer()
+    public function setTimer(TimerInterface $timer)
     {
-        // Calculate time
-        $this->time = microtime(true) - $this->start;
-
-        // Initial setup for evvent
-        $query = $this->getQuery();
-        $parameters = $this->getParameters();
-        $time = $this->getTime();
-
-        // Launch event
-        $factory = $this->getFactory();
-        $factory['events']->fire('neo4j.query', [$query, $parameters, $time]);
+        $this->timer = $timer;
 
         return $this;
     }
