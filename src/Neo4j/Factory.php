@@ -98,6 +98,7 @@ class Factory implements FactoryInterface
                 'EndyJasmi\Neo4j\ConnectionInterface',
                 [
                     'factory' => $this,
+                    'event' => $this->getEvent(),
                     'driver' => $driver
                 ]
             );
@@ -130,14 +131,11 @@ class Factory implements FactoryInterface
      */
     public function createEvent()
     {
-        $container = $this->getContainer();
-        $dispatcher = $container['events'];
-
         return $this->getContainer()
             ->make(
                 'EndyJasmi\Neo4j\EventInterface',
                 [
-                    'dispatcher' => $dispatcher
+                    'dispatcher' => $this['events']
                 ]
             );
     }
