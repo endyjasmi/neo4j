@@ -66,6 +66,18 @@ class RequestTest extends TestCase
         $this->assertInstanceOf('EndyJasmi\Neo4j\ResponseInterface', $response);
     }
 
+    public function testGetConnectionMethod()
+    {
+        // Given
+        $request = new Request($this->factory, $this->connection, $this->transaction);
+
+        // When
+        $connection = $request->getConnection();
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\ConnectionInterface', $connection);
+    }
+
     public function testGetResponseMethod()
     {
         // Given
@@ -99,6 +111,18 @@ class RequestTest extends TestCase
 
         // When
         $self = $request->pushStatement($statement);
+
+        // Expect
+        $this->assertSame($request, $self);
+    }
+
+    public function testSetConnectionMethod()
+    {
+        // Given
+        $request = new Request($this->factory, $this->connection, $this->transaction);
+
+        // When
+        $self = $request->setConnection($this->connection);
 
         // Expect
         $this->assertSame($request, $self);

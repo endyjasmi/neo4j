@@ -1,13 +1,16 @@
 <?php namespace EndyJasmi\Neo4j;
 
-use EndyJasmi\Neo4j\Manager\ConnectionManagerTrait;
 use EndyJasmi\Neo4j\Manager\FactoryManagerTrait;
 use InvalidArgumentException;
 
 class Request extends Collection implements RequestInterface
 {
-    use ConnectionManagerTrait;
     use FactoryManagerTrait;
+
+    /**
+     * @var ConnectionInterface
+     */
+    protected $connection;
 
     /**
      * @var ResponseInterface
@@ -60,6 +63,16 @@ class Request extends Collection implements RequestInterface
     }
 
     /**
+     * Get connection instance
+     *
+     * @return ConnectionInterface
+     */
+    public function getConnection()
+    {
+        return $this->connection;
+    }
+
+    /**
      * Get response instace
      *
      * @return ResponseInterface
@@ -88,6 +101,19 @@ class Request extends Collection implements RequestInterface
     public function pushStatement(StatementInterface $statement)
     {
         $this->push($statement);
+
+        return $this;
+    }
+
+    /**
+     * Set connection instance
+     *
+     * @param ConnectionInterface
+     * @return RequestInterface
+     */
+    public function setConnection(ConnectionInterface $connection)
+    {
+        $this->connection = $connection;
 
         return $this;
     }

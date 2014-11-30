@@ -1,11 +1,9 @@
 <?php namespace EndyJasmi\Neo4j;
 
-use EndyJasmi\Neo4j\Manager\ConnectionManagerInterface;
 use EndyJasmi\Neo4j\Manager\FactoryManagerInterface;
 use InvalidArgumentException;
 
 interface RequestInterface extends
-    ConnectionManagerInterface,
     CollectionInterface,
     FactoryManagerInterface
 {
@@ -38,6 +36,13 @@ interface RequestInterface extends
     public function execute();
 
     /**
+     * Get connection instance
+     *
+     * @return ConnectionInterface
+     */
+    public function getConnection();
+
+    /**
      * Get response instace
      *
      * @return ResponseInterface
@@ -58,6 +63,14 @@ interface RequestInterface extends
      * @return RequestInterface
      */
     public function pushStatement(StatementInterface $statement);
+
+    /**
+     * Set connection instance
+     *
+     * @param ConnectionInterface $connection
+     * @return RequestInterface
+     */
+    public function setConnection(ConnectionInterface $connection);
 
     /**
      * Set response instance
