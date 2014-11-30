@@ -32,6 +32,13 @@ interface FactoryInterface extends ArrayAccess
     public function createError(array $errors, $throws = true);
 
     /**
+     * Create event instance
+     *
+     * @return EventInterface
+     */
+    public function createEvent();
+
+    /**
      * Create exception instance
      *
      * @param array $error

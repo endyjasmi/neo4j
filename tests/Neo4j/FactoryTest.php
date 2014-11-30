@@ -10,7 +10,7 @@ class FactoryTest extends TestCase
         $this->container = Mockery::mock('Illuminate\Container\Container');
 
         $this->container->shouldReceive('bind')
-            ->times(7);
+            ->times(10);
 
         $this->container->shouldReceive('bindShared')
             ->once();
@@ -52,6 +52,28 @@ class FactoryTest extends TestCase
 
         // Expect
         $this->assertInstanceOf('EndyJasmi\Neo4j\ErrorInterface', $errors);
+    }
+
+    public function testCreateEventMethod()
+    {
+        // Given
+        $factory = new Factory($this->container);
+
+        $dispatcher = Mockery::mock('Illuminate\Events\Dispatcher');
+        $this->container->shouldReceive('offsetGet')
+            ->once()
+            ->andReturn($dispatcher);
+
+        $event = Mockery::mock('EndyJasmi\Neo4j\EventInterface');
+        $this->container->shouldReceive('make')
+            ->once()
+            ->andReturn($event);
+
+        // When
+        $event = $factory->createEvent();
+
+        // Expect
+        $this->assertInstanceOf('EndyJasmi\Neo4j\EventInterface', $event);
     }
 
     public function testCreateExceptionMethod()

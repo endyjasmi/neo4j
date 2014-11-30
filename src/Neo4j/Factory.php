@@ -43,6 +43,7 @@ class Factory implements FactoryInterface
     {
         $container->bind('EndyJasmi\Neo4j\ConnectionInterface', 'EndyJasmi\Neo4j\Connection');
         $container->bind('EndyJasmi\Neo4j\ErrorInterface', 'EndyJasmi\Neo4j\Error');
+        $container->bind('EndyJasmi\Neo4j\EventInterface', 'EndyJasmi\Neo4j\Event');
         $container->bind('EndyJasmi\Neo4j\RequestInterface', 'EndyJasmi\Neo4j\Request');
         $container->bind('EndyJasmi\Neo4j\ResponseInterface', 'EndyJasmi\Neo4j\Response');
         $container->bind('EndyJasmi\Neo4j\ResultInterface', 'EndyJasmi\Neo4j\Result');
@@ -102,6 +103,25 @@ class Factory implements FactoryInterface
                     'factory' => $this,
                     'errors' => $errors,
                     'throws' => $throws
+                ]
+            );
+    }
+
+    /**
+     * Create event instance
+     *
+     * @return EventInterface
+     */
+    public function createEvent()
+    {
+        $container = $this->getContainer();
+        $dispatcher = $container['events'];
+
+        return $this->getContainer()
+            ->make(
+                'EndyJasmi\Neo4j\EventInterface',
+                [
+                    'dispatcher' => $dispatcher
                 ]
             );
     }
