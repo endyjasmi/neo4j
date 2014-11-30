@@ -33,14 +33,14 @@ class Connection extends Collection implements ConnectionInterface
      * Connection constructor
      *
      * @param FactoryInterface $factory
-     * @param DriverInterface $driver
      * @param EventInterface $event
+     * @param DriverInterface $driver
      */
-    public function __construct(FactoryInterface $factory, DriverInterface $driver, EventInterface $event)
+    public function __construct(FactoryInterface $factory, EventInterface $event, DriverInterface $driver)
     {
         $this->setFactory($factory)
-            ->setDriver($driver)
-            ->setEvent($event);
+            ->setEvent($event)
+            ->setDriver($driver);
     }
 
     /**

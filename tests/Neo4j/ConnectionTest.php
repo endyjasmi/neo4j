@@ -31,7 +31,7 @@ class ConnectionTest extends TestCase
     public function testBeginTransactionMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
         $this->factory->shouldReceive('createRequest')
@@ -58,7 +58,7 @@ class ConnectionTest extends TestCase
     public function testCommitMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
         $this->factory->shouldReceive('createRequest')
@@ -91,7 +91,7 @@ class ConnectionTest extends TestCase
     public function testCommitMethodWithoutTransaction()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
 
@@ -118,7 +118,7 @@ class ConnectionTest extends TestCase
     public function testCreateRequestMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
         $this->factory->shouldReceive('createRequest')
@@ -135,7 +135,7 @@ class ConnectionTest extends TestCase
     public function testExecuteMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
         $this->factory->shouldReceive('createRequest')
@@ -168,7 +168,7 @@ class ConnectionTest extends TestCase
     public function testExecuteMethodWithoutTransaction()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
 
@@ -195,7 +195,7 @@ class ConnectionTest extends TestCase
     public function testGetTransactionMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         // When
         $transaction = $connection->getTransaction();
@@ -207,7 +207,7 @@ class ConnectionTest extends TestCase
     public function testListenMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $this->event->shouldReceive('listen')
             ->once();
@@ -224,7 +224,7 @@ class ConnectionTest extends TestCase
     public function testPopTransactionMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         // When
         $transaction = $connection->getTransaction();
@@ -236,7 +236,7 @@ class ConnectionTest extends TestCase
     public function testPushTransactionMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $transaction = Mockery::mock('EndyJasmi\Neo4j\TransactionInterface');
 
@@ -250,7 +250,7 @@ class ConnectionTest extends TestCase
     public function testRollbackMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $request = Mockery::mock('EndyJasmi\Neo4j\RequestInterface');
         $this->factory->shouldReceive('createRequest')
@@ -282,7 +282,7 @@ class ConnectionTest extends TestCase
     public function testStatementMethod()
     {
         // Given
-        $connection = new Connection($this->factory, $this->driver, $this->event);
+        $connection = new Connection($this->factory, $this->event, $this->driver);
 
         $statement = Mockery::mock('EndyJasmi\Neo4j\StatementInterface');
         $this->factory->shouldReceive('createStatement')

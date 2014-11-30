@@ -15,10 +15,10 @@ interface ConnectionInterface extends
      * Connection constructor
      *
      * @param FactoryInterface $factory
-     * @param DriverInterface $driver
      * @param EventInterface $event
+     * @param DriverInterface $driver
      */
-    public function __construct(FactoryInterface $factory, DriverInterface $driver, EventInterface $event);
+    public function __construct(FactoryInterface $factory, EventInterface $event, DriverInterface $driver);
 
     /**
      * Begin transaction
