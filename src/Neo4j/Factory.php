@@ -230,14 +230,12 @@ class Factory implements FactoryInterface
      */
     public function createStatement($query, array $parameters = [])
     {
-        $timer = $this->createTimer();
-
         return $this->getContainer()
             ->make(
                 'EndyJasmi\Neo4j\StatementInterface',
                 [
                     'factory' => $this,
-                    'timer' => $timer,
+                    'timer' => $this->createTimer(),
                     'query' => $query,
                     'parameters' => $parameters
                 ]
