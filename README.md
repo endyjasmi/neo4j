@@ -40,6 +40,15 @@ This library can be installed through composer. Just add the following to your `
 	}
 }
 ```
+For laravel5, you may need to use this: 
+```json
+{
+	"require": {
+		"endyjasmi/neo4j": "dev-master"
+	}
+}
+```
+
 
 ##Quickstart
 Here is the easiest way to get started.
