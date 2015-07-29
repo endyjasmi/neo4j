@@ -31,7 +31,7 @@ class Container extends IlluminateContainer
         // Setup config component
         $configPath = $configPath ?: dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config';
 
-        $this->bindShared(
+        $this->bind(
             'Illuminate\Config\LoaderInterface',
             function (Container $registry) use ($configPath) {
                 return $registry->make(
@@ -40,10 +40,11 @@ class Container extends IlluminateContainer
                         'defaultPath' =>  $configPath
                     ]
                 );
-            }
+            },
+            true
         );
 
-        $this->bindShared(
+        $this->bind(
             'config',
             function (Container $container) {
                 return $container->make(
@@ -52,13 +53,14 @@ class Container extends IlluminateContainer
                         'environment' => 'production'
                     ]
                 );
-            }
+            },
+            true
         );
 
         // Setup event component
         $this->bind('Illuminate\Contracts\Events\Dispatcher', 'Illuminate\Events\Dispatcher');
         
-        $this->bindShared(
+        $this->bind(
             'events',
             function (Container $container) {
                 return $container->make(
@@ -67,7 +69,8 @@ class Container extends IlluminateContainer
                         'container' => $container
                     ]
                 );
-            }
+            },
+            true
         );
     }
 }
